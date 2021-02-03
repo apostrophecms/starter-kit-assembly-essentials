@@ -1,0 +1,12 @@
+# List files and folders that shouldn't be deployed (such as data folders
+# and runtime status files) here. Prefix things properly with / so we don't
+# have any effect on unrelated subdirectories of node_modules
+
+/data
+/temp
+/public/uploads
+/public/modules
+/public/apos-minified
+.git
+.gitignore
+# We DO deploy node_modules to the apostrophe cloud

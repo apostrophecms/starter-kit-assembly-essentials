@@ -1,0 +1,29 @@
+# vim swapfiles
+*.swp
+.DS_Store
+package-lock.json
+/locales
+npm-debug.log
+/data
+*/public/modules
+*/public/uploads
+*/public/svgs/*.svg
+*/public/apos-minified
+/data/temp/uploadfs
+node_modules
+# This folder is created on the fly and contains symlinks updated at startup (we'll come up with a Windows solution that actually copies things)
+/public/modules
+# We don't commit CSS, only LESS
+*/public/css/*.css
+*/public/css/*.less
+# Don't commit CSS sourcemap files
+*/public/css/*.map
+# Don't commit masters generated on the fly at startup, these import all the rest
+/public/css/master-*.less
+.jshintrc
+/public/js/_site-compiled.js
+/public/sitemap.xml
+dashboard/lib/modules/assets/public/css/site.css
+dashboard/lib/modules/assets/public/js/site.js
+sites/lib/modules/theme-*/public/js/site.js
+sites/lib/modules/theme-*/public/css/site.css

@@ -1,0 +1,19 @@
+{% extends data.outerLayout %}
+
+{% import 'apostrophe-palette-widgets:macros.html' as palette %}
+
+{% block startHead %}
+  {# Shut off "compatibility view" in IE for modern browser compatibility, #}
+  {# even when the browser is otherwise configured to emulate IE8 #}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{% endblock %}
+
+{% block beforeMain %}
+  {% if data.user %}
+    {{ palette.palette(data.global, 'palette') }}
+  {% endif %}
+{% endblock %}
+
+{% block afterMain %}
+{# footer time #}
+{% endblock %}

@@ -1,0 +1,8 @@
+{
+  "extends": "punkave",
+  "globals": {
+    "$": "readonly",
+    "_": "readonly",
+    "apos": "writable"
+  }
+}

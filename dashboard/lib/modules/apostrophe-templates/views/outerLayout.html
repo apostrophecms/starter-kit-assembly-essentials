@@ -1,0 +1,31 @@
+{% extends "outerLayoutBase.html" %}
+
+{% if data.piece %}
+  {% if data.piece.seoTitle %}
+    {% set title = data.piece.seoTitle %}
+  {% else %}
+    {% set title = data.piece.title %}
+  {% endif %}
+  {% else %}
+  {% if data.page.seoTitle %}
+    {% set title = data.page.seoTitle %}
+  {% else %}
+    {% set title = data.page.title %}
+  {% endif %}
+{% endif %}
+
+{% block title %}{{ title }} ?????{% endblock %}
+{% block extraHead %}
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
+  {% if data.isDev %}
+    {# For live reload #}
+    <link href="http://localhost:9002/wp/dashboard.css" rel="stylesheet" />
+  {% endif %}
+{% endblock %}
+
+{% block extraBody %}
+  {# For live reload #}
+  {% if data.isDev %}
+    <script src="http://localhost:9002/wp/dashboard.js"></script>
+  {% endif %}
+{% endblock %}

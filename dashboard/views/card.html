@@ -1,0 +1,43 @@
+{% macro render(piece) %}
+  {% if piece.logo %}
+    {% set imageObj = piece.logo.items[0]._pieces[0] %}
+  {% endif %}
+  <div class="c-card" data-apos-edit-site="{{ piece._id }}">
+    <div class="c-card__inner">
+      <div class="c-card__media">
+        {% if imageObj %}
+          <span class="c-card__dashboard-link">
+            <img class="c-card__media-image" src="{{ apos.attachments.url(imageObj.item.attachment) }}" alt="{{ piece.title }}">
+          </span>
+        {% else %}
+          <span class="c-card__dashboard-link c-card__dashboard-link--placeholder">
+            {{ piece.title }}
+          </span>
+        {% endif %}
+      </div>
+      <div class="c-card__content">
+        {% if piece.location %}
+          <h5 class="o-type-small c-card__location">{{ piece.location }}</h5>  
+        {% endif %}
+        <h3 class="o-type-small c-card__title">{{ piece.title }}</h3>
+        {% if piece.website %}
+          <h4 class="o-type-small c-card__website">
+            <button data-apos-edit-site="{{ piece._id }}" target="_blank">
+            {% if piece.website %}
+              {{ apos.helpers.stripHttp(piece.website) }}  
+            {% endif %}
+            </button>
+          </h4>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro renderAll(pieces) %}
+  <div class="c-cards">
+    {% for piece in pieces %}
+      {{ render(piece) }}
+    {% endfor %}
+  </div>
+{% endmacro %}

@@ -1,0 +1,36 @@
+// Spacing:
+$spacing-unit: 1rem;
+
+$spacing-gutter: ($spacing-unit * 2);
+
+$blocks: (
+  small: ($spacing-unit * 2),
+  medium: ($spacing-unit * 4),
+  large: ($spacing-unit * 6)
+);
+
+// Breakpoints:
+$breakpoint-small: 40em;
+$breakpoint-medium: 60em;
+$breakpoint-large: 75em;
+$breakpoint-xlarge: 96em;
+
+$breakpoints: (
+  xsmall: 0,
+  small: $breakpoint-small,
+  medium: $breakpoint-medium,
+  large: $breakpoint-large,
+  xlarge: $breakpoint-xlarge
+);
+
+// TODO: Adjust breakpoint max-widths based on the design.
+$max-widths: (
+  small: subtractUnitMatch($breakpoint-small, ($spacing-gutter * 2)),
+  medium: subtractUnitMatch($breakpoint-medium, ($spacing-gutter * 2)),
+  large: subtractUnitMatch($breakpoint-large, ($spacing-gutter * 2)),
+  xlarge: subtractUnitMatch($breakpoint-xlarge, ($spacing-gutter * 2))
+);
+
+// Grid:
+// TODO: Update columns based on the design.
+$grid-columns: 12;

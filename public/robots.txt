@@ -1,0 +1,5 @@
+User-agent: *
+# Sitemap: http://EXAMPLE.com/sitemap.xml
+# TODO: Remove following line once the site goes live.
+Disallow: /
+Disallow: /modules/

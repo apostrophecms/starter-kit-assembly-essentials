@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# This project requires a Webpack build. Assembly will
+# run this script at the appropriate step in the deployment
+# process.
+
+npm run build || exit 1

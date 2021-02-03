@@ -1,0 +1,70 @@
+.c-navigation {
+  margin-top: 60px;
+  margin-bottom: 60px;
+
+  // undoing a lot of apostrophe chrome here
+  .apos-ui { font-size: $font-10; }
+  .apos-admin-bar {
+    z-index: zindex(default);
+    position: relative;
+    top: auto;
+    left: auto;
+    overflow: visible;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    color: $white;
+    background-color: transparent;
+    font-family: $font;
+    font-weight: 500;
+    letter-spacing: 1px;
+    box-shadow: none;
+    * {
+      transition: none;
+    }
+  }
+
+  [data-apos-admin-bar-logo] {
+    display: none;
+  }
+
+  .apos-admin-bar-inner {
+    display: flex;
+    font-size: $font-12;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .apos-admin-bar-item {
+    height: auto;
+    &:hover {
+      background-color: transparent;
+    }
+    &:hover a, &:hover .apos-admin-bar-item-inner {
+      text-decoration: underline;
+    }
+  }
+
+  .apos-admin-bar-item-inner {
+    line-height: 1.2;
+    height: auto;
+    padding: 1.75rem;
+  }
+}
+
+.apos-ui .c-navigation__logo {
+  margin-right: 20px;
+}
+
+.apos-ui .apos-admin-bar-item .apos-active {
+  background-color: transparent;
+}
+
+.apos-ui .apos-admin-bar .apos-admin-bar-item .apos-dropdown-items {
+  top: 102%;
+}
+
+.apos-ui .apos-admin-bar .apos-admin-bar-item .apos-dropdown.apos-active .apos-admin-bar-item-inner {
+  background-color: $white;
+  box-shadow: 0 2px 7px 2px rgba(21,22,22,0.23);
+}

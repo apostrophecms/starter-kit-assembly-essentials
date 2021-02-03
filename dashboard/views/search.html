@@ -1,0 +1,12 @@
+{% import 'apostrophe-templates:svg/mag.html' as mag with context -%}
+
+{% macro render() %}
+	<div class="c-search" data-search>
+		<form action="/search">
+			<div class="o-svg-icon c-search__icon">
+        {{ mag.render() }}
+      </div>
+			<input type="submit" class="o-input o-type-medium c-search__input" placeholder="Find a Site">
+		</form>
+	</div>
+{% endmacro %}

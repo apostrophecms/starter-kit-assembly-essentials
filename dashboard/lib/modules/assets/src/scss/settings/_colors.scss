@@ -1,0 +1,36 @@
+$white: #FFF;
+
+$blue: #66F;
+$green: #00BF9A;
+$red: #EA433A;
+$purple: #B327BF;
+$black: #1D232B;
+$light: #BABABA;
+$background: #11151F;
+$input: #2C354D;
+$input-border: #8895A7;
+
+.o-light { color: $light; }
+
+$colors: (
+  text-primary: $black,
+  text-inverse: $white,
+  background: $white,
+  shadow-base: $black
+);
+
+@function color($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  }
+  @warn 'Unknown `#{$key}` in $colors.';
+  @return null;
+}
+
+@function color-alpha($color, $opacity) {
+  @if map-has-key($colors, $color) {
+    @return rgba(map-get($colors, $color), $opacity);
+  }
+  @warn 'Unknown `#{$color}` in $colors.';
+  @return null;
+}

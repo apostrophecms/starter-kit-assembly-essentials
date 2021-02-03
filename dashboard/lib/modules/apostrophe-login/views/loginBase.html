@@ -1,0 +1,55 @@
+{% extends data.outerLayout %}
+{% import 'apostrophe-templates:svg/logo.html' as logo with context -%}
+{% block title %}{{ __("Login") }}{% endblock %}
+
+{% block bodyClass %}apos-login-page{% endblock %}
+
+{% block main %}
+
+  <div class="c-login">
+    <div class="c-login__background">
+      <div class="c-login__background-content">
+        <div class="c-login__caption">
+          {% if backgroundItem %}
+            {{ backgroundItem.caption }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="c-login__panel">
+      <div class="c-login__panel-content">
+        <div class="c-login__apostrophe">
+          {{ logo.render() }}
+        </div>
+        {# <div class="c-login__brand">{{ logo.render() }}</div> #}
+        {% block form %}
+          <form class="c-login__form" action="{% block action %}{{ apos.prefix }}/login{% endblock %}" method="post" data-interactive-form>
+            {% if data.message %}<div class="apos-login-warning">{{ __(data.message) }}</div>{% endif %}
+            {% block fields %}
+              <div class="apos-field apos-login-username">
+                <div class="c-login__input-border"></div>
+                <label class="apos-field-label" for="username">{{ __('Username or Email') }} {% block usernameHint %}{% endblock %}</label>
+                <input class="apos-field-input apos-field-input-text" type="text" name="username" id="username" autofocus />
+              </div>
+              <div class="apos-field apos-login-password">
+                <div class="c-login__input-border"></div>
+                <label class="apos-field-label" for="password">{{ __('Password') }} {% block passwordHint %}{% endblock %}</label>
+                <input class="apos-field-input apos-field-input-text" type="password" name="password" id="password" />
+              </div>
+            {% endblock %}
+            <div class="apos-login-submit">
+              <input type="submit" class="c-login__submit apos-button apos-button--major" value="{% block buttonLabel %}{{ __('Log In') }}{% endblock %}" />
+            </div>
+            {% block passwordReset %}
+              {% if data.passwordReset %}
+                <div class="apos-login-reset">
+                  <a href="{{ apos.prefix }}/password-reset-request">{{ __('Reset My Password') }}</a>
+                </div>
+              {% endif %}
+            {% endblock %}
+          </form>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

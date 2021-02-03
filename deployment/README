@@ -1,0 +1,4 @@
+apostrophe-cloud-tools will provide files to be copied here.
+
+After that you'll deploy by merging to staging etc., not by running any
+manual stagecoach commands.
