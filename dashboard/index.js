@@ -6,25 +6,19 @@ module.exports = {
   stagingBaseUrl: `https://dashboard.${domains.staging}`,
   prodBaseUrl: `https://dashboard.${domains.prod}`,
   modules: {
-    'apostrophe-users': {},
-    'apostrophe-pages': {},
-    'apostrophe-templates': {
+    '@apostrophecms/template': {
       viewsFolderFallback: path.join(
         __dirname, 'views'
       )
     },
-    'apostrophe-assets': {
-      lean: true,
-      jQuery: 3
-    },
-    'apostrophe-attachments': {
+    '@apostrophecms/attachments': {
       uploadfs: {
-        disabledFileKey: 'ed01eaacc2a9dae5'
+        disabledFileKey: 'CHANGEME'
       }
     },
-    'helpers': {},
-    'sites': {},
-    'sites-pages': {},
-    'assets': {}
+    'helper': {},
+    'site': {},
+    'site-page': {},
+    'asset': {}
   }
 };

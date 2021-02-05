@@ -21,6 +21,11 @@
   {% if data.isDev %}
     {# For live reload #}
     <link href="http://localhost:9002/wp/theme-{{ data.theme }}.css" rel="stylesheet" />
+  {% else %}
+    {#
+      Project level theme CSS should load early to avoid FOUC.
+    #}
+    <link rel="stylesheet" href="/css/theme-{{ data.theme }}.css" />
   {% endif %}
   {# Recommended, to provide metadata for SEO and Open Graph #}
   {% include "apostrophe-seo:view.html" %}

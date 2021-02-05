@@ -4,7 +4,7 @@ const domains = require('./domains.js');
 
 const dashboardHostnames = Object.values(domains).map(domain => `dashboard.${domain}`.replace(/:\d+$/, ''));
 
-require('apostrophe-multisite')({
+require('@apostrophecms/multisite')({
   // Default port, for dev
   port: 3000,
   // Change this when forking to make a new project. Ideally should match
@@ -17,7 +17,7 @@ require('apostrophe-multisite')({
   shortNamePrefix: 'multisiteb-',
   // For development. An environment variable overrides this in staging/production
   mongodbUrl: 'mongodb://localhost:27017',
-  sessionSecret: 'awieufhai2u3hiu',
+  sessionSecret: 'CHANGEME',
   sites: require('./sites/index.js'),
   dashboard: require('./dashboard/index.js'),
   dashboardHostname: dashboardHostnames

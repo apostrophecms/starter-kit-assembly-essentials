@@ -14,14 +14,14 @@ const dashboardConfig = {
   // if IE11=1 is in the environment, as this currently breaks hot reload:
   // https://github.com/webpack/webpack-dev-server/issues/2758
   target: process.env.IE11 ? 'es5' : (mode === 'development') ? 'web' : 'es5',
-  entry: [ `./dashboard/lib/modules/assets/src/js/index.js`, `./dashboard/lib/modules/assets/src/scss/index.scss` ],
+  entry: [ `./dashboard/modules/asset/src/js/index.js`, `./dashboard/modules/asset/src/scss/index.scss` ],
   output: {
     ...((mode === 'development') ? {
       filename: 'dashboard.js',
       publicPath: publicOutputPath
     } : {
       path: path.resolve(
-        __dirname, `dashboard/lib/modules/assets/public/js`
+        __dirname, 'dashboard/module/asset/ui/public'
       ),
       filename: 'site.js'
     })
@@ -29,7 +29,7 @@ const dashboardConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: (mode === 'development') ? 'dashboard.css' : '../css/site.css'
+      filename: (mode === 'development') ? 'dashboard.css' : 'site.css'
     })
   ],
   // Only the first devServer configuration is used per webpack docs, so we don't need
@@ -87,22 +87,22 @@ const themeConfigs = themes.map(name => {
     // if IE11=1 is in the environment, as this currently breaks hot reload:
     // https://github.com/webpack/webpack-dev-server/issues/2758
     target: process.env.IE11 ? 'es5' : (mode === 'development') ? 'web' : 'es5',
-    entry: [ `./sites/lib/modules/theme-${name}/src/js/index.js`, `./sites/lib/modules/theme-${name}/src/scss/index.scss` ],
+    entry: [ `./sites/modules/theme-${name}/src/js/index.js`, `./sites/lib/modules/theme-${name}/src/scss/index.scss` ],
     output: {
       ...((mode === 'development') ? {
         filename: `theme-${name}.js`,
         publicPath: publicOutputPath
       } : {
         path: path.resolve(
-          __dirname, `sites/lib/modules/theme-${name}/public/js`
+          __dirname, `sites/modules/theme-${name}/ui/public`
         ),
-        filename: 'site.js'
+        filename: `site.js`
       })
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new MiniCssExtractPlugin({
-        filename: (mode === 'development') ? `theme-${name}.css` : `../css/site.css`
+        filename: (mode === 'development') ? `theme-${name}.css` : `site.css`
       })
     ],
     module: {
