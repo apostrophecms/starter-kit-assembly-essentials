@@ -1,5 +1,7 @@
 module.exports = {
-  session: {
-    secret: 'CHANGEME'
+  options: {
+    session: {
+      secret: 'CHANGEME'
+    }
   }
 };

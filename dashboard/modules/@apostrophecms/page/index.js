@@ -3,6 +3,7 @@ module.exports = {
     park: [
       {
         slug: '/',
+        parkedId: 'home',
         title: 'Sites',
         type: 'site-page',
         published: true,

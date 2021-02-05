@@ -87,7 +87,7 @@ const themeConfigs = themes.map(name => {
     // if IE11=1 is in the environment, as this currently breaks hot reload:
     // https://github.com/webpack/webpack-dev-server/issues/2758
     target: process.env.IE11 ? 'es5' : (mode === 'development') ? 'web' : 'es5',
-    entry: [ `./sites/modules/theme-${name}/src/js/index.js`, `./sites/lib/modules/theme-${name}/src/scss/index.scss` ],
+    entry: [ `./sites/modules/theme-${name}/src/js/index.js`, `./sites/modules/theme-${name}/src/scss/index.scss` ],
     output: {
       ...((mode === 'development') ? {
         filename: `theme-${name}.js`,

@@ -5,6 +5,10 @@ package-lock.json
 /locales
 npm-debug.log
 /data
+/dashboard/apos-build
+/dashboard/public/apos-frontend
+/sites/apos-build
+/sites/public/apos-frontend
 */public/modules
 */public/uploads
 */public/svgs/*.svg
@@ -23,7 +27,7 @@ node_modules
 .jshintrc
 /public/js/_site-compiled.js
 /public/sitemap.xml
-dashboard/lib/modules/assets/public/css/site.css
-dashboard/lib/modules/assets/public/js/site.js
-sites/lib/modules/theme-*/public/js/site.js
-sites/lib/modules/theme-*/public/css/site.css
+dashboard/modules/assets/public/css/site.css
+dashboard/modules/assets/public/js/site.js
+sites/modules/theme-*/public/js/site.js
+sites/modules/theme-*/public/css/site.css

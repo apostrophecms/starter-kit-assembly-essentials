@@ -11,10 +11,7 @@ require('@apostrophecms/multisite')({
   // your repo name followed by a -, however if you plan to use a
   // cheap Atlas cluster (below M10), you must use a unique prefix less
   // than 12 characters (before the -).
-  //
-  // When you run configure-cloud, you will need to set DASH to
-  // "multisiteb-dashboard" (for example), matching up with this prefix
-  shortNamePrefix: 'multisiteb-',
+  shortNamePrefix: 'a3bp-',
   // For development. An environment variable overrides this in staging/production
   mongodbUrl: 'mongodb://localhost:27017',
   sessionSecret: 'CHANGEME',

@@ -1,5 +1,5 @@
 const path = require('path');
-const paletteConfig = require('./lib/modules/apostrophe-palette-global/lib');
+const paletteConfig = require('./modules/@apostrophecms/palette/lib');
 
 module.exports = function (site) {
   const config = {
@@ -7,25 +7,33 @@ module.exports = function (site) {
     theme: site.theme,
     modules: {
       '@apostrophecms/template': {
-        viewsFolderFallback: path.join(
-          __dirname, 'views'
-        )
+        options: {
+          viewsFolderFallback: path.join(
+            __dirname, 'views'
+          )
+        }
       },
       '@apostrophecms/attachment': {
-        uploadfs: {
-          // Be sure to change
-          disabledFileKey: 'CHANGEME'
+        options: {
+          uploadfs: {
+            // Be sure to change
+            disabledFileKey: 'CHANGEME'
+          }
         }
       },
       '@apostrophecms/express': {
-        session: {
-          secret: 'CHANGEME'
+        options: {
+          session: {
+            secret: 'CHANGEME'
+          }
         }
       },
       // Strongly recommended: allows editing the site appearance via the UI
       '@apostrophecms/palette': {
-        paletteFields: paletteConfig.fields,
-        arrangePaletteFields: paletteConfig.arrangement
+        options: {
+          paletteFields: paletteConfig.fields,
+          arrangePaletteFields: paletteConfig.arrangement
+        }
       },
       // Just a nice place to keep our helper functions and macros that are
       // used across all sites

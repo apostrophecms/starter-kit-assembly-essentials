@@ -1,99 +1,71 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 
-const themes = require('../../../../themes.js');
+const themes = require('../../../themes');
 
 module.exports = {
-  baseUrlDomains: require('../../../../domains.js'),
-  addFields: [
-    {
-      name: 'logo',
-      label: 'Logo',
-      type: 'singleton',
-      widgetType: 'apostrophe-images',
-      options: {
-        aspectRatio: [ 1, 1 ],
-        minSize: [ 500, 500 ],
-        limit: [ 1 ]
+  options: {
+    baseUrlDomains: require('../../../domains.js')
+  },
+  fields: {
+    add: {
+      logo: {
+        label: 'Logo',
+        type: 'area',
+        options: {
+          widgets: {
+            '@apostrophecms/image': {
+              aspectRatio: [ 1, 1 ],
+              minSize: [ 500, 500 ],
+              max: [ 1 ]
+            }
+          }
+        }
+      },
+      theme: {
+        type: 'select',
+        label: 'Theme',
+        choices: themes
       }
     },
-    {
-      name: 'theme',
-      type: 'select',
-      label: 'Theme',
-      choices: themes
-    },
-    {
-      name: 'locales',
-      type: 'array',
-      label: 'Locales',
-      help: 'For internationalization. Leave empty for monolingual sites.',
-      titleField: 'label',
-      schema: [
-        {
-          type: 'string',
-          name: 'name',
-          label: 'Locale Name',
-          required: true,
-          help: '(examples: en, en-us, es, fr, etc. DO NOT CHANGE A LOCALE NAME once it has content.'
-        },
-        {
-          type: 'string',
-          name: 'label',
-          label: 'Locale Label',
-          required: true,
-          help: '(example: US English. May be shown to end users)'
-        }
-      ]
-    }    
-  ],
-  removeFields: ['tags'],
-  arrangeFields: [
-    {
-      name: 'basics',
-      label: 'Basics',
-      first: true,
-      fields: [
-        'title',
-        'theme',
-        'logo',
-        'published',
-        'slug'
-      ]
-    },
-    {
-      name: 'urls',
-      label: 'URLs',
-      fields: [
-        'shortName',
-        'prodHostname',
-        'redirect',
-        'canonicalize',
-        'canonicalizeStatus'
-      ]
-    },
-    {
-      name: 'localization',
-      label: 'Localization',
-      fields: [
-        'locales'
-      ]
+    remove: [ 'tags' ],
+    group: {
+      basics: {
+        label: 'Basics',
+        fields: [
+          'title',
+          'theme',
+          'logo',
+          'published',
+          'slug'
+        ]
+      },
+      urls: {
+        label: 'URLs',
+        fields: [
+          'shortName',
+          'prodHostname',
+          'redirect',
+          'canonicalize',
+          'canonicalizeStatus'
+        ]
+      }
     }
-  ],
-  construct: function (self, options) {
-    
-    self.addTask('list-themes', 'List the theme shortnames. Used by the cloud asset generation system.', (apos, argv, callback) => {
-      console.log(themes.map(theme => theme.value).join('\n'));
-      return callback(null);
-    });
-
-    const superAfterSave = self.afterSave;
-    self.afterSave = function (req, piece, options, callback) {
-      return superAfterSave(req, piece, options, async function (err) {
-        if (err) {
-          return callback(err);
+  },
+  tasks(self, options) {
+    return {
+      'list-themes': {
+        usage: 'List the theme shortnames. Used by the cloud asset generation system.',
+        async task(argv) {
+          console.log(themes.map(theme => theme.value).join('\n'));
         }
-        try {
+      }
+    };
+  },
+  handlers(self, options) {
+    return {
+      afterSave: {
+        async ensureCertificate(req, piece, options) {
           // Use the platform balancer API to immediately get a certificate for
           // the new site, so it can be accessed right away after creation.
           //
@@ -114,14 +86,12 @@ module.exports = {
                 key: fs.readFileSync('/opt/cloud/platform-balancer-api-key', 'utf8').trim()
               })
             });
-            // Not actually interested but we want to know the request was really completed
+            // We don't care about the text of the response per se, we just want to
+            // throw if it's not 200 OK
             await response.text();
           }
-          return callback(null);
-        } catch (err) {
-          return callback(err);
         }
-      });
+      }
     }
   }
-}
+};

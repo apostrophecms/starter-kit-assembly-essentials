@@ -11,15 +11,16 @@ const widgets = {
 };
 
 module.exports = {
-  alias: 'helpers',
-  extend: 'apostrophe-module',
-  baseTextStyles: baseTextStyles,
-  baseTextToolbar: baseTextToolbar,
-  construct: function (self, options) {
-    self.addHelpers({
-      baseTextStyles: baseTextStyles,
-      baseTextToolbar: baseTextToolbar,
-      widgets: widgets
-    });
+  options: {
+    alias: 'helper',
+    baseTextStyles: baseTextStyles,
+    baseTextToolbar: baseTextToolbar,
+  },
+  helpers(self, options) {
+    return {
+      baseTextStyles,
+      baseTextToolbar,
+      widgets
+    };
   }
 };

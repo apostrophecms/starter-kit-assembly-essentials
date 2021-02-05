@@ -7,13 +7,17 @@ module.exports = {
   prodBaseUrl: `https://dashboard.${domains.prod}`,
   modules: {
     '@apostrophecms/template': {
-      viewsFolderFallback: path.join(
-        __dirname, 'views'
-      )
+      options: {
+        viewsFolderFallback: path.join(
+          __dirname, 'views'
+        )
+      }
     },
     '@apostrophecms/attachments': {
-      uploadfs: {
-        disabledFileKey: 'CHANGEME'
+      options: {
+        uploadfs: {
+          disabledFileKey: 'CHANGEME'
+        }
       }
     },
     'helper': {},
