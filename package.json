@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "start": "node app",
-    "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev node app @apostrophecms/asset:build --temporary-site --theme=default && ENV=dev webpack serve) & ENV=dev node app"
+    "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev node app @apostrophecms/asset:build --temporary-site --theme=default) && ENV=dev webpack serve & ENV=dev node app"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@apostrophecms/multisite": "github:apostrophecms/multisite",
-    "apostrophe": "github:apostrophecms/apostrophe#3/palette-prep",
+    "apostrophe": "github:apostrophecms/apostrophe#webpack-5",
     "@apostrophecms/palette": "github:apostrophecms/palette#3/refactor",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",

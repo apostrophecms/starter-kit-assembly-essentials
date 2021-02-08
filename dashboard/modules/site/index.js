@@ -5,7 +5,8 @@ const themes = require('../../../themes');
 
 module.exports = {
   options: {
-    baseUrlDomains: require('../../../domains.js')
+    baseUrlDomains: require('../../../domains.js'),
+    test: true
   },
   fields: {
     add: {
@@ -25,7 +26,9 @@ module.exports = {
       theme: {
         type: 'select',
         label: 'Theme',
-        choices: themes
+        choices: themes,
+        def: themes[0].value,
+        required: true
       }
     },
     remove: [ 'tags' ],
