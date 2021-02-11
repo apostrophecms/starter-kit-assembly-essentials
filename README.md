@@ -1,4 +1,4 @@
-# Apostrophe Assembly Project Boilerplate
+# Apostrophe Assembly Boilerplate
 
 ## Purpose
 
