@@ -20,9 +20,9 @@
   "dependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "@apostrophecms/multisite": "github:apostrophecms/multisite",
-    "apostrophe": "github:apostrophecms/apostrophe#webpack-5",
-    "@apostrophecms/palette": "github:apostrophecms/palette#3/refactor",
+    "@apostrophecms-pro/multisite": "github:apostrophecms/multisite",
+    "apostrophe": "github:apostrophecms/apostrophe#3.0",
+    "@apostrophecms-pro/palette": "github:apostrophecms/palette",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",
     "css-loader": "^5.0.1",

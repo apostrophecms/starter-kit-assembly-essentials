@@ -118,7 +118,7 @@ Right now we have a bare-bones example. Let's look at where to put our code to c
 
 ### Where Does My Apostrophe Project Code Go?
 
-> If you are not already familiar with single-site Apostrophe development, we strongly recommend that you [read the ApostropheCMS documentation](https://docs.apostrophecms.org/) as a starting point.
+> If you are not already familiar with single-site Apostrophe development, we strongly recommend that you [read the A3 ApostropheCMS documentation](https://a3.docs.apostrophecms.org/) as a starting point.
 
 In a typical single-site Apostrophe project, modules are configured in `app.js`. In a multisite project, you'll find that `app.js` is instead reserved for top-level configuration that applies to all sites.
 
@@ -168,9 +168,9 @@ The `config` object already contains what was configured in `sites/index.js`. He
 
 In this case we add one custom module, `theme-default`,  when the default theme is active. **It is a best practice to push your theme's frontend assets to Apostrophe in a module like this,** named after the theme. If your themes share any assets, then they should be imported into the appropriate `.js` or `.scss` master file by each theme.
 
-#### Frontend Assets with Webpack
+#### Frontend Assets with webpack
 
-This project comes with a sample `webpack.config.js` file. You have great latitude to use Webpack however you like. But, there are a few things to know:
+This project comes with a sample `webpack.config.js` file. You have great latitude to use webpack however you like. But, there are a few things to know:
 
 * `webpack.config.js` contains builds for both the dashboard site (see `const dashboard = { ... }`) and the themes (see `const themeConfigs = themes.map(...)`).
 * **The entry point for the `default` theme's JavaScript is:** `./modules/theme-default/src/js/index.js`
@@ -179,21 +179,21 @@ This project comes with a sample `webpack.config.js` file. You have great latitu
 
 #### Developing For IE11
 
-The provided Webpack build includes hot reloading, so your frontend changes will be automatically reloaded without the need to manually restart or refresh the page. However, if you are developing for IE11 and wish to test locally, you'll need to start the server a little differently:
+The provided webpack build includes hot reloading, so your frontend changes will be automatically reloaded without the need to manually restart or refresh the page. However, if you are developing for IE11 and wish to test locally, you'll need to start the server a little differently:
 
 ```
 IE11=1 npm run dev
 ```
 
-**While running in this mode hot reload is not available.** We are tracking a related issue with Webpack and when it is resolved we hope to remove the need for this separate mode.
+**While running in this mode hot reload is not available.** We are tracking a related issue with webpack and when it is resolved we hope to remove the need for this separate mode.
 
 > In production this is not an issue. Babel is always used and the webpack bundle that is built is always IE11-compatible.
 
-#### Frontend Assets Without Webpack
+#### Frontend Assets Without webpack
 
 If you prefer, you can place `.css` and `.js` files in the `ui/public` subdirectory of any module. Apostrophe will automatically include these in its bundle when serving assets. However note that the live reload mechanism will only catch webpack assets, so you'll need to restart `npm run dev`. This technique is typically only used for assets of npm modules shared across projects, which often have their own build process to create them.
 
-#### Frontend Webpack Assets For Themes
+#### Frontend webpack Assets For Themes
 
 Your `modules/theme-THEMENAME` module must have at least a `src/js/index.js` file and a `src/css/index.scss` file. These are your webpack "entry points" for that particular theme. They may import other files as needed.
 
@@ -205,44 +205,11 @@ The folder `sites/public` maps to `/` in the URL space of a site. For instance, 
 
 ### Palette Configuration
 
-#### TODO: update this for A3 palette version
+The palette allows styles to be edited visually on the site. It is configured in `sites/modules/@apostrophecms-pro/palette/index.js`. There you can specify the selectors, CSS properties, and field types to be used to manipulate color, font size, font family and other aspects of the site as a whole.
 
-Assembly allows your individual site admins to style their sites via the `@apostrophecms/palette` module, which appears as part of the admin UI when they log into their individual site.
+For complete information and a sample configuration, see the [@apostrophecms-pro/palette module documentation](https://npmjs.org/package/@apostrophecms-pro/palette). *You will need to be logged into an npm account that has been granted access, such as the one you used to npm install this project.*
 
-However, to maintain consistency they can only adjust the styles you configure for them. 
-
-To configure the module, you'll create `.js` files in `sites/modules/@apostrophecms/palette/lib/configs`. See the provided `footer.js` as an example:
-
-```javascript
-const config = {
-  schema: [
-    {
-      name: 'footerBgColor',
-      label: 'Background Color',
-      type: 'color',
-      selector: '.c-footer',
-      property: 'background-color'
-    },
-    ...
-  ]
-};
-
-config.arrangement = {
-  name: 'footer',
-  label: 'Footer Settings',
-  fields: config.schema.map(field => {
-    return field.name;
-  })
-};
-
-module.exports = config;
-```
-
-Each such file you create will become a group of editable fields in the palette.
-
-For more information about what can be done in each field in `schema`, see the [@apostrophecms/palette documentation](https://github.com/apostrophecms/palette/blob/main/README.md).
-
-> Note that like all other changes, palette changes do not take place for logged-out users until the user clicks "Commit" and approves committing the "global" document.
+> Note that like all other changes, palette changes do not take place for logged-out users until the user clicks "Publish."
 
 ## Dashboard Development
 

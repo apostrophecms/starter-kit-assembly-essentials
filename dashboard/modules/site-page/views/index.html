@@ -1,11 +1,14 @@
 {% extends 'layout.html' %}
 {% import 'search.html' as search with context -%}
 {% import 'card.html' as card with context -%}
+{% import '@apostrophecms/pager:macros.html' as pager with context %}
 
 {% block main %}
 <main class="o-container c-site-index">
-  {% if data.user %}
-    {{ card.renderAll(data.pieces) }}
-  {% endif %}
+  {{ card.renderAll(data.pieces) }}
+  {{ pager.render({
+    page: data.currentPage,
+    total: data.totalPages
+  }, data.url) }}
 </main>
 {% endblock %}
