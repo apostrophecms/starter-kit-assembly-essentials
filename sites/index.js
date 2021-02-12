@@ -1,5 +1,5 @@
 const path = require('path');
-const paletteConfig = require('./modules/@apostrophecms/palette/lib');
+const paletteConfig = require('./modules/@apostrophecms-pro/palette/lib');
 
 module.exports = function (site) {
   const config = {
@@ -29,7 +29,7 @@ module.exports = function (site) {
         }
       },
       // Strongly recommended: allows editing the site appearance via the UI
-      '@apostrophecms/palette': {
+      '@apostrophecms-pro/palette': {
         options: {
           paletteFields: paletteConfig.fields,
           arrangePaletteFields: paletteConfig.arrangement

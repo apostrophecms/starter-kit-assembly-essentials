@@ -4,7 +4,7 @@ const domains = require('./domains.js');
 
 const dashboardHostnames = Object.values(domains).map(domain => `dashboard.${domain}`.replace(/:\d+$/, ''));
 
-require('@apostrophecms/multisite')({
+require('@apostrophecms-pro/multisite')({
   // Default port, for dev
   port: 3000,
   // Change this when forking to make a new project. Ideally should match
