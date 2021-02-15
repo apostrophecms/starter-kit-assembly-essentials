@@ -22,6 +22,7 @@
     "@babel/preset-env": "^7.12.11",
     "@apostrophecms-pro/multisite": "github:apostrophecms/multisite",
     "apostrophe": "github:apostrophecms/apostrophe#3.0",
+    "@apostrophecms-pro/basics": "github:apostrophecms/basics#initial",
     "@apostrophecms-pro/palette": "github:apostrophecms/palette",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",
