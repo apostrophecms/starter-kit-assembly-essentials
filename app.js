@@ -4,20 +4,17 @@ const domains = require('./domains.js');
 
 const dashboardHostnames = Object.values(domains).map(domain => `dashboard.${domain}`.replace(/:\d+$/, ''));
 
-require('apostrophe-multisite')({
+require('@apostrophecms-pro/multisite')({
   // Default port, for dev
   port: 3000,
   // Change this when forking to make a new project. Ideally should match
   // your repo name followed by a -, however if you plan to use a
   // cheap Atlas cluster (below M10), you must use a unique prefix less
   // than 12 characters (before the -).
-  //
-  // When you run configure-cloud, you will need to set DASH to
-  // "multisiteb-dashboard" (for example), matching up with this prefix
-  shortNamePrefix: 'multisiteb-',
+  shortNamePrefix: 'CHANGEME-',
   // For development. An environment variable overrides this in staging/production
   mongodbUrl: 'mongodb://localhost:27017',
-  sessionSecret: 'awieufhai2u3hiu',
+  sessionSecret: 'CHANGEME',
   sites: require('./sites/index.js'),
   dashboard: require('./dashboard/index.js'),
   dashboardHostname: dashboardHostnames

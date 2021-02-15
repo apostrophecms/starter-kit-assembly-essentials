@@ -4,8 +4,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 {% endblock %}
 
-{% block apostropheMenu %}{% endblock %}
-
 {% block title %}
   {% if data.piece %}
     {{ data.piece.title }}
@@ -14,20 +12,4 @@
   {% else %}
     {{ apos.log('Looks like you forgot to override the title block in a template that does not have access to an Apostrophe page or piece.') }}
   {% endif %}
-{% endblock %}
-
-{% block beforeMain %}
-  <header>
-    <nav class="o-container c-navigation">
-    {{ apos.adminBar.output() }}
-    </nav>
-  </header>
-{% endblock %}
-
-{% block main %}{% endblock %}
-
-{% block afterMain %}
-  <footer>
-
-  </footer>
 {% endblock %}

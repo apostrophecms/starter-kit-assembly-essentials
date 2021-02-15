@@ -1,16 +1,16 @@
 {
-  "name": "assembly-project-boilerplate",
+  "name": "a3-assembly-project-boilerplate",
   "version": "1.0.0",
-  "description": "A starting point for enterprise multisite projects",
+  "description": "A starting point for A3 enterprise multisite projects",
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "start": "node app",
-    "dev": "ENV=dev webpack serve & ENV=dev node app"
+    "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev node app @apostrophecms/asset:build --temporary-site --theme=default) && ENV=dev webpack serve & ENV=dev node app"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/apostrophecms/a3-assembly-project-boilerplate"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -20,17 +20,9 @@
   "dependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "apostrophe": "^2.92.1",
-    "apostrophe-browser-requirements": "^2.0.1",
-    "apostrophe-events": "^2.1.4",
-    "apostrophe-link-widgets": "^1.1.1",
-    "apostrophe-multisite": "^2.0.1",
-    "apostrophe-open-graph": "^1.1.0",
-    "apostrophe-palette": "^2.0.20",
-    "apostrophe-redirects": "^2.2.0",
-    "apostrophe-seo": "^1.1.3",
-    "apostrophe-site-map": "^2.5.1",
-    "apostrophe-workflow": "^2.22.0",
+    "@apostrophecms-pro/multisite": "github:apostrophecms/multisite",
+    "apostrophe": "github:apostrophecms/apostrophe#3.0",
+    "@apostrophecms-pro/palette": "github:apostrophecms/palette",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",
     "css-loader": "^5.0.1",

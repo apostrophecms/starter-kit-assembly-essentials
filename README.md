@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The purpose of this repo is to serve as a quick start boilerplate for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Specifically, it serves as a working example of a project built on the `apostrophe-multisite` module.
+The purpose of this repo is to serve as a quick start boilerplate for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Tecnically speaking, it serves as a working example of a project built on the `@apostrophecms/multisite` module.
 
 This boilerplate project includes:
 
@@ -60,6 +60,20 @@ To test-drive the project in development, make sure you have Apostrophe's usual 
 
 For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
 
+### `/etc/hosts` File Configuration Requirements
+
+Because this project serves multiple websites, certain hostnames must point directly to your own computer for local testing.
+
+**If you will only be testing in Chrome at first,** you do not have to edit your hosts file right away. That's because in Chrome, all subdomains of `localhost` resolve to your own computer.
+
+However in other browsers this is not true and you must add the following lines to `/etc/hosts` before proceeding:
+
+```
+127.0.0.1 dashboard.localhost company1.localhost
+```
+
+**You will need a subdomain for each test site you plan to add to the multisite platform.** See the example below, where a site called `company` is added to the platform via the dashboard. You can always add more of these entries later.
+
 ## Starting Up In Development
 
 First, clone the boilerplate project and push it up to your own git repository for ongoing work.
@@ -73,7 +87,7 @@ npm install
 After installation, add an admin user to the dashboard site, which manages all other sites:
 
 ```
-node app apostrophe-users:add admin admin --site=dashboard
+node app @apostrophecms/user:add admin admin --site=dashboard
 ```
 
 Enter a password when prompted.
@@ -118,17 +132,17 @@ Right now we have a bare-bones example. Let's look at where to put our code to c
 
 ### Where Does My Apostrophe Project Code Go?
 
-> If you are not already familiar with single-site Apostrophe development, we strongly recommend that you [read the ApostropheCMS documentation](https://docs.apostrophecms.org/) as a starting point.
+> If you are not already familiar with single-site Apostrophe development, we strongly recommend that you [read the A3 ApostropheCMS documentation](https://a3.docs.apostrophecms.org/) as a starting point.
 
 In a typical single-site Apostrophe project, modules are configured in `app.js`. In a multisite project, you'll find that `app.js` is instead reserved for top-level configuration that applies to all sites.
 
-The code you're used to seeing in `app.js` can instead be found in `sites/index.js`. And, the code you're used to seeing in `lib/modules` can be found in `sites/lib/modules`.
+The code you're used to seeing in `app.js` can instead be found in `sites/index.js`. And, the code you're used to seeing in `modules` can be found in `sites/modules`.
 
-In all other respects, development is just like normal ApostropheCMS single-site development. Feel free to add page templates and modules. You can `npm install` modules like `apostrophe-blog` and configure them in a normal way; just do it in `sites/index.js` rather than `app.js`.
+In all other respects, development is just like normal ApostropheCMS single-site development. Feel free to add page templates and modules. You can `npm install` modules like `@apostrophecms/blog` and configure them in a normal way; just do it in `sites/index.js` rather than `app.js`.
 
-If you have already started a single-site project, you can move your modules directly from `lib/modules` to `sites/lib/modules`, and move the `modules` section of your `app.js` file to the corresponding section of `sites/index.js`. However take note of the existing settings we provide and merge accordingly.
+If you have already started a single-site project, you can move your modules directly from `modules` to `sites/modules`, and move the `modules` section of your `app.js` file to the corresponding section of `sites/index.js`. However take note of the existing settings we provide and merge accordingly.
 
-> **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `apostrophe-multisite` and the provided logic in the boilerplate project.
+> **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `@apostrophecms/multisite` and the provided logic in the boilerplate project.
 
 ### Themes
 
@@ -166,104 +180,71 @@ module.exports = function(site, config) {
 
 The `config` object already contains what was configured in `sites/index.js`. Here we can modify the configuration by adding extra modules only for this theme, or changing the configuration of a module specifically for this theme.
 
-In this case we add one custom module, `theme-default`,  when the default theme is active. **It is a best practice to push your theme's frontend assets to Apostrophe in a module like this,** named after the theme. If your themes share any assets, then they should be imported into the appropriate `.js`, `.less` or `.scss` master file by each theme.
+In this case we add one custom module, `theme-default`,  when the default theme is active. **It is a best practice to push your theme's frontend assets to Apostrophe in a module like this,** named after the theme. If your themes share any assets, then they should be imported into the appropriate `.js` or `.scss` master file by each theme.
 
-#### Frontend Assets with Webpack
+#### Frontend Assets with webpack
 
-This project comes with a sample `webpack.config.js` file. You have great latitude to use Webpack however you like. But, there are a few things to know:
+This project comes with a sample `webpack.config.js` file. You have great latitude to use webpack however you like. But, there are a few things to know:
 
-* `webpack.config.js` contains builds for both the dashboard site (see `const dashboard = { ... }`) and the selected theme (see `const theme = { ... }`).
-* For individual sites, `webpack.config.js` expects the `THEME` environment variable to tell it which theme to build. For convenience this defaults to the first theme, so if you have only one theme you don't need to worry about this.
-* **The entry point for the `default` theme's JavaScript is:** `./lib/modules/theme-default/src/js/index.js`
-* **The entry point for the `default` theme's styles is:** `./lib/modules/theme-default/src/css/index.scss`
+* `webpack.config.js` contains builds for both the dashboard site (see `const dashboard = { ... }`) and the themes (see `const themeConfigs = themes.map(...)`).
+* **The entry point for the `default` theme's JavaScript is:** `./modules/theme-default/src/js/index.js`
+* **The entry point for the `default` theme's styles is:** `./modules/theme-default/src/css/index.scss`
 * The resulting bundle is pushed to the browser by apostrophe as part of a minified bundle in the normal way in staging and production. In development it is pushed by the webpack development server.
 
 #### Developing For IE11
 
-The provided Webpack build includes hot reloading, so your frontend changes will be automatically reloaded without the need to manually restart or refresh the page. However, if you are developing for IE11 and wish to test locally, you'll need to start the server a little differently:
+The provided webpack build includes hot reloading, so your frontend changes will be automatically reloaded without the need to manually restart or refresh the page. However, if you are developing for IE11 and wish to test locally, you'll need to start the server a little differently:
 
 ```
 IE11=1 npm run dev
 ```
 
-**While running in this mode hot reload is not available.** We are tracking a related issue with Webpack and when it is resolved we hope to remove the need for this separate mode.
+**While running in this mode hot reload is not available.** We are tracking a related issue with webpack and when it is resolved we hope to remove the need for this separate mode.
 
 > In production this is not an issue. Babel is always used and the webpack bundle that is built is always IE11-compatible.
 
-#### Frontend Assets Without Webpack
+#### Frontend Assets Without webpack
 
-If you prefer Apostrophe's legacy LESS CSS compilation and asset pushing mechanisms, you can still use these by placing `.less` and `.js` files in the usual places in your modules and making `pushAsset` calls just as you always have. Just remember that your modules live at `sites/lib/modules/*` rather than `lib/modules/*`.
+If you prefer, you can place `.css` and `.js` files in the `ui/public` subdirectory of any module. Apostrophe will automatically include these in its bundle when serving assets. However note that the live reload mechanism will only catch webpack assets, so you'll need to restart `npm run dev`. This technique is typically only used for assets of npm modules shared across projects, which often have their own build process to create them.
 
-#### Frontend Webpack Assets For Themes
+#### Frontend webpack Assets For Themes
 
-Your `lib/modules/theme-THEMENAME` module must have at least a `src/js/index.js` file and a `src/css/index.scss` file. These are your webpack "entry points" for that particular theme. They may import other files as needed.
+Your `modules/theme-THEMENAME` module must have at least a `src/js/index.js` file and a `src/css/index.scss` file. These are your webpack "entry points" for that particular theme. They may import other files as needed.
 
 #### Serving Static Files: Fonts and Static Images
 
-If you need to serve static files, you can do this much as you would in traditional A2 development:
+If you need to serve static files, you can do this much as you would in standalone A3 development.
 
-* The folder `sites/public` maps to `/` in the URL space of a site. For instance, `sites/public/fonts/myfile.ttf` maps to `/fonts/myfile.ttf`. For assets like favicons and fonts, you can add `link` tags to the `extraHead` block already present in `sites/lib/modules/apostrophe-templates/views/outerLayout.html`.
-* The folder `sites/lib/modules/my-module-name/public` maps to `/modules/my-module-name` in the URL space of a site. If you are using `pushAsset` then you will not need to construct any script or link tags for JavaScript files or CSS files yourself. But, you might want to use this area for other kinds of static assets to group them in a more modular way.
+The folder `sites/public` maps to `/` in the URL space of a site. For instance, `sites/public/fonts/myfile.ttf` maps to `/fonts/myfile.ttf`. For assets like favicons and fonts, you can add `link` tags to the `extraHead` block already present in `sites/modules/@apostrophecms/templates/views/outerLayout.html`.
 
 ### Palette Configuration
 
-Assembly allows your individual site admins to style their sites via the `apostrophe-palette` module, which appears as part of the admin UI when they log into their individual site.
+The palette allows styles to be edited visually on the site. It is configured in `sites/modules/@apostrophecms-pro/palette/index.js`. There you can specify the selectors, CSS properties, and field types to be used to manipulate color, font size, font family and other aspects of the site as a whole.
 
-However, to maintain consistency they can only adjust the styles you configure for them. 
+For complete information and a sample configuration, see the [@apostrophecms-pro/palette module documentation](https://npmjs.org/package/@apostrophecms-pro/palette). *You will need to be logged into an npm account that has been granted access, such as the one you used to npm install this project.*
 
-To configure the module, you'll create `.js` files in `sites/lib/modules/apostrophe-palette-global/lib/configs`. See the provided `footer.js` as an example:
-
-```javascript
-const config = {
-  schema: [
-    {
-      name: 'footerBgColor',
-      label: 'Background Color',
-      type: 'color',
-      selector: '.c-footer',
-      property: 'background-color'
-    },
-    ...
-  ]
-};
-
-config.arrangement = {
-  name: 'footer',
-  label: 'Footer Settings',
-  fields: config.schema.map(field => {
-    return field.name;
-  })
-};
-
-module.exports = config;
-```
-
-Each such file you create will become a group of editable fields in the palette.
-
-For more information about what can be done in each field in `schema`, see the [apostrophe-palette documentation](https://github.com/apostrophecms/apostrophe-palette/blob/main/README.md).
-
-> Note that like all other changes, palette changes do not take place for logged-out users until the user clicks "Commit" and approves committing the "global" document.
+> Note that like all other changes, palette changes do not take place for logged-out users until the user clicks "Publish."
 
 ## Dashboard Development
 
 **The dashboard site has one job: managing the other sites.** As such you don't need to worry about making this site a pretty experience for the general public, because they won't have access to it. However you may want to dress up this experience and add extra functionality for your own customer admin team (the people who add and remove sites frmo the platform).
 
-The dashboard site can be extended much like the regular sites. Dashboard development is very similar to regular site development, except that modules live in `dashboard/lib/modules`, what normally resides in `app.js` lives in `dashboard/index.js`, and so on.
+The dashboard site can be extended much like the regular sites. Dashboard development is very similar to regular site development, except that modules live in `dashboard/modules`, what normally resides in `app.js` lives in `dashboard/index.js`, and so on.
 
 The most important module is the `sites` module. The `sites` module is a piece type, with a piece to represent each site that your dashboard admins choose to create.
 
-Also important is the `assets` module, which serves the same function as the theme modules in `sites`. You can find the frontend assets in `dashboard/lib/modules/assets/src`.
+Also important is the `assets` module, which serves the same function as the theme modules in `sites`. You can find the frontend assets in `dashboard/modules/assets/src`.
 
 ### Allowing dashboard admins to pass configuration to sites
 
-You can add custom schema fields to `sites` as seen in `dashboard/lib/modules/sites/index.js`. Those fields are available on the `site` object passed to `sites/index.js`, and so they can be passed on as part of the configuration of modules.
+You can add custom schema fields to `sites` as seen in `dashboard/modules/sites/index.js`. Those fields are available on the `site` object passed to `sites/index.js`, and so they can be passed on as part of the configuration of modules.
 
 However, there is one important restriction: you **must not decide to completely enable or disable a module that pushes assets on any basis other than the theme name.** This is becaue Apostrophe builds only one asset bundle per theme.
 
-**"Should I add a field to the `sites` piece in the dashboard, or just add it to `apostrophe-global` for sites?"** Good question! Here's a checklist for you:
+**"Should I add a field to the `sites` piece in the dashboard, or just add it to `@apostrophecms/global` for sites?"** Good question! Here's a checklist for you:
 
-* **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/lib/modules/apostrophe-global`.
-* **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/lib/modules/sites/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
+* **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/modules/@apostrophecms/global`.
+* **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/sites/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
 
 ## Hosting
 
