@@ -7,11 +7,12 @@ const dashboardHostnames = Object.values(domains).map(domain => `dashboard.${dom
 require('@apostrophecms-pro/multisite')({
   // Default port, for dev
   port: 3000,
-  // Change this when forking to make a new project. Ideally should match
+  // Change this to a hardcoded string when forking to make a new project.
+  // Just set it to a string which should never change. Ideally should match
   // your repo name followed by a -, however if you plan to use a
   // cheap Atlas cluster (below M10), you must use a unique prefix less
   // than 12 characters (before the -).
-  shortNamePrefix: 'CHANGEME-',
+  shortNamePrefix: process.env.TEST_PREFIX || 'CHANGEME-',
   // For development. An environment variable overrides this in staging/production
   mongodbUrl: 'mongodb://localhost:27017',
   sessionSecret: 'CHANGEME',

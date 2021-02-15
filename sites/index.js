@@ -3,6 +3,7 @@ const paletteConfig = require('./modules/@apostrophecms-pro/palette/lib');
 
 module.exports = function (site) {
   const config = {
+    bundles: [ '@apostrophecms-pro/basics' ],
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
     modules: {
@@ -28,18 +29,26 @@ module.exports = function (site) {
           }
         }
       },
-      // Strongly recommended: allows editing the site appearance via the UI
-      '@apostrophecms-pro/palette': {
-        options: {
-          paletteFields: paletteConfig.fields,
-          arrangePaletteFields: paletteConfig.arrangement
-        }
-      },
+      // TODO: reactivate after PRs land
+      // // Strongly recommended: allows editing the site appearance via the UI
+      // '@apostrophecms-pro/palette': {
+      //   options: {
+      //     paletteFields: paletteConfig.fields,
+      //     arrangePaletteFields: paletteConfig.arrangement
+      //   }
+      // },
       // Just a nice place to keep our helper functions and macros that are
       // used across all sites
       'helpers': {},
       'default-page': {},
-      'home-page': {}
+      'home-page': {},
+      // required for bundled modules or extending views
+      '@apostrophecms-pro/basics': {},
+      // optional widgets
+      '@apostrophecms-pro/basics-image-widget': {},
+      '@apostrophecms-pro/basics-column-widget': {},
+      '@apostrophecms-pro/basics-button-widget': {},
+      '@apostrophecms-pro/basics-hero-widget': {}
     }
   };
   // Allow each theme to modify the configuration object,
