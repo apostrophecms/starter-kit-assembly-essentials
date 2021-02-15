@@ -11,7 +11,7 @@ require('@apostrophecms-pro/multisite')({
   // your repo name followed by a -, however if you plan to use a
   // cheap Atlas cluster (below M10), you must use a unique prefix less
   // than 12 characters (before the -).
-  shortNamePrefix: 'a3bp-',
+  shortNamePrefix: 'CHANGEME-',
   // For development. An environment variable overrides this in staging/production
   mongodbUrl: 'mongodb://localhost:27017',
   sessionSecret: 'CHANGEME',
