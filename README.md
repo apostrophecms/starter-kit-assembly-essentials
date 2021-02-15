@@ -60,6 +60,20 @@ To test-drive the project in development, make sure you have Apostrophe's usual 
 
 For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
 
+### `/etc/hosts` File Configuration Requirements
+
+Because this project serves multiple websites, certain hostnames must point directly to your own computer for local testing.
+
+**If you will only be testing in Chrome at first,** you do not have to edit your hosts file right away. That's because in Chrome, all subdomains of `localhost` resolve to your own computer.
+
+However in other browsers this is not true and you must add the following lines to `/etc/hosts` before proceeding:
+
+```
+127.0.0.1 dashboard.localhost company1.localhost
+```
+
+**You will need a subdomain for each test site you plan to add to the multisite platform.** See the example below, where a site called `company` is added to the platform via the dashboard. You can always add more of these entries later.
+
 ## Starting Up In Development
 
 First, clone the boilerplate project and push it up to your own git repository for ongoing work.
