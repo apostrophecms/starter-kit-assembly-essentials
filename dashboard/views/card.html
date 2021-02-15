@@ -1,13 +1,11 @@
 {% macro render(piece) %}
-  {% if piece.logo %}
-    {% set imageObj = piece.logo.items[0]._pieces[0] %}
-  {% endif %}
+  {% set image = apos.image.first(piece.logo) %}
   <div class="c-card" data-apos-edit-site="{{ piece._id }}">
     <div class="c-card__inner">
       <div class="c-card__media">
-        {% if imageObj %}
+        {% if image %}
           <span class="c-card__dashboard-link">
-            <img class="c-card__media-image" src="{{ apos.attachments.url(imageObj.item.attachment) }}" alt="{{ piece.title }}">
+            <img class="c-card__media-image" src="{{ apos.attachment.url(image) }}" alt="{{ piece.title }}">
           </span>
         {% else %}
           <span class="c-card__dashboard-link c-card__dashboard-link--placeholder">
@@ -20,15 +18,10 @@
           <h5 class="o-type-small c-card__location">{{ piece.location }}</h5>  
         {% endif %}
         <h3 class="o-type-small c-card__title">{{ piece.title }}</h3>
-        {% if piece.website %}
-          <h4 class="o-type-small c-card__website">
-            <button data-apos-edit-site="{{ piece._id }}" target="_blank">
-            {% if piece.website %}
-              {{ piece.website }}  
-            {% endif %}
-            </button>
-          </h4>
-        {% endif %}
+        <h4 class="o-type-small c-card__website">
+          <button data-edit-site="{{ piece._id }}" target="_blank">⚙️</button>
+          <a href="{{ piece._url }}">➡️</a>
+        </h4>
       </div>
     </div>
   </div>

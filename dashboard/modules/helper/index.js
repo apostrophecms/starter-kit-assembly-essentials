@@ -12,7 +12,7 @@ const widgets = {
 
 module.exports = {
   options: {
-    alias: 'helper',
+    alias: 'helpers',
     baseTextStyles: baseTextStyles,
     baseTextToolbar: baseTextToolbar,
   },
