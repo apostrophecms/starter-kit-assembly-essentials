@@ -1,13 +1,28 @@
 module.exports = {
   options: {
-    park: [
+    // Currently the best way to lock the page type of
+    // the home page to something other than the default
+    // is to reset the entire minimumPark option
+    minimumPark: [
       {
         slug: '/',
         parkedId: 'home',
-        title: 'Sites',
-        type: 'site-page',
-        published: true,
-        orphan: false
+        _defaults: {
+          title: 'Home',
+          type: 'site-page'
+        },
+        _children: [
+          {
+            slug: '/trash',
+            parkedId: 'trash',
+            type: '@apostrophecms/trash',
+            trash: true,
+            orphan: true,
+            _defaults: {
+              title: 'Trash'
+            }
+          }
+        ]
       }
     ],
     types: [
