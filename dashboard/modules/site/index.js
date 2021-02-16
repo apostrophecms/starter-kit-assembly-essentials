@@ -31,7 +31,6 @@ module.exports = {
         required: true
       }
     },
-    remove: [ 'tags' ],
     group: {
       basics: {
         label: 'Basics',
@@ -39,16 +38,15 @@ module.exports = {
           'title',
           'theme',
           'logo',
-          'published',
-          'slug'
+          'active',
+          'shortName',
+          'adminPassword'
         ]
       },
-      urls: {
-        label: 'URLs',
+      production: {
+        label: 'Production',
         fields: [
-          'shortName',
           'prodHostname',
-          'redirect',
           'canonicalize',
           'canonicalizeStatus'
         ]
