@@ -1,7 +1,12 @@
+{% import "@apostrophecms-pro/basics:navigation/navigation.html" as navigation %}
 {% extends data.outerLayout %}
 
 {% block startHead %}
   {# Shut off "compatibility view" in IE for modern browser compatibility, #}
   {# even when the browser is otherwise configured to emulate IE8 #}
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{% endblock %}
+
+{% block beforeMain %}
+  {{ navigation.render(data.global) }}  
 {% endblock %}
