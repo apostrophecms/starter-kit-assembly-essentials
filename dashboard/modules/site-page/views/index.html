@@ -4,8 +4,8 @@
 {% import '@apostrophecms/pager:macros.html' as pager with context %}
 
 {% block main %}
-<main>
-  <div class="c-site-index"></div>
+<main class="c-site-index">
+  <div class="c-site-index__background"></div>
   <div class="o-container">
     {{ card.renderAll(data.pieces) }}
     {{ pager.render({

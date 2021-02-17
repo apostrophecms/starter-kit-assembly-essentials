@@ -5,8 +5,9 @@
   padding: 2rem 0 2rem;
 }
 
-.c-site-index {
-  position: absolute;
+.c-site-index__background {
+  position: fixed;
+  display: flex;
   top: 0;
   right: 0;
   bottom: 0;
