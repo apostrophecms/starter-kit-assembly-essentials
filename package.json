@@ -21,7 +21,6 @@
     "@apostrophecms-pro/basics": "github:apostrophecms/basics#initial",
     "@apostrophecms-pro/multisite": "github:apostrophecms/multisite",
     "@apostrophecms-pro/palette": "github:apostrophecms/palette",
-    "@apostrophecms/palette": "github:apostrophecms/palette",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "apostrophe": "github:apostrophecms/apostrophe#3.0",
