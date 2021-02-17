@@ -8,9 +8,9 @@
 
 .c-card {
   position: relative;
+  padding: 8px;
   border-radius: 6px;
   background: $white;
-  border: 6px solid $white;
 }
 
 
@@ -39,15 +39,51 @@
 }
 
 .c-card__content {
-  padding: 16px 8px 8px 0;
+  padding: 16px 0 8px 0;
 }
 
 .c-card__title {
   font-family: $font;
   font-size: 16px;
+  line-height: 1.333;
   margin: 0;
   margin-bottom: 8px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.c-card__button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: $white;
+  text-align: center;
+
+  &:hover {
+    background-color: #f4f4f4;
+  }
+}
+
+.c-card__button--icon {
+  width: 16px;
+  height: 16px;
+  fill: $black;
 }
