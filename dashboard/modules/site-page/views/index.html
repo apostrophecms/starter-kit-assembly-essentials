@@ -4,11 +4,14 @@
 {% import '@apostrophecms/pager:macros.html' as pager with context %}
 
 {% block main %}
-<main class="o-container c-site-index">
-  {{ card.renderAll(data.pieces) }}
-  {{ pager.render({
-    page: data.currentPage,
-    total: data.totalPages
-  }, data.url) }}
+<main>
+  <div class="c-site-index"></div>
+  <div class="o-container">
+    {{ card.renderAll(data.pieces) }}
+    {{ pager.render({
+      page: data.currentPage,
+      total: data.totalPages
+    }, data.url) }}
+  </div>
 </main>
 {% endblock %}

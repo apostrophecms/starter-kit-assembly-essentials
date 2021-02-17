@@ -3,25 +3,23 @@
   <div class="c-card" data-apos-edit-site="{{ piece._id }}">
     <div class="c-card__inner">
       <div class="c-card__media">
+        <div class="c-card__dashboard-link">
         {% if image %}
-          <span class="c-card__dashboard-link">
-            <img class="c-card__media-image" src="{{ apos.attachment.url(image) }}" alt="{{ piece.title }}">
-          </span>
+            <img class="c-card__media-image" src="{{ apos.attachment.url(image) }}" alt="">
         {% else %}
-          <span class="c-card__dashboard-link c-card__dashboard-link--placeholder">
-            {{ piece.title }}
-          </span>
+          <div class="c-card__media-placeholder"></div>
         {% endif %}
+        </div>
       </div>
       <div class="c-card__content">
         {% if piece.location %}
           <h5 class="o-type-small c-card__location">{{ piece.location }}</h5>  
         {% endif %}
-        <h3 class="o-type-small c-card__title">{{ piece.title }}</h3>
-        <h4 class="o-type-small c-card__website">
+        <h3 class="c-card__title">{{ piece.title }}</h3>
+        <div class="c-card__website">
           <button data-edit-site="{{ piece._id }}" target="_blank">⚙️</button>
           <a href="{{ piece._siteLoginUrl }}">➡️</a>
-        </h4>
+        </div>
       </div>
     </div>
   </div>
