@@ -2,7 +2,12 @@ module.exports = {
   extend: '@apostrophecms/piece-page-type',
   options: {
     label: 'Site Page',
-    perPage: 50
+    perPage: 50,
+    // No editable content on the page and no subpages,
+    // so the context bar is just confusing. You can remove
+    // this if you decide your dashboard homepage will have
+    // editable content, or subpages
+    contextBar: false
   },
   methods(self, options) {
     return {

@@ -30,7 +30,12 @@ module.exports = {
         name: 'site-page',
         label: 'Sites Index'
       }
-    ]
+    ],
+    // The multisite dashboard has no subpages in this design, so
+    // disable the confusing option to create one. You can
+    // remove this if you decide your dashboard should
+    // have subpages
+    quickCreate: false
   },
   handlers(self, options) {
     return {
