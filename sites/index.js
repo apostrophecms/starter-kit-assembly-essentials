@@ -48,7 +48,9 @@ module.exports = function (site) {
       '@apostrophecms-pro/basics-image-widget': {},
       '@apostrophecms-pro/basics-column-widget': {},
       '@apostrophecms-pro/basics-button-widget': {},
+      '@apostrophecms-pro/basics-card-widget': {},
       '@apostrophecms-pro/basics-hero-widget': {},
+      '@apostrophecms-pro/basics-footer-widget': {}
       '@apostrophecms-pro/palette': {
         fields: {
           add: {
