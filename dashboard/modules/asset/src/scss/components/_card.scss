@@ -1,27 +1,21 @@
 .c-cards {
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 32px;
+  row-gap:  32px;
 }
 
 .c-card {
   position: relative;
+  padding: 8px;
+  border-radius: 6px;
+  background: $white;
 }
 
-.c-card__inner {
-  margin: 5% 2.5%;
-  padding: 5%;
-}
 
 .c-card__media {
   height: 200px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  background: $white;
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  &:hover {
-    box-shadow: 0 10px 20px -2px rgba(0,0,0,0.19);
-  }
 }
 
 .c-card__media-image {
@@ -32,30 +26,64 @@
 
 .c-card__dashboard-link {
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: center;
+  background-color: $black;
+}
+
+.c-card__media-placeholder {
   width: 100%;
   height: 100%;
-  text-decoration: none;
-  border: 6px solid $white;
-  border-radius: 4px;
+  background: linear-gradient(103deg, rgba(246,73,18,1) 0%, rgba(205,0,175,1) 91%, rgba(199,0,188,1) 100%);
 }
 
-.c-card__dashboard-link--placeholder {
-  color: $white;
-  background-image: linear-gradient(36deg, #4950F6 12%, #578BEB 94%);
-  font-size: $font-10;
-}
-
-.c-card__location {
-  margin-bottom: 5px;
-  opacity: 0.5;
-}
-
-.c-card__website {
-  margin-bottom: 10px;
+.c-card__content {
+  padding: 16px 0 8px 0;
 }
 
 .c-card__title {
-  margin-bottom: 5px;
+  font-family: $font;
+  font-size: 16px;
+  line-height: 1.333;
+  margin: 0;
+  margin-bottom: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.c-card__button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: $white;
+  text-align: center;
+
+  &:hover {
+    background-color: #f4f4f4;
+  }
+}
+
+.c-card__button--icon {
+  width: 16px;
+  height: 16px;
+  fill: $black;
 }
