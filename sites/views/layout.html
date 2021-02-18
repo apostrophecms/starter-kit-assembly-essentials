@@ -5,3 +5,10 @@
   {# even when the browser is otherwise configured to emulate IE8 #}
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 {% endblock %}
+
+{% block afterMain %}
+  {{ super() }}
+  <footer>
+    {%  area data.global, 'footer' %}
+  </footer>
+{% endblock %}
