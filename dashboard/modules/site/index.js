@@ -18,7 +18,7 @@ module.exports = {
             '@apostrophecms/image': {
               aspectRatio: [ 1, 1 ],
               minSize: [ 500, 500 ],
-              max: [ 1 ]
+              max: 1
             }
           }
         }
