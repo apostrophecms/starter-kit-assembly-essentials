@@ -30,7 +30,8 @@ module.exports = {
         name: 'site-page',
         label: 'Sites Index'
       }
-    ]
+    ],
+    quickCreate: false
   },
   handlers(self, options) {
     return {

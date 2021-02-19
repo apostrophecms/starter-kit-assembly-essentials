@@ -2,7 +2,8 @@ module.exports = {
   extend: '@apostrophecms/piece-page-type',
   options: {
     label: 'Site Page',
-    perPage: 50
+    perPage: 50,
+    contextBar: false
   },
   methods(self, options) {
     return {
