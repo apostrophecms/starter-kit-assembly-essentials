@@ -246,6 +246,25 @@ However, there is one important restriction: you **must not decide to completely
 * **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/modules/@apostrophecms/global`.
 * **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/sites/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
 
+## Accessing the MongoDB utilities for a specific site
+
+The database name for a site is the prefix, followed by the `_id` of the site piece. However this is awkward to look up on your own, so we have provided utility tasks to access the MongoDB utilities:
+
+```
+# Mongo shell for the dashboard site
+node app mongo:mongo --site=dashboard
+# Mongo shell for an individual site; use its hostname
+# in the appropriate environment
+node app mongo:mongo --site=test1.localhost
+# mongodump
+node app mongo:mongodump --site=test1.localhost
+# mongorestore, with the --drop option to prevent
+# doubled content
+node app mongo:mongorestore --site=test1.localhost -- --drop
+```
+
+Note the use of `--` by itself as an end marker for the options to Apostrophe, allowing the `--drop` option to be passed on to `mongodump`.
+
 ## Hosting
 
 Hosting for staging and production clouds is typically provided by the Apostrophe Assembly team.
