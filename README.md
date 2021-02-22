@@ -12,6 +12,10 @@ This boilerplate project includes:
 * Best practices for easy hostname configuration in dev, staging and prod environments.
 * Support for multiple themes.
 
+## Stability
+
+This boilerplate is built on alpha releases of A3 modules. To give you some stability during development, the dependencies are pinned to specific alpha releases. When we make you aware of new releases, you should review the breaking changes before updating and retesting your project. After the stable release of A3, the boilerplate will no longer have pinned dependencies.
+
 ## First Steps: required before startup
 
 ### Setting your shortname prefix
