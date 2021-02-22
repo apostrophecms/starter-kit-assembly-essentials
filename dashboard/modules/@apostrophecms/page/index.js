@@ -8,7 +8,7 @@ module.exports = {
         slug: '/',
         parkedId: 'home',
         _defaults: {
-          title: 'Home',
+          title: 'Dashboard',
           type: 'site-page'
         },
         _children: [
