@@ -21,7 +21,7 @@ const dashboardConfig = {
       publicPath: publicOutputPath
     } : {
       path: path.resolve(
-        __dirname, 'dashboard/module/asset/ui/public'
+        __dirname, 'dashboard/modules/asset/ui/public'
       ),
       filename: 'site.js'
     })
