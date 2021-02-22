@@ -1,7 +1,7 @@
 .c-cards {
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   column-gap: 32px;
   row-gap:  32px;
 }
