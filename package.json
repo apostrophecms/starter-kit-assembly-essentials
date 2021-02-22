@@ -18,7 +18,7 @@
   "author": "Apostrophe Technologies",
   "license": "UNLICENSED",
   "dependencies": {
-    "@apostrophecms-pro/basics": "3.0.0-alpha.1",
+    "@apostrophecms-pro/basics": "1.0.0-alpha.1",
     "@apostrophecms-pro/multisite": "3.0.0-alpha.2",
     "@apostrophecms-pro/palette": "3.0.0-alpha.1",
     "apostrophe": "3.0.0-alpha.4",
