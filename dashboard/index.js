@@ -13,7 +13,7 @@ module.exports = {
         )
       }
     },
-    '@apostrophecms/attachments': {
+    '@apostrophecms/attachment': {
       options: {
         uploadfs: {
           disabledFileKey: 'CHANGEME'

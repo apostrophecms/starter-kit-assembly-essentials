@@ -7,7 +7,7 @@ npm-debug.log
 /data
 /dashboard/apos-build
 /dashboard/public/apos-frontend
-/dashboard/module/asset/ui/public
+/dashboard/modules/asset/ui/public
 /sites/apos-build
 /sites/public/apos-frontend
 /sites/modules/theme-default/ui/public
