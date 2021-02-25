@@ -1,7 +1,6 @@
 # vim swapfiles
 *.swp
 .DS_Store
-package-lock.json
 /locales
 npm-debug.log
 /data
