@@ -14,7 +14,6 @@ npm-debug.log
 */public/uploads
 */public/svgs/*.svg
 */public/apos-minified
-/data/temp/uploadfs
 node_modules
 # This folder is created on the fly and contains symlinks updated at startup (we'll come up with a Windows solution that actually copies things)
 /public/modules
@@ -32,3 +31,5 @@ dashboard/modules/assets/public/css/site.css
 dashboard/modules/assets/public/js/site.js
 sites/modules/theme-*/public/js/site.js
 sites/modules/theme-*/public/css/site.css
+# Deployed, but not committed
+/release-id
