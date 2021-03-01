@@ -3,10 +3,10 @@
 # have any effect on unrelated subdirectories of node_modules
 
 /data
-/temp
 /public/uploads
-/public/modules
 /public/apos-minified
 .git
 .gitignore
 # We DO deploy node_modules to the apostrophe cloud
+# We DO deploy release-id to the apostrophe cloud (from the worker
+# that generates it)
