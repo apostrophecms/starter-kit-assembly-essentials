@@ -7,6 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 {% endblock %}
 
+{% block extraHead %}
+  {% if data.global.googleFontFamiliesUrl %}
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="{{ data.global.googleFontFamiliesUrl }}" rel="stylesheet" />
+  {% endif %}
+{% endblock %}
+
 {% block beforeMain %}
   {{ navigation.render(data.global) }}  
 {% endblock %}
