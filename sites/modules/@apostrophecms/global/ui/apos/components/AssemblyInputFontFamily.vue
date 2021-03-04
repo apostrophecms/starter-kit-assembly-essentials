@@ -56,7 +56,6 @@ export default {
         label: family
       };
     }) ];
-    console.log(JSON.stringify(choices, null, '  '));
     return {
       choices
     };
