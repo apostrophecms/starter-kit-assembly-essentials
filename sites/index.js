@@ -64,21 +64,10 @@ module.exports = function (site) {
             },
             baseFont: {
               label: 'Font',
-              type: 'select',
+              type: 'assemblyFontFamily',
               help: 'Base font family for the website',
               selector: 'body',
-              property: 'font-family',
-              choices: [
-                {
-                  label: 'Helvetica',
-                  value: 'helvetica',
-                  def: true
-                },
-                {
-                  label: 'Times',
-                  value: 'times'
-                }
-              ]
+              property: 'font-family'
             },
             baseFontSize: {
               label: 'Size',
@@ -108,21 +97,10 @@ module.exports = function (site) {
             },
             titleFont: {
               label: 'Font',
-              type: 'select',
+              type: 'assemblyFontFamily',
               help: 'Base font family for the website',
               selector: 'h1',
-              property: 'font-family',
-              choices: [
-                {
-                  label: 'Helvetica',
-                  value: 'helvetica',
-                  def: true
-                },
-                {
-                  label: 'Times',
-                  value: 'times'
-                }
-              ]
+              property: 'font-family'
             }
           }
         },
