@@ -20,7 +20,8 @@ module.exports = {
               minSize: [ 500, 500 ],
               max: 1
             }
-          }
+          },
+          max: 1
         }
       },
       theme: {
