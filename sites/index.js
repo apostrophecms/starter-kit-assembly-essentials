@@ -41,7 +41,9 @@ module.exports = function (site) {
       // used across all sites
       'helpers': {},
       'default-page': {},
-      'home-page': {},
+
+      // The @apostrophecms/home-page module always exists, no need to activate it here
+
       // required for bundled modules or extending views
       '@apostrophecms-pro/basics': {},
       // optional widgets

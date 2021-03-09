@@ -6,7 +6,7 @@ module.exports = {
         label: 'Default'
       },
       {
-        name: 'home-page',
+        name: '@apostrophecms/home-page',
         label: 'Home'
       }
     ]
