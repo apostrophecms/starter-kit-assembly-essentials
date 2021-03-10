@@ -47,7 +47,7 @@ export default {
     if (!this.field.required) {
       choices.unshift({
         label: 'Default',
-        value: null
+        value: ''
       });
     }
     choices = [ ...choices, ...apos.global.fontFamilies.map(family => {
