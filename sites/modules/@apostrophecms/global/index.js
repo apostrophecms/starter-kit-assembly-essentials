@@ -68,7 +68,7 @@ module.exports = {
     self.apos.schema.addFieldType({
       name: 'assemblyFontFamily',
       convert: async function (req, field, data, object) {
-        const choices = req.data.global.fontFamilies.map(family => {
+        const choices = (req.data.global.fontFamilies || []).map(family => {
           return {
             value: family,
             label: family
