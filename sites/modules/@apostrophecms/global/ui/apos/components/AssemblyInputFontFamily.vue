@@ -60,6 +60,20 @@ export default {
       choices
     };
   },
+  watch: {
+    next() {
+      if (this.next == null) {
+        // Conformable to the type needed to select the first element
+        this.next = '';
+      }
+    }
+  },
+  mounted() {
+    if (this.next == null) {
+      // Conformable to the type needed to select the first element
+      this.next = '';
+    }
+  },
   methods: {
     validate(value) {
       if (this.field.required && !value.length) {
