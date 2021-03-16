@@ -12,6 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="{{ data.global.googleFontFamiliesUrl }}" rel="stylesheet" />
   {% endif %}
+  {% if data.isDev %}
+    {# NOTE: Allows webpack to do hot module reloading.
+      Can remove if you're not webpacking your assets. #}
+    <link href="http://localhost:9002/wp/theme-{{ data.theme }}.css" rel="stylesheet" />
+  {% endif %}
 {% endblock %}
 
 {% block beforeMain %}
@@ -23,4 +28,10 @@
   <footer>
     {%  area data.global, 'footer' %}
   </footer>
+{% endblock %}
+
+{% block extraBody %}
+    {# NOTE: Allows webpack to do hot module reloading.
+      Can remove if you're not webpacking your assets. #}
+    <script src="http://localhost:9002/wp/theme-{{ data.theme }}.js"></script>
 {% endblock %}
