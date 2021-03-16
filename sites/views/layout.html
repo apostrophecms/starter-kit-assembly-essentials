@@ -31,7 +31,9 @@
 {% endblock %}
 
 {% block extraBody %}
+  {% if data.isDev %}
     {# NOTE: Allows webpack to do hot module reloading.
       Can remove if you're not webpacking your assets. #}
     <script src="http://localhost:9002/wp/theme-{{ data.theme }}.js"></script>
+  {% endif %}
 {% endblock %}
