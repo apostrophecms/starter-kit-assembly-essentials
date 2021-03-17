@@ -1,6 +1,7 @@
 # vim swapfiles
 *.swp
 .DS_Store
+/dashboard/locales
 /locales
 npm-debug.log
 /data

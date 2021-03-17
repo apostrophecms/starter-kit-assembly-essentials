@@ -41,7 +41,7 @@ module.exports = {
         addFontFamilies(req, doc, options) {
           if (req.data.global) {
             // Allow legacy | syntax too
-            doc.googleFontFamilies = doc.googleFontFamiliesInput.split(/[|\r\n]+/).filter(family => family.length > 0);
+            doc.googleFontFamilies = (doc.googleFontFamiliesInput || '').split(/[|\r\n]+/).filter(family => family.length > 0);
             doc.googleFontFamiliesUrl =  'https://fonts.googleapis.com/css2?' + qs.stringify({
               family: req.data.global.googleFontFamilies,
               display: 'swap'
