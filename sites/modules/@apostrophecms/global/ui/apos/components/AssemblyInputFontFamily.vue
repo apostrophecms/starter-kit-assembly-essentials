@@ -50,12 +50,12 @@ export default {
         value: ''
       });
     }
-    choices = [ ...choices, ...apos.global.fontFamilies.map(family => {
+    choices = [ ...choices, ...((apos.global.fontFamilies || []).map(family => {
       return {
         value: family,
         label: family
       };
-    }) ];
+    })) ];
     return {
       choices
     };
