@@ -1,5 +1,3 @@
-const richText = require('@apostrophecms-pro/basics/lib/rich-text');
-
 module.exports = {
   fields: {
     add: {
@@ -8,20 +6,7 @@ module.exports = {
         label: 'Main',
         options: {
           widgets: {
-            '@apostrophecms-pro/basics-column': {
-              widgets: {
-                '@apostrophecms/rich-text': {
-                  styles: richText.styles,
-                  toolbar: richText.toolbars.BASE
-                },
-                '@apostrophecms-pro/basics-image': {},
-                '@apostrophecms-pro/basics-button': {},
-                '@apostrophecms-pro/basics-card': {},
-                '@apostrophecms-pro/basics-hero': {},
-                '@apostrophecms/video': {},
-                '@apostrophecms/html': {}
-              }
-            }
+            '@apostrophecms-pro/basics-column': {}
           }
         }
       }
