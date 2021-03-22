@@ -7,7 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 {% endblock %}
 
-{% block extraHead %}
+{% block standardHead %}
+  {# Use standardHead and super() rather than extraHead to ensure palette injects after it #}
+  {{ super() }}
   {% if data.global.googleFontFamiliesUrl %}
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="{{ data.global.googleFontFamiliesUrl }}" rel="stylesheet" />
