@@ -47,7 +47,7 @@ module.exports = function (site) {
       // required for bundled modules or extending views
       '@apostrophecms-pro/basics': {},
       // optional widgets
-      '@apostrophecms-pro/basics-image-widget': {},
+      '@apostrophecms-pro/basics-slideshow-widget': {},
       '@apostrophecms-pro/basics-column-widget': {},
       '@apostrophecms-pro/basics-button-widget': {},
       '@apostrophecms-pro/basics-card-widget': {},

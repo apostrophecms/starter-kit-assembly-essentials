@@ -7,7 +7,7 @@ module.exports = {
         styles: richText.styles,
         toolbar: richText.toolbars.BASE
       },
-      '@apostrophecms-pro/basics-image': {},
+      '@apostrophecms-pro/basics-slideshow': {},
       '@apostrophecms-pro/basics-button': {},
       '@apostrophecms-pro/basics-card': {},
       '@apostrophecms-pro/basics-hero': {},
