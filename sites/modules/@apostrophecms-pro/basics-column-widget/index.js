@@ -11,6 +11,7 @@ module.exports = {
       '@apostrophecms-pro/basics-button': {},
       '@apostrophecms-pro/basics-card': {},
       '@apostrophecms-pro/basics-hero': {},
+      '@apostrophecms/image': {},
       '@apostrophecms/video': {},
       '@apostrophecms/html': {}
     }
