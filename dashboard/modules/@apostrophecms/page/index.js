@@ -13,14 +13,12 @@ module.exports = {
         },
         _children: [
           {
-            slug: '/trash',
-            parkedId: 'trash',
-            type: '@apostrophecms/trash',
-            trash: true,
+            slug: '/archive',
+            parkedId: 'archive',
+            type: '@apostrophecms/archive-page',
+            archived: true,
             orphan: true,
-            _defaults: {
-              title: 'Trash'
-            }
+            title: 'Archive'
           }
         ]
       }
