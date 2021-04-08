@@ -10,6 +10,15 @@ module.exports = {
           }
         }
       }
+    },
+    group: {
+      basics: {
+        label: 'Basics',
+        fields: [
+          'title',
+          'main'
+        ]
+      }
     }
   }
 };
