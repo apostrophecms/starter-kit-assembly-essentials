@@ -19,7 +19,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@apostrophecms-pro/basics": "^1.0.0-alpha.3.1",
-    "@apostrophecms-pro/multisite": "^3.0.0-alpha.6.1",
+    "@apostrophecms-pro/multisite": "^3.0.0-alpha.6.2",
     "@apostrophecms-pro/palette": "^3.0.0-alpha.4",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
