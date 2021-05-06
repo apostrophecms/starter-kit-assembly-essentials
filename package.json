@@ -1,6 +1,6 @@
 {
   "name": "a3-assembly-boilerplate",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A boilerplate for multisite content-management in A3",
   "private": true,
   "scripts": {
@@ -19,11 +19,11 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@apostrophecms-pro/basics": "^1.0.0-alpha.3.1",
-    "@apostrophecms-pro/multisite": "^3.0.0-alpha.5",
-    "@apostrophecms-pro/palette": "^3.0.0-alpha.4",
+    "@apostrophecms-pro/multisite": "^3.0.0-alpha.6.2",
+    "@apostrophecms-pro/palette": "^3.0.0-alpha.5",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "apostrophe": "^3.0.0-alpha.7",
+    "apostrophe": "^3.0.0-beta.1",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",
     "css-loader": "^5.0.1",
