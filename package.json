@@ -23,7 +23,7 @@
     "@apostrophecms-pro/palette": "^3.0.0-alpha.5",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "apostrophe": "^3.0.0-beta.1",
+    "apostrophe": "^3.0.0-beta.1.1",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",
     "css-loader": "^5.0.1",
