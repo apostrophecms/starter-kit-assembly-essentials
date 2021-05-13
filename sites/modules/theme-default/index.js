@@ -8,5 +8,5 @@ module.exports = {
     // Silence startup warning since this is just an empty
     // starting point for your own work
     ignoreNoCodeWarning: true
-  },
+  }
 };
