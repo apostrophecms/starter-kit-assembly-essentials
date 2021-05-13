@@ -6,7 +6,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "start": "node app",
-    "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev node app @apostrophecms/asset:build --temporary-site --theme=default) && ENV=dev webpack serve & ENV=dev node app"
+    "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev ./scripts/for-each-theme @apostrophecms/asset:build) && ENV=dev webpack serve & ENV=dev node app"
   },
   "repository": {
     "type": "git",

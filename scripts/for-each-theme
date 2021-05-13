@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const spawn = require('child_process').spawnSync;
+const themes = require('../themes.js').map(theme => theme.value);
+
+for (const theme of themes) {
+  const args = [ 'app', ...process.argv.slice(2), '--temporary-site', `--theme=${theme}` ];
+  console.log('>>', args);
+  const result = spawn('node', args, {
+    encoding: 'utf8',
+    stdio: 'inherit'
+  });
+  if (result.status !== 0) {
+    throw new Error(result.status || ('exited on signal ' + result.signal));
+  }
+}
