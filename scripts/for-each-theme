@@ -5,7 +5,6 @@ const themes = require('../themes.js').map(theme => theme.value);
 
 for (const theme of themes) {
   const args = [ 'app', ...process.argv.slice(2), '--temporary-site', `--theme=${theme}` ];
-  console.log('>>', args);
   const result = spawn('node', args, {
     encoding: 'utf8',
     stdio: 'inherit'
