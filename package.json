@@ -4,8 +4,8 @@
   "description": "A boilerplate for multisite content-management in A3",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production webpack",
-    "start": "node app",
+    "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'npx webpack && node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
+    "start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production node app",
     "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev ./scripts/for-each-theme @apostrophecms/asset:build) && ENV=dev webpack serve & ENV=dev node app"
   },
   "repository": {
