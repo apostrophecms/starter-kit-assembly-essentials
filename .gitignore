@@ -1,6 +1,7 @@
 # vim swapfiles
 *.swp
 .DS_Store
+/dashboard/locales
 /locales
 npm-debug.log
 /data
@@ -9,7 +10,7 @@ npm-debug.log
 /dashboard/modules/asset/ui/public
 /sites/apos-build
 /sites/public/apos-frontend
-/sites/modules/theme-default/ui/public
+/sites/modules/theme-*/ui/public
 */public/modules
 */public/uploads
 */public/svgs/*.svg

@@ -152,7 +152,7 @@ If you have already started a single-site project, you can move your modules dir
 
 Apostrophe Assembly and the multisite module are designed to accommodate hundreds of websites, or more, running on a single codebase. But, you may need some differences in appearance and behavior that go beyond what the palette editor can provide. For that you can create multiple themes. Each site is set via the dashboard UI to use a single theme and will typically stay with that theme throughout its lifetime.
 
-You might not need more than one theme. If that's the case, just build out the `default` theme to suit your needs.
+You might not need more than one theme. If that's the case, just build out the `default` theme to suit your needs, and remove the `alternate` theme from `themes.js`. You can also remove the `sites/modules/theme-alternate` module and `sites/lib/theme-alternate.js`.
 
 #### Adding a New Theme
 
@@ -163,6 +163,10 @@ module.exports = [
   {
     value: 'default',
     label: 'Default'
+  },
+  {
+    value: 'alternate',
+    label: 'Alternate'
   }
 ];
 ```
