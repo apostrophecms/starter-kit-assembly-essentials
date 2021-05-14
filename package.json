@@ -18,9 +18,9 @@
   "author": "Apostrophe Technologies",
   "license": "UNLICENSED",
   "dependencies": {
-    "@apostrophecms-pro/basics": "^1.0.0-alpha.3.1",
-    "@apostrophecms-pro/multisite": "^3.0.0-alpha.6.2",
-    "@apostrophecms-pro/palette": "^3.0.0-alpha.5",
+    "@apostrophecms-pro/basics": "git+ssh://git@github.com/apostrophecms/basics",
+    "@apostrophecms-pro/multisite": "git+ssh://git@github.com/apostrophecms/multisite",
+    "@apostrophecms-pro/palette": "git+ssh://git@github.com/apostrophecms/palette",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "apostrophe": "github:apostrophecms/apostrophe#3.0",
