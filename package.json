@@ -20,10 +20,10 @@
   "dependencies": {
     "@apostrophecms-pro/basics": "^1.0.0-alpha.3.1",
     "@apostrophecms-pro/multisite": "^3.0.0-alpha.7",
-    "@apostrophecms-pro/palette": "^3.0.0-alpha.5",
+    "@apostrophecms-pro/palette": "^3.0.0-alpha.6",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "apostrophe": "^3.0.0-beta.1.2",
+    "apostrophe": "^3.0.0-beta.2",
     "babel-loader": "^8.2.2",
     "concurrently": "^3.5.1",
     "css-loader": "^5.0.1",
