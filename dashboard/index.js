@@ -6,13 +6,6 @@ module.exports = {
   stagingBaseUrl: `https://dashboard.${domains.staging}`,
   prodBaseUrl: `https://dashboard.${domains.prod}`,
   modules: {
-    '@apostrophecms/template': {
-      options: {
-        viewsFolderFallback: path.join(
-          __dirname, 'views'
-        )
-      }
-    },
     '@apostrophecms/attachment': {
       options: {
         uploadfs: {

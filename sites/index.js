@@ -7,13 +7,6 @@ module.exports = function (site) {
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
     modules: {
-      '@apostrophecms/template': {
-        options: {
-          viewsFolderFallback: path.join(
-            __dirname, 'views'
-          )
-        }
-      },
       '@apostrophecms/attachment': {
         options: {
           uploadfs: {
