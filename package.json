@@ -3,20 +3,12 @@
   "version": "1.2.0",
   "description": "A boilerplate for multisite content-management in A3",
   "private": true,
-  "nodemonConfig": {
-    "delay": 1000,
-    "verbose": true,
-    "watch": [
-      "./app.js",
-      "./modules/**/*",
-      "./lib/**/*.js",
-      "./views/**/*.html"
-    ]
-  },
   "scripts": {
     "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
-    "start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production node app",
-    "dev": "(ENV=dev nodemon --delay 1000ms -x \"node app.js\""
+    "//": "because nodemon insists on executing 'start' if it exists, we must distinguish production",
+    "production-start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
+    "start": "node app",
+    "dev": "ENV=dev nodemon"
   },
   "repository": {
     "type": "git",
