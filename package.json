@@ -1,6 +1,6 @@
 {
   "name": "a3-assembly-boilerplate",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "A boilerplate for multisite content-management in A3",
   "private": true,
   "scripts": {
