@@ -1,6 +1,5 @@
 {
   "delay": "1000ms",
-  "verbose": "true",
   "ignore": [
     "sites/apos-build/**",
     "sites/public/uploads/**",
