@@ -1,12 +1,14 @@
 {
   "name": "a3-assembly-boilerplate",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A boilerplate for multisite content-management in A3",
   "private": true,
   "scripts": {
-    "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'npx webpack && node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
-    "start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production node app",
-    "dev": "(ENV=dev node app @apostrophecms/asset:build --site=dashboard && ENV=dev ./scripts/for-each-theme @apostrophecms/asset:build) && ENV=dev webpack serve & ENV=dev node app"
+    "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
+    "//": "because nodemon insists on executing 'start' if it exists, we must distinguish production",
+    "production-start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
+    "start": "node app",
+    "dev": "ENV=dev nodemon"
   },
   "repository": {
     "type": "git",
@@ -21,24 +23,13 @@
     "@apostrophecms-pro/basics": "git+ssh://git@github.com/apostrophecms/basics",
     "@apostrophecms-pro/multisite": "git+ssh://git@github.com/apostrophecms/multisite",
     "@apostrophecms-pro/palette": "git+ssh://git@github.com/apostrophecms/palette",
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "apostrophe": "github:apostrophecms/apostrophe#3.0",
-    "babel-loader": "^8.2.2",
-    "concurrently": "^3.5.1",
-    "css-loader": "^5.0.1",
-    "mini-css-extract-plugin": "^1.3.4",
+    "apostrophe": "github:apostrophecms/apostrophe",
     "node-fetch": "^2.6.1",
-    "node-sass": "^4.11.0",
+    "nodemon": "^2.0.7",
     "qs": "^6.9.6",
-    "require-all": "^3.0.0",
-    "sass-loader": "^10.1.1",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.16.0",
-    "webpack-cli": "^4.4.0"
+    "require-all": "^3.0.0"
   },
   "devDependencies": {
-    "stylelint-config-punkave": "^1.1.3",
-    "webpack-dev-server": "^3.11.2"
+    "stylelint-config-punkave": "^1.1.3"
   }
 }
