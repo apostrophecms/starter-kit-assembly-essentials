@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This project requires a webpack build. Assembly will
+# This project requires an asset build. Assembly will
 # run this script at the appropriate step in the deployment
 # process.
 
