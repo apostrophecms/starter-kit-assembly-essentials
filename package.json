@@ -8,7 +8,7 @@
     "//": "because nodemon insists on executing 'start' if it exists, we must distinguish production",
     "production-start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
     "start": "node app",
-    "dev": "ENV=dev nodemon"
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
