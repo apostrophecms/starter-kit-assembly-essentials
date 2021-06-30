@@ -14,8 +14,7 @@ module.exports = {
   handlers(self, options) {
     return {
       '@apostrophecms/page:beforeSend': {
-        devAndTheme(req) {
-          req.data.isDev = process.env.ENV === 'dev';
+        setTheme(req) {
           req.data.theme = self.apos.options.theme;
         }
       }
