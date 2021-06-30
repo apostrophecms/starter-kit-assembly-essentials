@@ -190,34 +190,21 @@ The `config` object already contains what was configured in `sites/index.js`. He
 
 In this case we add one custom module, `theme-default`,  when the default theme is active. **It is a best practice to push your theme's frontend assets to Apostrophe in a module like this,** named after the theme. If your themes share any assets, then they should be imported into the appropriate `.js` or `.scss` master file by each theme.
 
-#### Frontend Assets with webpack
+#### Modern Frontend Assets Without A Custom Build Process
 
-This project comes with a sample `webpack.config.js` file. You have great latitude to use webpack however you like. But, there are a few things to know:
+Beginning with the 1.1.0 release of `a3-assembly-boilerplate`, there is no need for Webpack for simpler cases. Specifically, you can follow our documentation and place your modern JavaScript code in the `ui/src/index.js` file of any module, or use `import` statements in that file to import it there. As noted in our documentation, it is **important for `ui/src/index.js` to export a function as its default export.** This function will be invoked to initialize your module at a safe time when `apos.http`, `apos.util`, etc. are already available.
 
-* `webpack.config.js` contains builds for both the dashboard site (see `const dashboard = { ... }`) and the themes (see `const themeConfigs = themes.map(...)`).
-* **The entry point for the `default` theme's JavaScript is:** `./modules/theme-default/src/js/index.js`
-* **The entry point for the `default` theme's styles is:** `./modules/theme-default/src/css/index.scss`
-* The resulting bundle is pushed to the browser by apostrophe as part of a minified bundle in the normal way in staging and production. In development it is pushed by the webpack development server.
+You may also place Sass SCSS code in the `ui/src/index.scss` file of any module, and use `import` statements in that file to bring in more Sass SCSS code.
+
+To include theme-specific code, place it in the `ui/src/index.scss` or `ui/src/index.js` file of the appropriate theme module. The provided example theme modules are `theme-default` and `theme-alternate`.
+
+#### Frontend Assets With Your Own Build Process
+
+Beginning with the 1.1.0 release of `a3-assembly-boilerplate`, a sample webpack build is not included as standard equipment, as `ui/src` suffices for most needs. However, if you need to use webpack or another custom build process, the solution is to configure the output of your build process to be a `ui/public/something.js` file in any module in your Apostrophe project. As above you can create a build that is included in only one theme by writing its output to the `ui/src` subdirectory of that theme module.
 
 #### Developing For IE11
 
-The provided webpack build includes hot reloading, so your frontend changes will be automatically reloaded without the need to manually restart or refresh the page. However, if you are developing for IE11 and wish to test locally, you'll need to start the server a little differently:
-
-```
-IE11=1 npm run dev
-```
-
-**While running in this mode hot reload is not available.** We are tracking a related issue with webpack and when it is resolved we hope to remove the need for this separate mode.
-
-> In production this is not an issue. Babel is always used and the webpack bundle that is built is always IE11-compatible.
-
-#### Frontend Assets Without webpack
-
-If you prefer, you can place `.css` and `.js` files in the `ui/public` subdirectory of any module. Apostrophe will automatically include these in its bundle when serving assets. However note that the live reload mechanism will only catch webpack assets, so you'll need to restart `npm run dev`. This technique is typically only used for assets of npm modules shared across projects, which often have their own build process to create them.
-
-#### Frontend webpack Assets For Themes
-
-Your `modules/theme-THEMENAME` module must have at least a `src/js/index.js` file and a `src/css/index.scss` file. These are your webpack "entry points" for that particular theme. They may import other files as needed.
+With Microsoft ending Internet Explorer 11 support in 2022, we no longer enable IE11 support by default. However you can enable IE11 support by setting the `es5: true` option to the `@apostrophecms/asset` module. This will create a compatibility build of your `ui/src` JavaScript. Please note that editing is never supported in IE11. See the Apostrophe documentation for more information.
 
 #### Serving Static Files: Fonts and Static Images
 
