@@ -7,7 +7,8 @@ module.exports = {
         label: 'Main',
         options: {
           widgets: {
-            '@apostrophecms-pro/basics-column': {}
+            '@apostrophecms-pro/basics-column': {},
+            '@apostrophecms-pro/basics-hero': {}
           }
         }
       }
