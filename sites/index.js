@@ -1,6 +1,3 @@
-const path = require('path');
-const paletteConfig = require('./modules/@apostrophecms-pro/palette/lib');
-
 module.exports = function (site) {
   const config = {
     bundles: [ '@apostrophecms-pro/basics' ],
@@ -32,7 +29,7 @@ module.exports = function (site) {
       // },
       // Just a nice place to keep our helper functions and macros that are
       // used across all sites
-      'helpers': {},
+      helpers: {},
       'default-page': {},
 
       // The @apostrophecms/home-page module always exists, no need to activate it here
@@ -128,18 +125,4 @@ module.exports = function (site) {
   // enabling additional modules etc.
   require(`./lib/theme-${site.theme}.js`)(site, config);
   return config;
-};
-
-// Generate URL prefixes for locales, if the site is localized
-
-function getPrefixes (locales) {
-  if (!(locales && locales.length)) {
-    return null;
-  }
-  const prefixes = {};
-
-  locales.forEach(locale => {
-    prefixes[locale.name] = '/' + locale.name.toLowerCase();
-  });
-  return prefixes;
 };

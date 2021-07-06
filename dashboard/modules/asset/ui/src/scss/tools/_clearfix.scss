@@ -1,4 +1,4 @@
-.t-clearfix:after, .t-clearfix:before {
+.t-clearfix::after, .t-clearfix::before {
   visibility: hidden;
   display: block;
   height: 0;
