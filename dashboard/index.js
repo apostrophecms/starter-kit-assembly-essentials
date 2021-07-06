@@ -1,5 +1,3 @@
-const path = require('path');
-
 const domains = require('../domains.js');
 
 module.exports = {
@@ -13,9 +11,9 @@ module.exports = {
         }
       }
     },
-    'helper': {},
-    'site': {},
+    helper: {},
+    site: {},
     'site-page': {},
-    'asset': {}
+    asset: {}
   }
 };

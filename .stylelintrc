@@ -1,3 +1,7 @@
 {
-  "extends": "stylelint-config-punkave"
+  "extends": "stylelint-config-apostrophe",
+  "rules": {
+    "scss/selector-nest-combinators": null,
+    "at-rule-disallowed-list": ["extend"]
+  }
 }

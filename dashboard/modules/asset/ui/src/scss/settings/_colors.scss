@@ -1,14 +1,14 @@
-$white: #FFF;
+$white: #fff;
 
-$blue: #66F;
-$green: #00BF9A;
-$red: #EA433A;
-$purple: #B327BF;
-$black: #1D232B;
-$light: #BABABA;
-$background: #11151F;
-$input: #2C354D;
-$input-border: #8895A7;
+$blue: #66f;
+$green: #00bf9a;
+$red: #ea433a;
+$purple: #b327bf;
+$black: #1d232b;
+$light: #bababa;
+$background: #11151f;
+$input: #2c354d;
+$input-border: #8895a7;
 
 .o-light { color: $light; }
 
@@ -23,7 +23,9 @@ $colors: (
   @if map-has-key($colors, $key) {
     @return map-get($colors, $key);
   }
+
   @warn 'Unknown `#{$key}` in $colors.';
+
   @return null;
 }
 
@@ -31,6 +33,8 @@ $colors: (
   @if map-has-key($colors, $color) {
     @return rgba(map-get($colors, $color), $opacity);
   }
+
   @warn 'Unknown `#{$color}` in $colors.';
+
   @return null;
 }
