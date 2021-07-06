@@ -1,3 +1,4 @@
 src/js/vendor/**/*.js
 public
 node_modules
+apos-build
