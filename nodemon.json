@@ -2,11 +2,12 @@
   "delay": 1000,
   "verbose": true,
   "watch": [
-    "./dashboard/app.js",
+    "./app.js",
+    "./dashboard/index.js",
     "./dashboard/modules/**/*",
     "./dashboard/lib/**/*.js",
     "./dashboard/views/**/*.html",
-    "./sites/app.js",
+    "./sites/index.js",
     "./sites/modules/**/*",
     "./sites/lib/**/*.js",
     "./sites/views/**/*.html"
