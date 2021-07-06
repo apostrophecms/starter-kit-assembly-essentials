@@ -1,5 +1,5 @@
 module.exports = {
   options: {
-    className: 'image'
+    className: 'o-widget o-widget--image'
   }
 };
