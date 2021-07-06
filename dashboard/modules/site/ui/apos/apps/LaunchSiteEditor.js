@@ -5,6 +5,7 @@ export default function() {
     }
     e.preventDefault();
     e.stopPropagation();
+    // TODO wrap in modules ready?
     apos.bus.$emit('admin-menu-click', {
       itemName: 'site:editor',
       props: {
@@ -13,4 +14,3 @@ export default function() {
     });
   });
 }
-

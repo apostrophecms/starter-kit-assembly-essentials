@@ -4,17 +4,20 @@ const baseTextToolbar = [
   'Split', 'NumberedList', 'BulletedList'
 ];
 const baseTextStyles = [
-  { name: 'Body', element: 'p' }
+  {
+    name: 'Body',
+    element: 'p'
+  }
 ];
 const widgets = {
-  'gallery': {}
+  gallery: {}
 };
 
 module.exports = {
   options: {
     alias: 'helpers',
     baseTextStyles: baseTextStyles,
-    baseTextToolbar: baseTextToolbar,
+    baseTextToolbar: baseTextToolbar
   },
   helpers(self, options) {
     return {
