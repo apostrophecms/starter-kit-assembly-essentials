@@ -42,7 +42,9 @@ $font-weight: (
   @if map-has-key($font-family, $key) {
     @return map-get($font-family, $key);
   }
+
   @warn 'Unknown `#{$key}` in $font-family.';
+
   @return null;
 }
 
@@ -50,7 +52,9 @@ $font-weight: (
   @if map-has-key($font-weight, $key) {
     @return map-get($font-weight, $key);
   }
+
   @warn 'Unknown `#{$key}` in $font-weight.';
+
   @return null;
 }
 
@@ -58,9 +62,11 @@ $font-weight: (
   @if $family {
     font-family: family($family);
   }
+
   @if $type and $size {
     font-size: map-get(map-get($font-size, $type), $size);
   }
+
   @if $weight {
     font-weight: weight($weight); /* stylelint-disable-line */
   }
