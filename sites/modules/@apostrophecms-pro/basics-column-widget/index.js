@@ -2,6 +2,7 @@ const richText = require('@apostrophecms-pro/basics/lib/rich-text');
 
 module.exports = {
   options: {
+    class: 'o-container',
     widgets: {
       '@apostrophecms/rich-text': {
         styles: richText.styles,
