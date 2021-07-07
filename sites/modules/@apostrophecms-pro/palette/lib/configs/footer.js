@@ -1,42 +1,41 @@
 const config = {
-  schema: [
-    {
-      name: 'footerBgColor',
+  add: {
+    footerBgColor: {
       label: 'Background Color',
       type: 'color',
       selector: '.c-footer',
       property: 'background-color'
     },
-    {
-      name: 'footerTextColor',
+    footerTextColor: {
       label: 'Text Color',
       type: 'color',
       selector: '.c-footer',
       property: 'color'
     },
-    {
-      name: 'footerAccentColor',
+    footerAccentColor: {
       label: 'Accent Color',
       type: 'color',
       selector: '.c-footer__accent',
       property: 'color'
     },
-    {
-      name: 'footerBubbleColor',
+    footerBubbleColor: {
       label: 'Icon Bubble Color',
       type: 'color',
       selector: '.c-footer__icon-wrapper',
       property: 'background-color'
     }
-  ]
-};
-
-config.arrangement = {
-  name: 'footer',
-  label: 'Footer Settings',
-  fields: config.schema.map(field => {
-    return field.name;
-  })
+  },
+  group: {
+    footer: {
+      label: 'Footer Settings',
+      fields: [
+        'footerBgColor',
+        'footerTextColor',
+        'footerAccentColor',
+        'footerBubbleColor'
+      ]
+    }
+  }
 };
 
 module.exports = config;
