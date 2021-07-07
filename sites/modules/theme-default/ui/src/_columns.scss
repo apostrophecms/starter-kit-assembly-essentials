@@ -1,8 +1,7 @@
-/* TODO: turn 32px into $gutter when SCSS */
 .column-widget--half,
 .column-widget--thirds,
 .column-widget--quarters,
 .column-widget--two-thirds-one-third,
 .column-widget--three-fourths-one-fourth {
-  grid-gap: 32px;
+  grid-gap: $gutter;
 }
