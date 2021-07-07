@@ -1,20 +1,6 @@
 // Styles for this theme
 
 // If you need to share styles across themes, just @import them here
-// Settings
-@import 'settings/_fonts';
-@import 'settings/_layout';
-
-// Utilities
-@import 'utilities/_typography';
-
-// Base
-@import '_document';
-@import '_type';
-@import '_grid';
-
-// Components
-@import '_columns';
 
 .o-widget--image {
   max-width: 100%;
