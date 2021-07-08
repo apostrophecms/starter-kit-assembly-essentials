@@ -8,7 +8,7 @@ module.exports = [
     label: 'Default'
   },
   {
-    value: 'alternate',
-    label: 'Alternate'
+    value: 'demo',
+    label: 'Demo'
   }
 ];

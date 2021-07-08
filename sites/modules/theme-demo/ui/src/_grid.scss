@@ -1,0 +1,10 @@
+.o-container {
+  max-width: 108rem;
+  margin: 0 auto $gutter;
+}
+
+.o-widget {
+  .o-container & {
+    margin-bottom: $gutter;
+  }
+}

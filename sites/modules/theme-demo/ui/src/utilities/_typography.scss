@@ -1,0 +1,4 @@
+// Generate a font-size based on the scale
+@mixin font-size($size: 1, $ratio: $font-ratio) {
+  font-size: #{$size * 1rem * $ratio};
+}

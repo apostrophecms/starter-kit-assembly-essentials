@@ -8,11 +8,13 @@
 {% endblock %}
 
 {% block beforeMain %}
-  {{ navigation.render(data.global) }}  
+  {{ navigation.render(data.global) }}
+  <main>
 {% endblock %}
 
 {% block afterMain %}
   {{ super() }}
+  </main>
   <footer>
     {%  area data.global, 'footer' %}
   </footer>
