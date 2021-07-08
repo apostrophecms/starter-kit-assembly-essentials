@@ -9,10 +9,18 @@ module.exports = {
         styles: richText.styles,
         toolbar: richText.toolbars.BASE
       },
-      '@apostrophecms-pro/basics-slideshow': {},
-      '@apostrophecms-pro/basics-button': {},
-      '@apostrophecms-pro/basics-card': {},
-      '@apostrophecms-pro/basics-hero': {},
+      '@apostrophecms-pro/basics-slideshow': {
+        class: 'o-widget'
+      },
+      '@apostrophecms-pro/basics-button': {
+        class: 'o-widget'
+      },
+      '@apostrophecms-pro/basics-card': {
+        class: 'o-widget'
+      },
+      '@apostrophecms-pro/basics-hero': {
+        class: 'o-widget'
+      },
       '@apostrophecms/image': {},
       '@apostrophecms/video': {},
       '@apostrophecms/html': {}

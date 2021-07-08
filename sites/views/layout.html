@@ -8,14 +8,18 @@
 {% endblock %}
 
 {% block beforeMain %}
-  {{ navigation.render(data.global) }}
+  <header class="header">
+    {{ navigation.render(data.global) }}
+  </header>
   <main>
 {% endblock %}
 
 {% block afterMain %}
   {{ super() }}
   </main>
-  <footer>
-    {%  area data.global, 'footer' %}
+  <footer class="footer">
+    <div class="footer__inner">
+      {%  area data.global, 'footer' %}
+    </div>
   </footer>
 {% endblock %}

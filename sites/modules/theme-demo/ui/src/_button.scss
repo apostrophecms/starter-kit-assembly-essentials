@@ -1,0 +1,12 @@
+.button-widget {
+  text-align: center;
+}
+
+.button__link {
+  display: inline-block;
+  border-radius: 10px;
+  padding: $margin;
+  border: 1px solid $black;
+  text-decoration: none;
+  background-color: $white;
+}

@@ -1,3 +1,5 @@
+const choices = require('../choices');
+
 module.exports = {
   add: {
     backgroundColor: {
@@ -22,17 +24,7 @@ module.exports = {
       selector: 'body',
       property: 'font-size',
       unit: 'px',
-      choices: [
-        {
-          label: '12px',
-          value: '12',
-          def: true
-        },
-        {
-          label: '15px',
-          value: '15'
-        }
-      ]
+      choices: choices.baseSizes
     },
     baseFontColor: {
       label: 'Color',
@@ -47,12 +39,26 @@ module.exports = {
       help: 'Base font family for the website',
       selector: 'h1',
       property: 'font-family'
+    },
+    linkColor: {
+      label: 'Link color',
+      type: 'color',
+      help: 'Default text link color',
+      // TODO: Update rich text data attribute to a class when RTE className
+      // bug is fixed.
+      selector: [ '[data-rich-text] a', '.navigation__link' ],
+      property: 'color',
+      def: 'royalblue'
     }
   },
   group: {
     page: {
       label: 'Page',
-      fields: [ 'backgroundColor', 'primaryColor', 'secondaryColor' ]
+      fields: [
+        'backgroundColor',
+        'primaryColor',
+        'secondaryColor'
+      ]
     },
     typography: {
       label: 'Typography',
@@ -60,11 +66,17 @@ module.exports = {
       group: {
         default: {
           label: 'Default',
-          fields: [ 'baseFont', 'baseFontSize', 'baseFontColor' ]
+          fields: [
+            'baseFont',
+            'baseFontSize',
+            'baseFontColor'
+          ]
         },
         title: {
           label: 'Title',
-          fields: [ 'titleFont' ]
+          fields: [
+            'titleFont'
+          ]
         }
       }
     }

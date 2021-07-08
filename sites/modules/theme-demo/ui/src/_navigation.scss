@@ -1,5 +1,16 @@
+.header {
+  @include font-size(1);
+}
+
 .navigation {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+}
+
+.navigation__link {
+  & + & {
+    margin-left: $margin;
+  }
 }
