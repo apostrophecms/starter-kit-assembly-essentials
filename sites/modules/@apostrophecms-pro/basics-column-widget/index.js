@@ -1,9 +1,9 @@
 const richText = require('@apostrophecms-pro/basics/lib/rich-text');
+const classes = require('../../../lib/helpers/classes');
 
 module.exports = {
   options: {
-    // TODO: Update to `className` when available.
-    class: 'o-container',
+    className: classes.CONTAINER,
     widgets: {
       '@apostrophecms/rich-text': {
         styles: richText.styles,
@@ -12,7 +12,6 @@ module.exports = {
       '@apostrophecms-pro/basics-slideshow': {},
       '@apostrophecms-pro/basics-button': {},
       '@apostrophecms-pro/basics-card': {},
-      '@apostrophecms-pro/basics-hero': {},
       '@apostrophecms/image': {},
       '@apostrophecms/video': {},
       '@apostrophecms/html': {}
