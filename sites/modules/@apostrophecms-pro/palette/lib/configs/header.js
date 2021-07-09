@@ -23,7 +23,7 @@ const config = {
       selector: '.header',
       property: 'font-size',
       unit: 'px',
-      choices: choices.baseSizes
+      choices: choices.BASE_SIZES
     },
     headerPadding: {
       label: 'Vertical padding',

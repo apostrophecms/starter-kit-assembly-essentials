@@ -1,5 +1,5 @@
 module.exports = {
-  baseSizes: [
+  BASE_SIZES: [
     {
       label: '14px',
       value: '14'
