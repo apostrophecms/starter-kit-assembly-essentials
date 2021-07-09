@@ -1,3 +1,5 @@
+const classes = require('./lib/helpers/classes');
+
 module.exports = function (site) {
   const config = {
     bundles: [ '@apostrophecms-pro/basics' ],
@@ -31,22 +33,23 @@ module.exports = function (site) {
       // optional widgets
       '@apostrophecms-pro/basics-slideshow-widget': {
         options: {
-          // TODO: Update to `className` when available in Basics
-          class: 'o-widget'
+          className: classes.WIDGET
         }
       },
       '@apostrophecms-pro/basics-column-widget': {},
-      '@apostrophecms-pro/basics-button-widget': {},
+      '@apostrophecms-pro/basics-button-widget': {
+        options: {
+          className: classes.WIDGET
+        }
+      },
       '@apostrophecms-pro/basics-card-widget': {
         options: {
-          // TODO: Update to `className` when available in Basics
-          class: 'o-widget'
+          className: classes.WIDGET
         }
       },
       '@apostrophecms-pro/basics-hero-widget': {
         options: {
-          // TODO: Update to `className` when available in Basics
-          class: 'o-widget'
+          className: classes.WIDGET
         }
       },
       '@apostrophecms-pro/basics-footer-widget': {},
