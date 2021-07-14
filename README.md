@@ -196,7 +196,7 @@ Beginning with the 1.1.0 release of `a3-assembly-boilerplate`, there is no need 
 
 You may also place Sass SCSS code in the `ui/src/index.scss` file of any module, and use `import` statements in that file to bring in more Sass SCSS code.
 
-To include theme-specific code, place it in the `ui/src/index.scss` or `ui/src/index.js` file of the appropriate theme module. The provided example theme modules are `theme-default` and `theme-alternate`.
+To include theme-specific code, place it in the `ui/src/index.scss` or `ui/src/index.js` file of the appropriate theme module. The provided example theme modules are `theme-default` and `theme-demo`.
 
 #### Frontend Assets With Your Own Build Process
 
