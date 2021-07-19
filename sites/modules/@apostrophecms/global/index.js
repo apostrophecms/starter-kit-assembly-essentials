@@ -21,6 +21,10 @@ module.exports = {
       }
     },
     group: {
+      typography: {
+        label: 'Typography',
+        fields: [ 'googleFontFamiliesInput' ]
+      },
       navigation: {
         label: 'Navigation',
         fields: [ 'navLogo', 'navLogoAlignment', 'navLinks' ]
@@ -28,10 +32,6 @@ module.exports = {
       footer: {
         label: 'Footer',
         fields: [ 'footer' ]
-      },
-      typography: {
-        label: 'Typography',
-        fields: [ 'googleFontFamiliesInput' ]
       }
     }
   },

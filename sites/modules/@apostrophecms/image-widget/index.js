@@ -1,5 +1,7 @@
+const classes = require('../../../lib/helpers/classes');
+
 module.exports = {
   options: {
-    className: 'o-widget o-widget--image'
+    className: `${classes.WIDGET} ${classes.WIDGET}--image'`
   }
 };
