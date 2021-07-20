@@ -6,7 +6,7 @@ module.exports = {
     className: classes.CONTAINER,
     widgets: {
       '@apostrophecms/rich-text': {
-        styles: richText.styles,
+        styles: richText.STYLES,
         toolbar: richText.toolbars.BASE
       },
       '@apostrophecms-pro/basics-slideshow': {},
