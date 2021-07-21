@@ -36,8 +36,8 @@ module.exports = {
     titleFont: {
       label: 'Font',
       type: 'assemblyFontFamily',
-      help: 'Base font family for the website',
-      selector: 'h1',
+      help: 'Font family for website headings',
+      selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
       property: 'font-family'
     },
     linkColor: {
