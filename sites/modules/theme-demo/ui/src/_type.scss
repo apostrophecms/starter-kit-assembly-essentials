@@ -27,10 +27,10 @@ h3 {
 }
 
 h4 {
-  @include font-size(2);
+  @include font-size(1.5);
 
   @media screen and (min-width: 40em) {
-    @include font-size(3);
+    @include font-size(2);
   }
 }
 
