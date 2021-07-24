@@ -3,6 +3,7 @@
     .o-icon--#{$key} {
       $width: nth($value, 1);
       $height: nth($value, 2);
+
       width: #{$width}rem;
       height: #{$height}rem;
     }

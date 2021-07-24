@@ -1,21 +1,23 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-<h1>Welcome to your home page</h1>
-<p>
-This is the home page template, at <code>sites/modules/apostrophe-pages/views/pages/home.html</code>
-</p>
-<p>
-You can use normal <a href="https://docs.apostrophecms.org/">Apostrophe development techniques</a> to populate this page with editable content areas, add more templates, and remove this placeholder text.
-</p>
-<p>
-The master <a href="https://sass-lang.com/">SASS stylesheet</a> for the default theme is located at: <code>modules/theme-default/src/scss/index.scss</code>
-</p>
-<p>
-The master JavaScript browser-side entry point for the default theme is located at: <code>sites/modules/theme-default/ui/src/index.js</code>
-</p>
-<p>
-The master Sass SCSS browser-side entry point for the default theme is located at: <code>sites/modules/theme-default/ui/src/index.scss</code>
-</p>
+<section class="o-container">
+  <h1>Welcome to your home page</h1>
+  <p>
+    This is the home page template, at <code>sites/modules/apostrophe-pages/views/pages/home.html</code>
+  </p>
+  <p>
+    You can use normal <a href="https://docs.apostrophecms.org/">Apostrophe development techniques</a> to populate this page with editable content areas, add more templates, and remove this placeholder text.
+  </p>
+  <p>
+    The master <a href="https://sass-lang.com/">SASS stylesheet</a> for the default theme is located at: <code>modules/theme-default/src/scss/index.scss</code>
+  </p>
+  <p>
+    The master JavaScript browser-side entry point for the default theme is located at: <code>sites/modules/theme-default/ui/src/index.js</code>
+  </p>
+  <p>
+    The master Sass SCSS browser-side entry point for the default theme is located at: <code>sites/modules/theme-default/ui/src/index.scss</code>
+  </p>
+</section>
 {% area data.page, 'main' %}
 {% endblock %}

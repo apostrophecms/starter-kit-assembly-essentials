@@ -1,11 +1,29 @@
 {
-  "delay": "1000ms",
+  "delay": 1000,
+  "verbose": true,
+  "watch": [
+    "./app.js",
+    "./dashboard/index.js",
+    "./dashboard/modules/**/*",
+    "./dashboard/lib/**/*.js",
+    "./dashboard/views/**/*.html",
+    "./sites/index.js",
+    "./sites/modules/**/*",
+    "./sites/lib/**/*.js",
+    "./sites/views/**/*.html"
+  ],
+  "ignoreRoot": [
+    ".git"
+  ],
   "ignore": [
     "sites/apos-build/**",
     "sites/public/uploads/**",
     "sites/public/apos-frontend/**",
     "dashboard/apos-build/**",
     "dashboard/public/uploads/**",
-    "dashboard/public/apos-frontend/**"
-  ]
+    "dashboard/public/apos-frontend/**",
+    "locales/*.json",
+    "data"
+  ],
+  "ext": "json, js, html, scss, vue"
 }

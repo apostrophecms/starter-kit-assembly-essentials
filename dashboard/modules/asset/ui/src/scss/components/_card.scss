@@ -3,7 +3,7 @@
   align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   column-gap: 32px;
-  row-gap:  32px;
+  row-gap: 32px;
 }
 
 .c-card {
@@ -11,8 +11,8 @@
   padding: 8px;
   border-radius: 6px;
   background: $white;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 }
-
 
 .c-card__media {
   height: 200px;
@@ -35,47 +35,46 @@
 .c-card__media-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(103deg, rgba(246,73,18,1) 0%, rgba(205,0,175,1) 91%, rgba(199,0,188,1) 100%);
+  background-image: linear-gradient(36deg, #4950f6 12%, #578beb 94%);
 }
 
 .c-card__content {
-  padding: 16px 0 8px 0;
+  padding: 16px 0 8px;
 }
 
 .c-card__title {
+  overflow: hidden;
+  margin: 0;
+  margin-bottom: 8px;
   font-family: $font;
   font-size: 16px;
   line-height: 1.333;
-  margin: 0;
-  margin-bottom: 8px;
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .c-card__button {
-  border: none;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  overflow: visible;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  text-decoration: none;
-  cursor: pointer;
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  overflow: visible;
   width: 32px;
   height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  line-height: normal;
+  text-decoration: none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
   border-radius: 4px;
   background-color: $white;
   text-align: center;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
 
   &:hover {
     background-color: #f4f4f4;

@@ -5,11 +5,9 @@
 /locales
 npm-debug.log
 /data
-/dashboard/apos-build
-/dashboard/public/apos-frontend
+*/apos-build
+*/public/apos-frontend
 /dashboard/modules/asset/ui/public
-/sites/apos-build
-/sites/public/apos-frontend
 /sites/modules/theme-*/ui/public
 */public/modules
 */public/uploads

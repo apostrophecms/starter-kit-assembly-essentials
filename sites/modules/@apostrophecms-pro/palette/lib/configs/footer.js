@@ -1,42 +1,51 @@
 const config = {
-  schema: [
-    {
-      name: 'footerBgColor',
-      label: 'Background Color',
+  add: {
+    footerBgColor: {
+      label: 'Background color',
       type: 'color',
-      selector: '.c-footer',
+      selector: '.footer',
       property: 'background-color'
     },
-    {
-      name: 'footerTextColor',
-      label: 'Text Color',
+    footerTextColor: {
+      label: 'Text color',
       type: 'color',
-      selector: '.c-footer',
+      selector: '.footer',
       property: 'color'
     },
-    {
-      name: 'footerAccentColor',
-      label: 'Accent Color',
+    footerLinkColor: {
+      label: 'Link color',
       type: 'color',
-      selector: '.c-footer__accent',
-      property: 'color'
+      help: 'Text link color',
+      // TODO: Update rich text data attribute to a class when RTE className
+      // bug is fixed.
+      selector: [ '.footer [data-rich-text] a', '.footer a' ],
+      property: 'color',
+      def: 'royalblue'
     },
-    {
-      name: 'footerBubbleColor',
-      label: 'Icon Bubble Color',
-      type: 'color',
-      selector: '.c-footer__icon-wrapper',
-      property: 'background-color'
+    footerPadding: {
+      label: 'Vertical padding',
+      type: 'range',
+      selector: '.footer',
+      unit: 'px',
+      property: [
+        'padding-top',
+        'padding-bottom'
+      ],
+      min: 0,
+      max: 64
     }
-  ]
-};
-
-config.arrangement = {
-  name: 'footer',
-  label: 'Footer Settings',
-  fields: config.schema.map(field => {
-    return field.name;
-  })
+  },
+  group: {
+    footer: {
+      label: 'Footer Settings',
+      fields: [
+        'footerBgColor',
+        'footerTextColor',
+        'footerLinkColor',
+        'footerPadding'
+      ]
+    }
+  }
 };
 
 module.exports = config;

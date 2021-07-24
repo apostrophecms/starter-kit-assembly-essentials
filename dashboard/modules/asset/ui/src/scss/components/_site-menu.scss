@@ -15,23 +15,28 @@
 
 .c-site__tab {
   margin: 0 1rem;
+
   a {
     display: flex;
+
     svg {
       width: 11px;
       margin-left: 10px;
       align-self: flex-end;
     }
+
     svg g, svg path {
       fill: currentColor;
     }
   }
+
   button {
     padding: 10px 10px 0;
     font-family: $font;
     font-weight: 500;
     font-size: $font-12;
     letter-spacing: 1px;
+
     &:hover, &:focus, &.c-site__tab-button--active {
       color: $blue;
     }
@@ -40,6 +45,7 @@
 
 .c-site__tabs-container {
   position: relative;
+
   .apos-area-widget-wrapper {
     margin-bottom: 50px;
   }

@@ -1,0 +1,26 @@
+// Styles for this theme
+
+// If you need to share styles across themes, just @import them here
+// Settings
+@import 'settings/_color';
+@import 'settings/_fonts';
+@import 'settings/_layout';
+
+// Utilities
+@import 'utilities/_typography';
+
+// Base
+@import '_document';
+@import '_type';
+@import '_grid';
+
+// Components
+@import '_button';
+@import '_columns';
+@import '_footer';
+@import '_hero';
+@import '_navigation';
+
+.o-widget--image {
+  max-width: 100%;
+}

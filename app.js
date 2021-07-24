@@ -1,4 +1,3 @@
-const path = require('path');
 // Domain name configuration is in domains.js
 const domains = require('./domains.js');
 

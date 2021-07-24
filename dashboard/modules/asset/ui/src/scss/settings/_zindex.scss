@@ -10,6 +10,8 @@ $z-index: (
   @if map-has-key($z-index, $key) {
     @return map-get($z-index, $key);
   }
+
   @warn 'Unknown `#{$key}` in $z-index.';
+
   @return null;
 }

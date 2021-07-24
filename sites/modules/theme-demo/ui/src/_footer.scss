@@ -1,0 +1,16 @@
+.footer {
+  padding-top: $gutter;
+  padding-bottom: $gutter;
+}
+
+.footer__inner {
+  max-width: $content-width;
+  margin: 0 auto;
+}
+
+.o-widget--image {
+  .footer & {
+    // Keeping it in check since we're in the footer.
+    max-height: 40rem;
+  }
+}

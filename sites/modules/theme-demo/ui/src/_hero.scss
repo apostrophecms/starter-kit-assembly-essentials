@@ -1,0 +1,11 @@
+.hero-widget {
+  margin-bottom: $gutter;
+}
+
+.apos-area {
+  .hero-widget__content & {
+    @media screen and (min-width: 64em) {
+      width: 60%;
+    }
+  }
+}

@@ -21,6 +21,10 @@ module.exports = {
       }
     },
     group: {
+      typography: {
+        label: 'Typography',
+        fields: [ 'googleFontFamiliesInput' ]
+      },
       navigation: {
         label: 'Navigation',
         fields: [ 'navLogo', 'navLogoAlignment', 'navLinks' ]
@@ -28,12 +32,8 @@ module.exports = {
       footer: {
         label: 'Footer',
         fields: [ 'footer' ]
-      },
-      typography: {
-        label: 'Typography',
-        fields: [ 'googleFontFamiliesInput' ]
-      },
-    }    
+      }
+    }
   },
   handlers(self, options) {
     return {
@@ -42,7 +42,7 @@ module.exports = {
           if (req.data.global) {
             // Allow legacy | syntax too
             doc.googleFontFamilies = (doc.googleFontFamiliesInput || '').split(/[|\r\n]+/).filter(family => family.length > 0);
-            doc.googleFontFamiliesUrl =  'https://fonts.googleapis.com/css2?' + qs.stringify({
+            doc.googleFontFamiliesUrl = 'https://fonts.googleapis.com/css2?' + qs.stringify({
               family: req.data.global.googleFontFamilies,
               display: 'swap'
             }, {
