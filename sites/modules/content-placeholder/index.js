@@ -1,6 +1,6 @@
 module.exports = {
   options: {
-    // A pointer to get started
-    alias: 'pointer'
+    // Placeholder UI for getting started
+    alias: 'placeholder'
   }
 };
