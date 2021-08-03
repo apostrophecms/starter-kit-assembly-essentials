@@ -17,7 +17,7 @@ module.exports = {
         type: 'string',
         label: 'Google Font Script',
         textarea: true,
-        help: 'Google Fonts will provide a script tag for including your fonts. Paste it here'
+        htmlHelp: 'Google Fonts will provide several script tags for embedding your fonts, <a href="https://user-images.githubusercontent.com/30215449/105642337-2de3c680-5e57-11eb-8dd4-67e1f0e52a57.png" target="_blank">find the scripts here</a>. Paste them here.'
       }
     },
     group: {
