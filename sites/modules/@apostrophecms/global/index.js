@@ -61,7 +61,7 @@ module.exports = {
                   const isItalic = font.split(',')[1] ? parseInt(font.split(',')[0]) === 1 : false;
                   const weight = font.split(',')[1] ? font.split(',')[1] : (font.split(',')[0] || '400');
                   variantChoices.push({
-                    label: `${fontFamily}; ${weight}; ${isItalic ? 'Italic' : ''}`,
+                    label: `${fontFamily} / ${isItalic ? 'Italic' : 'Normal'} / ${weight};`,
                     value: `${isItalic ? 'italic ' : ''}${weight} 14px ${fontFamily}`
                   });
                 });
