@@ -50,7 +50,7 @@ export default {
         value: ''
       });
     }
-    choices = [ ...choices, ...apos.global.fontFamilies ];
+    choices = [ ...choices, ...(apos.global.fontFamilies || []) ];
     return {
       choices
     };
