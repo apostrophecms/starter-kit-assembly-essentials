@@ -35,17 +35,6 @@ module.exports = {
       }
     }
   },
-  components(self) {
-    return {
-      embedGoogleFonts: async function (req, data) {
-        const test = await self.apos.modules['@apostrophecms/html-widget'].components.render(req, {});
-        return {
-          render: test.render,
-          script: data.googleFontScript
-        };
-      }
-    };
-  },
   handlers(self, options) {
     return {
       beforeSave: {
@@ -64,6 +53,11 @@ module.exports = {
               }
             });
             if (parsedQuery) {
+              if (!Array.isArray(parsedQuery.family)) {
+                // If there is only one family you do not get an array back
+                // from the parser since google doesn't use explicit [] syntax
+                parsedQuery.family = [ parsedQuery.family ];
+              }
               parsedQuery.family.forEach(family => {
                 const fontFamily = family.split(':')[0];
                 const variantChoices = [];
@@ -78,6 +72,12 @@ module.exports = {
                 });
                 choices.push(...variantChoices);
               });
+              // Google is picky about encoding so don't nitpick, do it their way.
+              // Just block anything that would escape from the quoted attribute
+              doc.fontFamilyParameters = parsedQuery.family.map(family => {
+                family = family.replace(/[">]/g, '');
+                return `family=${family}`;
+              }).join('&');
             }
             doc.fontFamilies = choices;
           }
