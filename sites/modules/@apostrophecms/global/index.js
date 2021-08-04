@@ -65,7 +65,7 @@ module.exports = {
             });
             if (parsedQuery) {
               parsedQuery.family.forEach(family => {
-                const fontFamily = family.split(':')[0].split('+').join(' ');
+                const fontFamily = family.split(':')[0];
                 const variantChoices = [];
                 const variants = family.split('@')[1] ? family.split('@')[1].split(';') : [ '400' ];
                 variants.forEach(font => {
