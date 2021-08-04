@@ -3,7 +3,8 @@
 {% block standardHead %}
   {# Use standardHead and super() rather than extraHead to ensure palette injects after it #}
   {{ super() }}
-  {% if data.global.googleFontScript %}
-    {{ data.global.googleFontScript | safe }}
+  {% if data.global.googleFontScript and data.global.fontFamilies.length %}
+    {# defer embedding to check safemode etc #}
+    {% component '@apostrophecms/global:embedGoogleFonts' with data.global %}
   {% endif %}
 {% endblock %}

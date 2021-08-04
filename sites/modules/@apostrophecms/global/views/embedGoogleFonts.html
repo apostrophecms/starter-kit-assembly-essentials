@@ -1,0 +1,6 @@
+{%- if data.render == 'safeMode' -%}
+  <script>console.log('Running in safe mode, not embedding Google Fonts.')</script>
+{%- elif data.render -%}
+  <script>console.log('embedding!!!')</script>
+  {{ data.script | safe }}
+{%- endif -%}

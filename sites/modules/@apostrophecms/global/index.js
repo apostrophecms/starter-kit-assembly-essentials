@@ -35,6 +35,17 @@ module.exports = {
       }
     }
   },
+  components(self) {
+    return {
+      embedGoogleFonts: async function (req, data) {
+        const test = await self.apos.modules['@apostrophecms/html-widget'].components.render(req, {});
+        return {
+          render: test.render,
+          script: data.googleFontScript
+        };
+      }
+    };
+  },
   handlers(self, options) {
     return {
       beforeSave: {
@@ -47,7 +58,6 @@ module.exports = {
             quotedStrings.forEach(str => {
               // get just querystring portion of url
               const test = str.split('"').join('').split('?');
-
               // is a query string and has a 'family' property
               if (test.length > 1 && qs.parse(test[1]).family) {
                 parsedQuery = qs.parse(test[1]);
