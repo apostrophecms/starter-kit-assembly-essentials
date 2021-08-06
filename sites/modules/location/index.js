@@ -11,6 +11,14 @@ module.exports = {
         label: 'Address',
         help: 'This address will be used to plot the location on a map'
       },
+      hours: {
+        type: 'string',
+        label: 'Hours'
+      },
+      phone: {
+        type: 'string',
+        label: 'Phone Number'
+      },
       blurb: {
         type: 'area',
         label: 'Blurb',

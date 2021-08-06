@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% set markers = apos.location.formatMarkers([data.piece]) %}
+{% block extraHead %}
+  <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+{% endblock %}
+
+{% block main %}
+  <section class="main location-show">
+    <h1>{{ data.piece.title }}</h1>
+    <p>{{ data.piece.address }}</p>
+  </section>
+{% endblock %}
