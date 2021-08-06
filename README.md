@@ -198,6 +198,10 @@ You may also place Sass SCSS code in the `ui/src/index.scss` file of any module,
 
 To include theme-specific code, place it in the `ui/src/index.scss` or `ui/src/index.js` file of the appropriate theme module. The provided example theme modules are `theme-default` and `theme-alternate`.
 
+For example:
+- The default theme's SASS stylesheet entrypoint is located at `sites/modules/theme-default/ui/src/index.scss`
+- The default theme's JavaScript browser-side entry point is located at: `sites/modules/theme-default/ui/src/index.js`
+
 #### Frontend Assets With Your Own Build Process
 
 Beginning with the 1.1.0 release of `a3-assembly-boilerplate`, a sample webpack build is not included as standard equipment, as `ui/src` suffices for most needs. However, if you need to use webpack or another custom build process, the solution is to configure the output of your build process to be a `ui/public/something.js` file in any module in your Apostrophe project. As above you can create a build that is included in only one theme by writing its output to the `ui/src` subdirectory of that theme module.

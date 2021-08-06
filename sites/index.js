@@ -24,6 +24,7 @@ module.exports = function (site) {
       // Just a nice place to keep our helper functions and macros that are
       // used across all sites
       helpers: {},
+      'content-placeholder': {},
       'default-page': {},
 
       // The @apostrophecms/home-page module always exists, no need to activate it here
