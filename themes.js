@@ -10,5 +10,9 @@ module.exports = [
   {
     value: 'demo',
     label: 'Demo'
+  },
+  {
+    value: 'soci',
+    label: 'Soci'
   }
 ];

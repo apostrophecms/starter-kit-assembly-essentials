@@ -1,0 +1,13 @@
+.locations {
+  position: relative;
+}
+
+.locations-list {
+  z-index: 400;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 300px;
+  height: 600px;
+  background: red;
+}

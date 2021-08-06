@@ -1,0 +1,43 @@
+{# {% import '@apostrophecms/pager:macros.html' as pager with context %}
+{% import 'fragments.html' as fragments with context %} #}
+
+{% extends "layout.html" %}
+{% set markers = apos.location.formatMarkers(data.pieces) %}
+{{ apos.log(markers) }}
+
+{# {% block pageTitle %}
+  <div class="article-title-wrapper">
+    <div class="inner">
+      {% set title = data.page.title %}
+      {% if data.piece %}
+        {% set title = data.piece.title %}
+      {% endif %}
+      <h1 class="page-title">{{ title }}</h1>
+    </div>
+  </div>
+{% endblock %} #}
+{% block extraHead %}
+  <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+{% endblock %}
+
+{% block main %}
+  <section class="main location-index">
+    <div class="locations">
+      <div class="map-canvas map-canvas--large" data-map='{{ markers | jsonAttribute({ single: true }) }}'></div>
+      <div class="locations-list">
+        <div class="locations-list__header">Find a Location</div>
+        <div class="location-list__search">
+          <input class="location-list__search-input" type="text" value="Enter a zipcode to find a location">
+          <button class="location-list__search-submit">Find Locations</button>
+        </div>
+        <ol class="location-list__items">
+          {% for piece in data.pieces %}
+            <li>{{ piece.title }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+    
+  </section>
+{% endblock %}
