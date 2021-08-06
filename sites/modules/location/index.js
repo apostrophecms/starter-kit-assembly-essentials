@@ -11,9 +11,43 @@ module.exports = {
         label: 'Address',
         help: 'This address will be used to plot the location on a map'
       },
-      hours: {
+      hoursBrief: {
         type: 'string',
-        label: 'Hours'
+        label: 'Hours (Brief)'
+      },
+      hoursDay: {
+        type: 'array',
+        label: 'Hours (By Day)',
+        fields: {
+          add: {
+            day: {
+              label: 'Day',
+              type: 'string'
+            },
+            hours: {
+              label: 'Hours',
+              type: 'string'
+            }
+          }
+        }
+      },
+      description: {
+        type: 'area',
+        label: 'Description',
+        help: 'A short description',
+        options: {
+          max: 1,
+          widgets: {
+            '@apostrophecms/rich-text': {
+              toolbar: [ 'bold', 'italic' ]
+            }
+          }
+        }
+      },
+      _banner: {
+        label: 'Profile Page Banner',
+        type: 'relationship',
+        withType: '@apostrophecms/image'
       },
       phone: {
         type: 'string',
@@ -38,7 +72,15 @@ module.exports = {
         label: 'Basics',
         fields: [
           'title',
-          'blurb'
+          'address',
+          'hoursBrief'
+        ]
+      },
+      details: {
+        label: 'Details',
+        fields: [
+          'hoursDay',
+          '_banner'
         ]
       }
     }
