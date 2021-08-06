@@ -39,11 +39,11 @@ module.exports = {
     return {
       beforeSave: {
         addFontFamilies(req, doc, options) {
-          if (req.data.global) {
+          try {
             const choices = [];
             let parsedQuery = null;
             // parse tag for quoted strings (attribute values)
-            const quotedStrings = doc.googleFontScript.match(/"(\\.|[^"\\])*"/g);
+            const quotedStrings = doc.googleFontScript.match(/"(\\.|[^"\\])*"/g) || [];
             quotedStrings.forEach(str => {
               // get just querystring portion of url
               const test = str.split('"').join('').split('?');
@@ -78,8 +78,16 @@ module.exports = {
                 family = family.replace(/[">]/g, '');
                 return `family=${family}`;
               }).join('&');
+            } else if (doc.googleFontScript) {
+              // has an entry but didn't parse to anything we can use
+              self.apos.notify(req, 'Unable to parse Google Font Script. Double check your input', {
+                type: 'danger',
+                icon: 'alert-circle-icon'
+              });
             }
             doc.fontFamilies = choices;
+          } catch (error) {
+            throw self.apos.error('invalid', 'That is not a valid google fonts embed code');
           }
         }
       }
