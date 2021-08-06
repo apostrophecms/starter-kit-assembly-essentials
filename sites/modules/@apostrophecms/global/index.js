@@ -13,17 +13,17 @@ module.exports = {
         }
       },
       ...require('@apostrophecms-pro/basics/lib/navigation'),
-      googleFontFamiliesInput: {
+      googleFontScript: {
         type: 'string',
-        label: 'Google Font Families',
+        label: 'Google Font Script',
         textarea: true,
-        help: 'List font family names available from Google Fonts, one per line. These will become font choices in the palette.'
+        htmlHelp: 'Google Fonts will provide several script tags for embedding your fonts, <a href="https://user-images.githubusercontent.com/30215449/105642337-2de3c680-5e57-11eb-8dd4-67e1f0e52a57.png" target="_blank">find the scripts here</a>. Paste them here.'
       }
     },
     group: {
       typography: {
         label: 'Typography',
-        fields: [ 'googleFontFamiliesInput' ]
+        fields: [ 'googleFontScript' ]
       },
       navigation: {
         label: 'Navigation',
@@ -39,17 +39,55 @@ module.exports = {
     return {
       beforeSave: {
         addFontFamilies(req, doc, options) {
-          if (req.data.global) {
-            // Allow legacy | syntax too
-            doc.googleFontFamilies = (doc.googleFontFamiliesInput || '').split(/[|\r\n]+/).filter(family => family.length > 0);
-            doc.googleFontFamiliesUrl = 'https://fonts.googleapis.com/css2?' + qs.stringify({
-              family: doc.googleFontFamilies,
-              display: 'swap'
-            }, {
-              arrayFormat: 'repeat'
+          try {
+            const choices = [];
+            let parsedQuery = null;
+            // parse tag for quoted strings (attribute values)
+            const quotedStrings = doc.googleFontScript.match(/"(\\.|[^"\\])*"/g) || [];
+            quotedStrings.forEach(str => {
+              // get just querystring portion of url
+              const test = str.split('"').join('').split('?');
+              // is a query string and has a 'family' property
+              if (test.length > 1 && qs.parse(test[1]).family) {
+                parsedQuery = qs.parse(test[1]);
+              }
             });
-            // The actual choices. Extensible, to allow for other font providers to be included
-            doc.fontFamilies = [ ...doc.googleFontFamilies ];
+            if (parsedQuery) {
+              if (!Array.isArray(parsedQuery.family)) {
+                // If there is only one family you do not get an array back
+                // from the parser since google doesn't use explicit [] syntax
+                parsedQuery.family = [ parsedQuery.family ];
+              }
+              parsedQuery.family.forEach(family => {
+                const fontFamily = family.split(':')[0];
+                const variantChoices = [];
+                const variants = family.split('@')[1] ? family.split('@')[1].split(';') : [ '400' ];
+                variants.forEach(font => {
+                  const isItalic = font.split(',')[1] ? parseInt(font.split(',')[0]) === 1 : false;
+                  const weight = font.split(',')[1] ? font.split(',')[1] : (font.split(',')[0] || '400');
+                  variantChoices.push({
+                    label: `${fontFamily} / ${isItalic ? 'Italic' : 'Normal'} / ${weight};`,
+                    value: `${isItalic ? 'italic ' : ''}${weight} 14px ${fontFamily}`
+                  });
+                });
+                choices.push(...variantChoices);
+              });
+              // Google is picky about encoding so don't nitpick, do it their way.
+              // Just block anything that would escape from the quoted attribute
+              doc.fontFamilyParameters = parsedQuery.family.map(family => {
+                family = family.replace(/[">]/g, '');
+                return `family=${family}`;
+              }).join('&');
+            } else if (doc.googleFontScript) {
+              // has an entry but didn't parse to anything we can use
+              self.apos.notify(req, 'Unable to parse Google Font Script. Double check your input', {
+                type: 'danger',
+                icon: 'alert-circle-icon'
+              });
+            }
+            doc.fontFamilies = choices;
+          } catch (error) {
+            throw self.apos.error('invalid', 'That is not a valid google fonts embed code');
           }
         }
       }
@@ -68,12 +106,7 @@ module.exports = {
     self.apos.schema.addFieldType({
       name: 'assemblyFontFamily',
       convert: async function (req, field, data, object) {
-        const choices = (req.data.global.fontFamilies || []).map(family => {
-          return {
-            value: family,
-            label: family
-          };
-        });
+        const choices = req.data.global.fontFamilies || [];
         object[field.name] = self.apos.launder.select(data[field.name], choices, field.def);
       },
       vueComponent: 'AssemblyInputFontFamily'

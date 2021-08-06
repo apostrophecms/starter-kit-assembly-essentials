@@ -11,11 +11,11 @@ module.exports = {
       def: '#ffffff'
     },
     baseFont: {
-      label: 'Font',
+      label: 'Font Properties',
       type: 'assemblyFontFamily',
-      help: 'Base font family for the website',
+      help: 'Base font properties for the website',
       selector: 'body',
-      property: 'font-family'
+      property: 'font'
     },
     baseFontSize: {
       label: 'Size',
@@ -34,11 +34,11 @@ module.exports = {
       def: '#000000'
     },
     titleFont: {
-      label: 'Font',
+      label: 'Font Properties',
       type: 'assemblyFontFamily',
-      help: 'Font family for website headings',
+      help: 'Font properties for website headings',
       selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-      property: 'font-family'
+      property: 'font'
     },
     linkColor: {
       label: 'Link color',
