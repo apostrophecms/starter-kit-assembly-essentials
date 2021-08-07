@@ -2,7 +2,6 @@
   background-size: 70%;
   background-repeat: no-repeat;
   background-position: 100% 45%;
-  margin-bottom: 80px;
 }
 
 .location-info__content {
@@ -84,4 +83,9 @@
     font-size: 18px;
     line-height: 27px;
   }
+}
+
+.location-content {
+  // z-index: 500;
+  position: relative;
 }

@@ -42,7 +42,10 @@
           {% area data.piece, 'description' %}
         </div>
       </div>
-      <div class="location-description__map" data-map='{{ markers | jsonAttribute({ single: true })}}'></div>
+      <div class="location-description__map map-canvas--loading" data-map='{{ markers | jsonAttribute({ single: true })}}'></div>
+    </div>
+    <div class="soci-container location-content">
+      {% area data.piece, 'content' %}
     </div>
   </section>
 {% endblock %}

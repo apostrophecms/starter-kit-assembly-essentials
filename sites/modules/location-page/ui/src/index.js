@@ -1,7 +1,7 @@
 export default () => {
   setTimeout(() => {
     run();
-  }, 4000);// fml
+  }, 4000);
   function run() {
     const canvasEl = document.querySelector('[data-map]');
     if (canvasEl) {

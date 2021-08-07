@@ -8,7 +8,7 @@
 {% block main %}
   <section class="main location-index">
     <div class="locations">
-      <div class="map-canvas map-canvas--large" data-map='{{ markers | jsonAttribute({ single: true }) }}'></div>
+      <div class="map-canvas map-canvas--loading map-canvas--large" data-map='{{ markers | jsonAttribute({ single: true }) }}'></div>
       <div class="locations-list">
         <div class="locations-list__header">Find a Location</div>
         <div class="location-list__search">

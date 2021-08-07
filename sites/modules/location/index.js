@@ -44,6 +44,16 @@ module.exports = {
           }
         }
       },
+      content: {
+        type: 'area',
+        label: 'Content',
+        options: {
+          widgets: {
+            '@apostrophecms-pro/basics-column': {},
+            '@apostrophecms-pro/basics-hero': {}
+          }
+        }
+      },
       _banner: {
         label: 'Profile Page Banner',
         type: 'relationship',
@@ -52,19 +62,6 @@ module.exports = {
       phone: {
         type: 'string',
         label: 'Phone Number'
-      },
-      blurb: {
-        type: 'area',
-        label: 'Blurb',
-        help: 'A short summary.',
-        options: {
-          max: 1,
-          widgets: {
-            '@apostrophecms/rich-text': {
-              toolbar: [ 'bold', 'italic' ]
-            }
-          }
-        }
       }
     },
     group: {
@@ -73,14 +70,22 @@ module.exports = {
         fields: [
           'title',
           'address',
-          'hoursBrief'
+          'phone'
         ]
       },
       details: {
         label: 'Details',
         fields: [
           'hoursDay',
+          'hoursBrief',
           '_banner'
+        ]
+      },
+      content: {
+        label: 'Content',
+        fields: [
+          'description',
+          'content'
         ]
       }
     }
@@ -117,7 +122,6 @@ module.exports = {
     return {
       beforeSave: {
         geocodePiece: async function(req, doc, options) {
-          const goodLocations = [ 'P1AAA', 'L1AAA', 'I1AAA' ];
           const orig = await self.find(req, { _id: doc._id }).toObject();
           if (!orig || orig.address !== doc.address) {
             const response = await self.geocode(doc.address);
@@ -131,15 +135,6 @@ module.exports = {
                 dismiss: true
               });
             }
-
-            // check result quality
-            // if (!goodLocations.includes(result.locations[0].geocodeQualityCode)) {
-            //   self.apos.notify(req, 'Poor geocode quality. Try entering a more complete address', {
-            //     type: 'warning',
-            //     icon: 'alert-circle-icon',
-            //     dismiss: true
-            //   });
-            // }
 
             // satisfied, store it
             doc.geocoded = result;
