@@ -1,0 +1,89 @@
+.soci-footer {
+
+}
+
+.soci-footer__cta {
+
+}
+
+.soci-footer__cta-title {
+  padding: 40px 0;
+  text-align: center;
+  font-weight: 400;
+  color: #43c3ce;
+  letter-spacing: 10px;
+  font-size: 42px;
+  text-transform: uppercase;
+}
+
+.soci-footer__newsletter {
+  background-color: black;
+  color: white;
+  padding: 40px 0;
+}
+
+.soci-footer__newsletter-inner {
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.soci-footer__newsletter-hashtag {
+  color: #fff;
+  font-weight: 200;
+  font-size: 1.4vw;
+  margin-bottom: 0;
+  text-align: left;
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.soci-footer__newsletter-column {
+  flex: 0 0 33%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.soci-footer__newsletter-column--buttons {
+  display: flex;
+}
+
+.soci-footer__newsletter-button {
+  border-radius: 50%;
+  background-color: white;
+  color: #43c3ce;
+  border: 0;
+  -webkit-appearance: none;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.soci-footer__newsletter-input {
+  height: 47px;
+  padding: 5px 0 !important;
+  margin-bottom: 0;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1;
+  border: 1px solid #000;
+  text-align: center;
+  border-radius: 0;
+}
+
+.soci-footer__links {
+  display: flex;
+  justify-content: space-between;
+  background-color: #efefef;
+  padding: 120px 0 40px 0;
+}
+
+.soci-footer__column {
+  flex: 0 0 33%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}

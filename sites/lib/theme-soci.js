@@ -1,4 +1,5 @@
 const columnsWidget = require('../modules/@apostrophecms-pro/basics-column-widget');
+const global = require('../modules/@apostrophecms/global');
 
 module.exports = function(site, config) {
   config.modules['@apostrophecms-pro/basics-column-widget'] = {
@@ -9,6 +10,10 @@ module.exports = function(site, config) {
       }
     }
   };
+  global.fields.add = {
+    ...global.fields.add,
+    ...generateFooterAreas()
+  };
   config.modules = {
     'product-widget': {},
     ...config.modules,
@@ -16,6 +21,9 @@ module.exports = function(site, config) {
     'theme-soci': {},
     location: {},
     'location-page': {},
+    '@apostrophecms/global': {
+      ...global
+    },
     '@apostrophecms/page': {
       options: {
         types: [
@@ -36,3 +44,86 @@ module.exports = function(site, config) {
     }
   };
 };
+
+function generateFooterAreas() {
+  return {
+    footerColOneLinks: {
+      type: 'area',
+      label: 'Footer Column One Links',
+      options: {
+        max: 1,
+        widgets: {
+          '@apostrophecms/rich-text': {
+            styles: [],
+            toolbar: []
+          }
+        }
+      }
+    },
+    footerColOneHeader: {
+      type: 'area',
+      label: 'Footer Column One Links',
+      options: {
+        max: 1,
+        widgets: {
+          '@apostrophecms/rich-text': {
+            styles: [],
+            toolbar: []
+          }
+        }
+      }
+    },
+    footerColTwoLinks: {
+      type: 'area',
+      label: 'Footer Column Two Links',
+      options: {
+        max: 1,
+        widgets: {
+          '@apostrophecms/rich-text': {
+            styles: [],
+            toolbar: []
+          }
+        }
+      }
+    },
+    footerColTwoHeader: {
+      type: 'area',
+      label: 'Footer Column Two Links',
+      options: {
+        max: 1,
+        widgets: {
+          '@apostrophecms/rich-text': {
+            styles: [],
+            toolbar: []
+          }
+        }
+      }
+    },
+    footerColThreeLinks: {
+      type: 'area',
+      label: 'Footer Column Three Links',
+      options: {
+        max: 1,
+        widgets: {
+          '@apostrophecms/rich-text': {
+            styles: [],
+            toolbar: []
+          }
+        }
+      }
+    },
+    footerColThreeHeader: {
+      type: 'area',
+      label: 'Footer Column Three Links',
+      options: {
+        max: 1,
+        widgets: {
+          '@apostrophecms/rich-text': {
+            styles: [],
+            toolbar: []
+          }
+        }
+      }
+    },
+  };
+}

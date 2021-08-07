@@ -10,7 +10,8 @@ export default () => {
       const map = L.mapquest.map(canvasEl, {
         center: [ 37.7749, -122.4194 ],
         layers: L.mapquest.tileLayer('map'),
-        zoom: 18
+        zoom: 18,
+        scrollWheelZoom: false
       });
 
       // plot markers

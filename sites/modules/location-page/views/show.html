@@ -49,3 +49,9 @@
     </div>
   </section>
 {% endblock %}
+
+{% block afterMain %}
+  {{ super() }}
+  </main>
+  {% include "theme-soci:footer.html" %}
+{% endblock %}
