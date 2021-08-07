@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% set markers = apos.location.formatMarkers(data.pieces) %}
 {% block extraHead %}
-  <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+  <script src="//api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+  <link type="text/css" rel="stylesheet" href="//api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 {% endblock %}
 
 {% block main %}
@@ -25,7 +25,7 @@
               {% if piece.phone %}
                 <p class="location-list__text location-list__phone">{{ piece.phone }}</p>  
               {% endif %}
-              {% if piece.hours %}
+              {% if piece.hoursBrief %}
                 <p class="location-list__text location-list__hours">{{ piece.hours }}</p>  
               {% endif %}
               <a class="location-list__text soci-button location-list__button location-list__link" href="{{ piece._url }}">
