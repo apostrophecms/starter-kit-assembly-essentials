@@ -1,5 +1,8 @@
 const columnsWidget = require('../modules/@apostrophecms-pro/basics-column-widget');
 const global = require('../modules/@apostrophecms/global');
+const palette = require('../modules/theme-soci/lib/palette');
+
+console.log(palette);
 
 module.exports = function(site, config) {
   config.modules['@apostrophecms-pro/basics-column-widget'] = {
@@ -39,14 +42,17 @@ module.exports = function(site, config) {
     }
   };
   config.modules = {
-    'product-widget': {},
     ...config.modules,
+    'product-widget': {},
     'theme-demo': {},
     'theme-soci': {},
     location: {},
     'location-page': {},
     '@apostrophecms/global': {
       ...global
+    },
+    '@apostrophecms-pro/palette': {
+      ...palette
     },
     '@apostrophecms/page': {
       options: {

@@ -41,9 +41,8 @@
 }
 
 .locations-list__header,
-.location-list__search-submit,
-.location-list__button {
-  background-color: #3EC2CF;
+.location-list__search-submit {
+  background-color: var(--accent-color);
   color: white;
 }
 
