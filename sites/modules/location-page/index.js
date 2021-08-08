@@ -6,23 +6,15 @@ module.exports = {
   },
   fields: {
     add: {
-      intro: {
+      content: {
         type: 'area',
+        label: 'Content',
         options: {
-          limit: 1,
           widgets: {
-            '@apostrophecms/rich-text': {
-              toolbar: [
-                'styles',
-                'bold',
-                'italic',
-                'link',
-                'blockquote'
-              ]
-            }
+            '@apostrophecms-pro/basics-column': {},
+            '@apostrophecms-pro/basics-hero': {}
           }
         }
-
       }
     }
   }
