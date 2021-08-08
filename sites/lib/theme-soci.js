@@ -16,6 +16,7 @@ module.exports = function(site, config) {
     footerContent: {
       type: 'array',
       label: 'Footer Content',
+      titleField: 'header',
       fields: {
         add: {
           header: {

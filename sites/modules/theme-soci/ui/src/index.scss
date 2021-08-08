@@ -29,6 +29,7 @@
 
 .navigation img {
   max-width: 160px;
+  margin: 0 25px;
 }
 
 .navigation__links {
@@ -38,10 +39,6 @@
     width: 110px;
     margin: 0 20px;
   }
-}
-
-.header {
-  margin-bottom: 60px;
 }
 
 [data-rich-text] {

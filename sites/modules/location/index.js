@@ -18,6 +18,7 @@ module.exports = {
       hoursDay: {
         type: 'array',
         label: 'Hours (By Day)',
+        titleField: 'day',
         fields: {
           add: {
             day: {
