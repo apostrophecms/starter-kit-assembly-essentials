@@ -42,6 +42,14 @@
 }
 
 [data-rich-text], .apos-rich-text-editor__editor {
+  h3, h4 {
+    margin-bottom: 18px;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
   h4 {
     font-size: 40px;
   }
