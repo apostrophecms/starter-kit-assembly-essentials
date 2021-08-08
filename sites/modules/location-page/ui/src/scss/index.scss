@@ -43,7 +43,7 @@
 .locations-list__header,
 .location-list__search-submit {
   background-color: var(--accent-color);
-  color: white;
+  color: var(--accent-color-contrast);
 }
 
 .location-list__button {

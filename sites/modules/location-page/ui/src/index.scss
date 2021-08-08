@@ -8,10 +8,9 @@
 .map-canvas {
   width: 100%;
   height: 100%;
-}
-
-.map-canvas--large {
-
+  background-image: url(https://mode.com/resources/images/gallery/google-maps-with-markers-1.png);
+  background-size: cover;
+  background-position: center;
 }
 
 .map-canvas--loading {

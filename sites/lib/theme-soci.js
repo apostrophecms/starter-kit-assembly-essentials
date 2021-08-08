@@ -2,8 +2,6 @@ const columnsWidget = require('../modules/@apostrophecms-pro/basics-column-widge
 const global = require('../modules/@apostrophecms/global');
 const palette = require('../modules/theme-soci/lib/palette');
 
-console.log(palette);
-
 module.exports = function(site, config) {
   config.modules['@apostrophecms-pro/basics-column-widget'] = {
     options: {

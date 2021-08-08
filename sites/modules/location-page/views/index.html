@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% set markers = apos.location.formatMarkers(data.pieces) %}
-{% block extraHead %}
+{# {% block extraHead %}
   <script src="//api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
   <link type="text/css" rel="stylesheet" href="//api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
-{% endblock %}
+{% endblock %} #}
 
 {% block main %}
   <section class="main location-index">
     <div class="locations">
-      <div class="map-canvas map-canvas--loading map-canvas--large" data-map='{{ markers | jsonAttribute({ single: true }) }}'></div>
+      <div class="map-canvas" data-map='{{ markers | jsonAttribute({ single: true }) }}'></div>
       <div class="locations-list">
         <div class="locations-list__header">Find a Location</div>
         <div class="location-list__search">

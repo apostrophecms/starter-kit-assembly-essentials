@@ -2,6 +2,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  margin-bottom: 80px;
 }
 
 .location-info__content {
@@ -67,8 +68,8 @@
 }
 
 .location-description__content-title {
-  background-color: #3EC2CF;
-  color: white;
+  background-color: var(--accent-color);
+  color: var(--accent-color-contrast);
   text-align: center;
   font-size: 16px;
   letter-spacing: 1px;

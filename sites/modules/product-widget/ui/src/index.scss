@@ -52,7 +52,7 @@
 
 .nekter-sub-nav_wrap li a:button,
 .nekter-sub-nav_wrap li a:button {
-  color: #3ec2cf;
+  color: var(--accent-color);
 }
 
 .nekter-sub-nav_wrap li.first button {
@@ -128,8 +128,8 @@
 .nekter-olo-menu-product_item a {
   display: block;
   margin: 0 auto;
-  background-color: #3ec2cf;
-  color: white;
+  background-color: var(--accent-color);
+  color: var(--accent-color-contrast);
   padding: 15px 25px;
   margin-top: 10px;
   text-decoration: none;

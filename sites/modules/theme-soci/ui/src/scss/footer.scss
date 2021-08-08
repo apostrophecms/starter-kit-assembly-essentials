@@ -1,16 +1,8 @@
-.soci-footer {
-
-}
-
-.soci-footer__cta {
-
-}
-
 .soci-footer__cta-title {
   padding: 40px 0;
   text-align: center;
   font-weight: 400;
-  color: #43c3ce;
+  color: var(--accent-color);
   letter-spacing: 10px;
   font-size: 42px;
   text-transform: uppercase;
@@ -52,7 +44,7 @@
 .soci-footer__newsletter-button {
   border-radius: 50%;
   background-color: white;
-  color: #43c3ce;
+  color: var(--accent-color);
   border: 0;
   -webkit-appearance: none;
   width: 60px;

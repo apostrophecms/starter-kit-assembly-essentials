@@ -3,7 +3,7 @@
 
 .soci-button {
   background-color: var(--accent-color);
-  color: white;
+  color: var(--accent-color-contrast);
   padding: 10px;
   text-align: center;
   font-size: 12px;
@@ -42,4 +42,14 @@
 
 .header {
   margin-bottom: 60px;
+}
+
+[data-rich-text] {
+  h4 {
+    font-size: 40px;
+  }
+
+  h3 {
+    font-size: 32px;
+  }
 }
