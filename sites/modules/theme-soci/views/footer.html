@@ -28,26 +28,39 @@
         </button>
       </div>
     </div>
-    
   </div>
   <div class="soci-footer__links">
-    <div class="soci-footer__column">
-      <div class="soci-footer__link-header">
-        {% area data.global, 'footerColOneHeader' %}
+    {% for column in data.global.footerContent %}
+      <div class="soci-footer__column">
+        <h4 class="soci-footer__column-header">
+          {{ column.header }}
+        </h4>
+        <div class="soci-footer__column-links">
+          {% area column, 'links' %}
+        </div>
       </div>
-      <div class="soci-footer__links">
-        {% area data.global, 'footerColOneLinks' %}
+    {% endfor %}
+  </div>
+  <div class="soci-footer__copyright">
+    <div class="soci-footer__copyright-inner">
+      <div class="soci-footer__copyright-column">
+        {% if data.global.navLogo %}
+          {% set logoImg = apos.image.first(data.global.navLogo) %}
+          <div class="soci-footer__copyright-logo">
+            <a href="/"><img src="{{ apos.attachment.url(logoImg, { size: 'one-third' }) }}" /></a>
+          </div>
+        {% endif %}
       </div>
-    </div>
-    <div class="soci-footer__column">
-      <ol>
-        <li>hello</li>
-      </ol>
-    </div>
-    <div class="soci-footer__column">
-      <ol>
-        <li>hello</li>
-      </ol>
+      <div class="soci-footer__copyright-column">
+        <p class="soci-meta">Copyright © 2021 All Rights Reserved</p>
+      </div>
+      <div class="soci-footer__copyright-column">
+        <ol class="soci-footer__copyright_links">
+          <li class="soci-meta"><a href="#">Terms & Conditions</a></li>
+          <li class="soci-meta"><a href="#">Privacy</a></li>
+          <li class="soci-meta"><a href="#">Sitemap</a></li>
+        </ol>
+      </div>
     </div>
   </div>
 </footer>
