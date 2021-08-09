@@ -40,6 +40,13 @@ module.exports = {
       selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
       property: 'font'
     },
+    buttonFont: {
+      label: 'Font Properties',
+      type: 'assemblyFontFamily',
+      help: 'Font properties for buttons on the website',
+      selector: [ '.button', '.navigation__link' ],
+      property: 'font'
+    },
     linkColor: {
       label: 'Link color',
       type: 'color',
@@ -76,6 +83,12 @@ module.exports = {
           label: 'Title',
           fields: [
             'titleFont'
+          ]
+        },
+        button: {
+          label: 'Buttons',
+          fields: [
+            'buttonFont'
           ]
         }
       }

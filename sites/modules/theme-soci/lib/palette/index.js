@@ -54,7 +54,4 @@ function generateGroups (configs) {
   return groups;
 }
 
-// const fields = generateFields(configs);
-// const groups = generateGroups(configs);
-
 module.exports = palette;
