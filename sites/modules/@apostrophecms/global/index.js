@@ -39,6 +39,9 @@ module.exports = {
     return {
       beforeSave: {
         addFontFamilies(req, doc, options) {
+          if (!doc.googleFontScript && (!req.data.global || !req.data.global.googleFontScript)) {
+            return;
+          }
           try {
             const choices = [];
             let parsedQuery = null;
