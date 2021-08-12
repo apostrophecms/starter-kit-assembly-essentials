@@ -10,9 +10,5 @@ module.exports = [
   {
     value: 'demo',
     label: 'Demo'
-  },
-  {
-    value: 'locations',
-    label: 'Locations & Maps'
   }
 ];
