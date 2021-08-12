@@ -2,7 +2,9 @@ module.exports = {
   extend: '@apostrophecms/piece-page-type',
   options: {
     label: 'Location Index Page',
-    pluralLabel: 'Locatoin Index Pages'
+    pluralLabel: 'Locatoin Index Pages',
+    ignoreNoCodeWarning: true,
+    ignoreUnusedFolderWarning: true
   },
   fields: {
     add: {

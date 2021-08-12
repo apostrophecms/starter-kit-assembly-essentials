@@ -12,7 +12,7 @@ module.exports = [
     label: 'Demo'
   },
   {
-    value: 'soci',
-    label: 'Soci'
+    value: 'locations',
+    label: 'Locations & Maps'
   }
 ];

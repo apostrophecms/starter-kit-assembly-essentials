@@ -3,7 +3,7 @@ module.exports = {
   // variations on helpers; since the active theme
   // is aliased as `apos.theme` these can be called easily
   options: {
-    alias: 'soci',
+    alias: 'theme',
     // Silence startup warning about the lack of code since this
     // is just an empty starting point for your own work
     ignoreNoCodeWarning: true,

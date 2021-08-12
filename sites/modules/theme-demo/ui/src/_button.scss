@@ -8,5 +8,6 @@
   padding: $margin;
   border: 1px solid $black;
   text-decoration: none;
-  background-color: $white;
+  background-color: var(--accent-color);
+  color: var(--accent-color-contrast);
 }

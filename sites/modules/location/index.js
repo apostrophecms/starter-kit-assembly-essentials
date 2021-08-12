@@ -2,7 +2,9 @@ module.exports = {
   extend: '@apostrophecms/piece-type',
   options: {
     alias: 'location',
-    mqKey: '6cnUq9ifi2O36Aq7vJrrfBCUyCfGI4gD'
+    mqKey: '6cnUq9ifi2O36Aq7vJrrfBCUyCfGI4gD',
+    ignoreNoCodeWarning: true,
+    ignoreUnusedFolderWarning: true
   },
   fields: {
     add: {

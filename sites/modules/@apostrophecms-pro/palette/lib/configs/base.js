@@ -2,6 +2,22 @@ const choices = require('../choices');
 
 module.exports = {
   add: {
+    accentColor: {
+      label: 'Accent Color',
+      type: 'color',
+      help: 'The accent color of butons around the site',
+      selector: ':root',
+      property: '--accent-color',
+      def: '#76fac1'
+    },
+    accentColorContrast: {
+      label: 'Accent Color Contrast',
+      type: 'color',
+      help: 'This color is used to style text inside accented buttons',
+      selector: ':root',
+      property: '--accent-color-contrast',
+      def: '#0b1f9c'
+    },
     backgroundColor: {
       label: 'Background color',
       type: 'color',
@@ -53,30 +69,19 @@ module.exports = {
       help: 'Font properties for buttons on the website',
       selector: [ '.button', '.navigation__link' ],
       property: 'font'
-    },
-    linkColor: {
-      label: 'Link color',
-      type: 'color',
-      help: 'Default text link color',
-      // TODO: Update rich text data attribute to a class when RTE className
-      // bug is fixed.
-      selector: [ '[data-rich-text] a', '.navigation__link' ],
-      property: 'color',
-      def: 'royalblue'
     }
   },
   group: {
-    page: {
-      label: 'Page',
+    site: {
+      label: 'Site Settings',
       fields: [
         'backgroundColor',
-        'primaryColor',
-        'secondaryColor'
+        'accentColor',
+        'accentColorContrast'
       ]
     },
     typography: {
       label: 'Typography',
-      fields: [],
       group: {
         default: {
           label: 'Default',

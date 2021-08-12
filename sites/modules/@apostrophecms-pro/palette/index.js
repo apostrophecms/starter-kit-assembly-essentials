@@ -7,10 +7,8 @@ const configs = require('require-all')({
 
 module.exports = {
   fields: {
-    add: generateFields(configs)
-  },
-  options: {
-    paletteGroups: generateGroups(configs)
+    add: generateFields(configs),
+    group: generateGroups(configs)
   }
 };
 
