@@ -33,6 +33,13 @@ module.exports = {
       property: 'color',
       def: '#000000'
     },
+    titleFontColor: {
+      label: 'Color',
+      type: 'color',
+      selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+      property: 'color',
+      def: '#000000'
+    },
     titleFont: {
       label: 'Font Properties',
       type: 'assemblyFontFamily',
@@ -82,7 +89,8 @@ module.exports = {
         title: {
           label: 'Title',
           fields: [
-            'titleFont'
+            'titleFont',
+            'titleFontColor'
           ]
         },
         button: {
