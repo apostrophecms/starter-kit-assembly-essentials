@@ -54,23 +54,6 @@ module.exports = {
       }
     }
   },
-  init(self) {
-    self.apos.migration.add('soci-to-demo', async () => {
-      await self.apos.migration.eachDoc({
-        type: 'site'
-      }, 5, async (doc) => {
-        if (doc.theme === 'soci') {
-          return self.apos.doc.db.updateOne({
-            _id: doc._id
-          }, {
-            $set: {
-              theme: 'demo'
-            }
-          });
-        }
-      });
-    });
-  },
   tasks(self, options) {
     return {
       'list-themes': {
