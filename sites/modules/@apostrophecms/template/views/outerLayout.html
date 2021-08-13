@@ -3,8 +3,9 @@
 {% block standardHead %}
   {# Use standardHead and super() rather than extraHead to ensure palette injects after it #}
   {{ super() }}
-  {% if data.global.googleFontFamiliesUrl %}
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="{{ data.global.googleFontFamiliesUrl }}" rel="stylesheet" />
+  {% if data.global.googleFontScript and data.global.fontFamilies.length %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?{{ data.global.fontFamilyParameters | safe }}&display=swap" rel="stylesheet">
   {% endif %}
 {% endblock %}

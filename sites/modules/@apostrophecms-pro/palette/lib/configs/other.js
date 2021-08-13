@@ -1,19 +1,5 @@
 module.exports = {
   add: {
-    buttonColor: {
-      label: 'Text color',
-      type: 'color',
-      selector: '.button__link',
-      property: 'color',
-      def: '#000'
-    },
-    buttonBackgroundColor: {
-      label: 'Background color',
-      type: 'color',
-      selector: '.button__link',
-      property: 'background-color',
-      def: '#fff'
-    },
     buttonBorderColor: {
       label: 'Border color',
       type: 'color',
@@ -37,13 +23,10 @@ module.exports = {
   group: {
     other: {
       label: 'Other styles',
-      fields: [],
       group: {
         buttons: {
-          label: 'Button links',
+          label: 'Buttons',
           fields: [
-            'buttonColor',
-            'buttonBackgroundColor',
             'buttonBorderColor'
           ]
         },

@@ -2,6 +2,22 @@ const choices = require('../choices');
 
 module.exports = {
   add: {
+    accentColor: {
+      label: 'Accent Color',
+      type: 'color',
+      help: 'The accent color of butons around the site',
+      selector: ':root',
+      property: '--accent-color',
+      def: '#76fac1'
+    },
+    accentColorContrast: {
+      label: 'Accent Color Contrast',
+      type: 'color',
+      help: 'This color is used to style text inside accented buttons',
+      selector: ':root',
+      property: '--accent-color-contrast',
+      def: '#0b1f9c'
+    },
     backgroundColor: {
       label: 'Background color',
       type: 'color',
@@ -11,11 +27,11 @@ module.exports = {
       def: '#ffffff'
     },
     baseFont: {
-      label: 'Font',
+      label: 'Font Properties',
       type: 'assemblyFontFamily',
-      help: 'Base font family for the website',
+      help: 'Base font properties for the website',
       selector: 'body',
-      property: 'font-family'
+      property: 'font'
     },
     baseFontSize: {
       label: 'Size',
@@ -33,36 +49,39 @@ module.exports = {
       property: 'color',
       def: '#000000'
     },
-    titleFont: {
-      label: 'Font',
-      type: 'assemblyFontFamily',
-      help: 'Font family for website headings',
-      selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-      property: 'font-family'
-    },
-    linkColor: {
-      label: 'Link color',
+    titleFontColor: {
+      label: 'Color',
       type: 'color',
-      help: 'Default text link color',
-      // TODO: Update rich text data attribute to a class when RTE className
-      // bug is fixed.
-      selector: [ '[data-rich-text] a', '.navigation__link' ],
+      selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
       property: 'color',
-      def: 'royalblue'
+      def: '#000000'
+    },
+    titleFont: {
+      label: 'Font Properties',
+      type: 'assemblyFontFamily',
+      help: 'Font properties for website headings',
+      selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+      property: 'font'
+    },
+    buttonFont: {
+      label: 'Font Properties',
+      type: 'assemblyFontFamily',
+      help: 'Font properties for buttons on the website',
+      selector: [ '.button', '.navigation__link' ],
+      property: 'font'
     }
   },
   group: {
-    page: {
-      label: 'Page',
+    site: {
+      label: 'Site Settings',
       fields: [
         'backgroundColor',
-        'primaryColor',
-        'secondaryColor'
+        'accentColor',
+        'accentColorContrast'
       ]
     },
     typography: {
       label: 'Typography',
-      fields: [],
       group: {
         default: {
           label: 'Default',
@@ -75,7 +94,14 @@ module.exports = {
         title: {
           label: 'Title',
           fields: [
-            'titleFont'
+            'titleFont',
+            'titleFontColor'
+          ]
+        },
+        button: {
+          label: 'Buttons',
+          fields: [
+            'buttonFont'
           ]
         }
       }
