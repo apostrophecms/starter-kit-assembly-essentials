@@ -2,6 +2,12 @@
   margin-bottom: $gutter;
 }
 
+.hero-widget__content {
+  h3, h4, p, div:not([class]) {
+    color: currentColor;
+  }
+}
+
 .apos-area {
   .hero-widget__content & {
     @media screen and (min-width: 64em) {
