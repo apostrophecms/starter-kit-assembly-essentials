@@ -3,7 +3,7 @@
 
 {% macro renderLogo(logo) %}
   {% if logo %}
-    <a href="/"><img src="{{ apos.attachment.url(logo, { size: 'one-third' }) }}" /></a>
+    <a href="/" class="navigation__logo"><img src="{{ apos.attachment.url(logo, { size: 'one-third' }) }}" /></a>
   {% endif %}
 {% endmacro %}
 
@@ -24,7 +24,7 @@
 {% endmacro %}
 
 {% macro render(doc) %}
-  <nav class="navigation">
+  <nav class="navigation navigation--{{ doc.navLogoAlignment }}">
     {% set logo = apos.image.first(doc.navLogo) %}
     {% if doc.navLogoAlignment == 'left' %}
       {{ renderLogo(logo) }}
@@ -38,19 +38,15 @@
       {{ renderLogo(logo) }}
     {% else %}
       {% for item in doc.navLinks %}
-        <div class="navigation__links">
         {% if loop.index0 < (doc.navLinks.length / 2) %}
           {{ renderLink(item) }}
         {% endif %}
-        </div>
       {% endfor %}
       {{ renderLogo(logo) }}
       {% for item in doc.navLinks %}
-        <div class="navigation__links">
         {% if loop.index0 >= (doc.navLinks.length / 2) %}
           {{ renderLink(item) }}
         {% endif %}
-        </div>
       {% endfor %}
     {% endif %}
   </nav>
