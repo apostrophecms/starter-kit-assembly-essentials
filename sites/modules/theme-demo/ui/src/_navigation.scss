@@ -4,11 +4,21 @@
 
 .navigation {
   display: flex;
+  margin: 0 auto;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding-right: $margin;
   padding-left: $margin;
+  max-width: $content-width;
+}
+
+.navigation--center {
+  justify-content: center;
+
+  .navigation__link {
+    margin: 0 30px;
+  }
 }
 
 .navigation__link {
@@ -16,5 +26,13 @@
 
   & + & {
     margin-left: $margin;
+  }
+}
+
+.navigation__logo {
+  display: inline-block;
+  max-width: 160px;
+  img {
+    width: 100%;
   }
 }
