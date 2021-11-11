@@ -16,11 +16,12 @@ go().then(function (result) {
 });
 
 async function go() {
-  if (process.env.MONGODB_MULTIPLEXER) {
-    const realClient = await mongo.MongoClient.connect('mongodb://localhost:27017', {
+  let client = null;
+  if (process.env.MONGODB_MULTIPLEXER_URI) {
+    const realClient = await mongo.MongoClient.connect(process.env.MONGODB_MULTIPLEXER_URI, {
       useUnifiedTopology: true
     });
-    const realDb = realClient.db('mm-test');
+    const realDb = realClient.db();
     client = mm({
       db: realDb
     });

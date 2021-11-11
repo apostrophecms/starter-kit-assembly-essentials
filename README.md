@@ -275,3 +275,12 @@ Self-hosted arrangements can also be made. For more information contact the Apos
 If we are hosting Apostrophe Assembly for you, then you can deploy updates to your staging cloud by pushing to your `staging` git branch, and deploy updates to your production cloud by pushing to your `production` git branch. You will receive notifications in our shared Slack channel, including links to access the deployment progress logs.
 
 Apostrophe will complete asset builds for each theme, as well as running any necessary new database migrations for each site, before switching to the newly deployed version of the code.
+
+
+## Using MongoDB Multiplexer
+
+Apostrophe creates one MongoDB database per site. With very large numbers of sites (more than about 250), this may lead to performance problems. This can be addressed using our MongoDB Multiplexer, which allows many virtual databases to be stored in a single database, *provided that all sites have the same MongoDB collection structure and indexes* (or a compatible subset thereof).
+
+To use this feature the project must be launched with `MONGODB_MULTIPLEXER_URI` set to the MongoDB connection URI of the single real database in which your sites and dashboard should be stored.
+
+Note that MongoDB Multiplexer has some additional restrictions and limitations. For more information see the [MongoDB Multiplexer documentation](https://www.npmjs.com/package/@apostrophecms-pro/mongodb-multiplexer).
