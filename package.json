@@ -22,11 +22,11 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@apostrophecms-pro/basics": "^1.2.1",
-    "@apostrophecms-pro/multisite": "^3.0.1",
+    "@apostrophecms-pro/multisite": "^3.1.0",
     "@apostrophecms-pro/palette": "^3.0.0-beta.1",
-    "apostrophe": "^3.5.0",
-    "node-fetch": "^2.6.5",
-    "nodemon": "^2.0.7",
+    "apostrophe": "^3.8.1",
+    "node-fetch": "^2.6.6",
+    "nodemon": "^2.0.15",
     "qs": "^6.9.6",
     "require-all": "^3.0.0"
   },
@@ -34,6 +34,6 @@
     "eslint": "^7.25.0",
     "eslint-config-apostrophe": "^3.4.0",
     "stylelint": "^13.13.1",
-    "stylelint-config-apostrophe": "^1.0.1"
+    "stylelint-config-apostrophe": "^1.1.0"
   }
 }
