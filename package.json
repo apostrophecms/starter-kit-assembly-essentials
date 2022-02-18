@@ -22,7 +22,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@apostrophecms-pro/basics": "1.2.1-alpha.2022-02-04-001",
-    "@apostrophecms-pro/multisite": "3.2.1-alpha.2022-02-04-001",
+    "@apostrophecms-pro/multisite": "3.3.0-alpha.1",
     "@apostrophecms-pro/palette": "3.0.0-alpha.2022-02-04-001",
     "apostrophe": "3.13.0-alpha.2022-02-04-001",
     "node-fetch": "^2.6.5",

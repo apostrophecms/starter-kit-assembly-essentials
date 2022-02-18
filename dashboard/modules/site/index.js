@@ -73,7 +73,8 @@ module.exports = {
           //
           // Sites created on a worker will be temporary and the worker won't
           // have the PB API key, so just make sure we have it first.
-          if (process.env.ENV && (process.env.ENV !== 'dev') && self.apos.baseUrl && fs.existsSync('/opt/cloud/platform-balancer-api-key')) {
+
+          if ((self.apos.options.multisite.activeEnv !== self.apos.options.multisite.debugEnv) && self.apos.baseUrl && fs.existsSync('/opt/cloud/platform-balancer-api-key')) {
             const refreshUrl = self.apos.baseUrl + '/platform-balancer/refresh';
             const response = await fetch(refreshUrl, {
               method: 'POST',
@@ -88,9 +89,9 @@ module.exports = {
                 key: fs.readFileSync('/opt/cloud/platform-balancer-api-key', 'utf8').trim()
               })
             });
-            // We don't care about the text of the response per se, we just want to
-            // throw if it's not 200 OK
-            await response.text();
+            if (response.status !== 200) {
+              throw await response.text();
+            }
           }
         }
       }
