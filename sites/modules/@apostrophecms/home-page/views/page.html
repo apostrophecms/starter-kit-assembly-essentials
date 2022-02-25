@@ -2,7 +2,7 @@
 {% import 'content-placeholder:placeholder.html' as placeholder with context -%}
 
 {% block main %}
-  <h2>I made a code change.</h2>
+  <h2>I made another code change.</h2>
   {% area data.page, 'main' %}
   {% if not data.page.main or not data.page.main.items.length %}
     {{ placeholder.render() }}
