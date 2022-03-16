@@ -12,15 +12,11 @@ This boilerplate project includes:
 * Best practices for easy hostname configuration in dev, staging and prod environments.
 * Support for multiple themes.
 
-## Use during alpha and beta phases
-
-This boilerplate is built on alpha releases of A3 modules. To give you some stability during development, the dependencies are pinned to specific alpha releases. When new pre-stable releases are available, as well as when we do make the first 3.0 stable release, you should review the breaking changes before updating and retesting your project. After the stable release of A3, the boilerplate will no longer have pinned dependencies.
-
 ## First Steps: required before startup
 
 ### Setting your shortname prefix
 
-Before you do anything else, set the `shortnamePrefix` option in `app.js` to a unique string for your project. This should match your repo name followed by a `-` character. This should be distinct from any other Assembly projects you have, to ensure their MongoDB databases do not conflict in a dev environment.
+Before you do anything else, set the fallback value for the `shortnamePrefix` option in `app.js` to a unique string for your project, replacing `a3ab-`. This should match your repo name followed by a `-` character. This should be distinct from any other Assembly projects you have, to ensure their MongoDB databases do not conflict in a dev environment.
 
 > MongoDB Atlas note: if you are self-hosting and you plan to use a low-end MongoDB Atlas cluster (below M10), you must use a unique prefix less than 12 characters (before the `-`), even if your repo name is longer. This is not an issue with hosting provided by the Apostrophe Assembly team.
 
@@ -28,15 +24,15 @@ Before you do anything else, set the `shortnamePrefix` option in `app.js` to a u
 
 After cloning this project, be sure to edit the `domains.js` file in the root of the project and change the list to match your real project's dev, staging and production domains.
 
-If you are doing local development on your own computer, leave the `dev` domain set to `localhost:3000`. For staging and production, the recommended approach is to register a real domain each for staging and production. Then add a DNS "wildcard" `A` record for each pointing to your cloud's elastic Ip address, as provided by your contact at Apostrophe. You'll then work with the Apostrophe Assembly team to complete the hosting configuration.
+If you are doing local development on your own computer, leave the `dev` domain set to `localhost:3000`. For staging and production, the Apostrophe Assembly team will typically preconfigure this for you and you won't need to worry about DNS or certificates.
+
+If you are rolling your own hosting, the recommended approach is to create a DNS "wildcard" `A` record for a subdomain of your actual domain name, like `*.staging.example.com`, and configure `staging.example.com` as the `staging` value in `domains.js`. You'll also need a wildcard SSL certificate for each of staging and production.
 
 You will later be able to set a "shortname" for each site and it will automatically work as a subdomain of all three domains. This saves a lot of configuration effort.
 
-> In the case of production, you will of course also be able to add a final production domain name for *each* site via the user interface. But you will need a "pre-production" hostname for early content creation. That is where `baseUrlDomains` comes into play.
+> In the case of production, you will of course also be able to add a final production domain name for *each* site via the user interface. But you will need a "pre-production" hostname for early content creation. That is where `baseUrlDomains` comes into play even for production.
 >
-> Registering a domain each for staging and production is strongly recommended, as DNS has no support for "third-level" wildcards.
->
-> We often use the `.dev` top level domain for staging and the `.com` or `.app` top level domain for pre-production editing, but the choice is yours.
+> You are not restricted to the environment names `dev`, `staging` and `prod`. However, the first environment configured is assumed to be a local debugging environment for programmers (typically `dev`), and the environment named `prod` is the only one that attempts to serve a site under its `prodHostname`. If you are working with the Apostrophe Assembly team for hosting, ask us for an additional cloud instance for each environment.
 
 ### Disabled File Key
 
@@ -52,14 +48,14 @@ In `sites/index.js`, locate `secret` and change `CHANGEME` to a random string of
 
 **Your local development environment must be either MacOS or Linux.** If your development computer runs Windows, we recommend development on Ubuntu Linux in a full virtual Linux machine, via [VirtualBox](https://www.virtualbox.org/).
 
-Another option is to use the Windows Subsystem for Linux, which is also an Ubuntu Linux-based environment. however this option has not been extensively tested with Assembly.
+Another option is to use the Windows Subsystem for Linux, which is also an Ubuntu Linux-based environment. However this option has not been extensively tested with Assembly.
 
 ### Software Installation Requirements
 
 To test-drive the project in development, make sure you have Apostrophe's usual dependencies on your local machine:
 
-* MongoDB (3.x or better)
-* NodeJS (10.x or better, latest long term support release recommended)
+* MongoDB (4.4.x or better)
+* NodeJS (14.x or better, latest long term support release recommended)
 * Imagemagick (for fast, high-quality image rendering)
 
 For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
@@ -230,20 +226,20 @@ For complete information and a sample configuration, see the [@apostrophecms-pro
 
 The dashboard site can be extended much like the regular sites. Dashboard development is very similar to regular site development, except that modules live in `dashboard/modules`, what normally resides in `app.js` lives in `dashboard/index.js`, and so on.
 
-The most important module is the `sites` module. The `sites` module is a piece type, with a piece to represent each site that your dashboard admins choose to create.
+The most important module is the `site` module. The `site` module is a piece type, with a piece to represent each site that your dashboard admins choose to create.
 
-Also important is the `assets` module, which serves the same function as the theme modules in `sites`. You can find the frontend assets in `dashboard/modules/assets/src`.
+Also important is the `asset` module, which serves the same function as the theme modules in `site`. You can find the frontend assets in `dashboard/modules/asset/ui/src`.
 
 ### Allowing dashboard admins to pass configuration to sites
 
-You can add custom schema fields to `sites` as seen in `dashboard/modules/sites/index.js`. Those fields are available on the `site` object passed to `sites/index.js`, and so they can be passed on as part of the configuration of modules.
+You can add custom schema fields to `sites` as seen in `dashboard/modules/site/index.js`. Those fields are available on the `site` object passed to `sites/index.js`, and so they can be passed on as part of the configuration of modules.
 
-However, there is one important restriction: you **must not decide to completely enable or disable a module that pushes assets on any basis other than the theme name.** This is becaue Apostrophe builds only one asset bundle per theme.
+However, there is one important restriction: you **must not decide to completely enable or disable a module that pushes assets on any basis other than the theme name.** This is because Apostrophe builds only one asset bundle per theme.
 
-**"Should I add a field to the `sites` piece in the dashboard, or just add it to `@apostrophecms/global` for sites?"** Good question! Here's a checklist for you:
+**"Should I add a field to the `site` piece in the dashboard, or just add it to `@apostrophecms/global` for sites?"** Good question! Here's a checklist for you:
 
 * **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/modules/@apostrophecms/global`.
-* **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/sites/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
+* **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/site/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
 
 ## Accessing the MongoDB utilities for a specific site
 
