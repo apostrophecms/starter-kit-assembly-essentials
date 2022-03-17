@@ -1,6 +1,3 @@
-// Domain name configuration is in domains.js
-const domains = require('./domains.js');
-
 require('@apostrophecms-pro/multisite')({
   // Default port, for dev
   port: 3000,
