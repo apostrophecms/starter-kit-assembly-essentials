@@ -54,7 +54,8 @@ module.exports = function (site) {
         }
       },
       '@apostrophecms-pro/basics-footer-widget': {},
-      '@apostrophecms-pro/palette': {}
+      '@apostrophecms-pro/palette': {},
+      '@apostrophecms-pro/document-versions': {}
     }
   };
   // Allow each theme to modify the configuration object,
