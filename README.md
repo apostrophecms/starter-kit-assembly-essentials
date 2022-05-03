@@ -271,3 +271,19 @@ Self-hosted arrangements can also be made. For more information contact the Apos
 If we are hosting Apostrophe Assembly for you, then you can deploy updates to your staging cloud by pushing to your `staging` git branch, and deploy updates to your production cloud by pushing to your `production` git branch. You will receive notifications in our shared Slack channel, including links to access the deployment progress logs.
 
 Apostrophe will complete asset builds for each theme, as well as running any necessary new database migrations for each site, before switching to the newly deployed version of the code.
+
+## Profiling with OpenTelemetry
+
+ApostropheCMS supports profiling with OpenTelemetry. There is an [article in the documentation](https://v3.docs.apostrophecms.org/cookbook/opentelemetry.html) covering the use of OpenTelemetry in general. Launching Apostrophe Assembly with OpenTelemetry support is slightly different. However for your convenience, `app.js` and `telemetry.js` are already set up appropriately in this project.
+
+To launch in your local development environment with OpenTelemetry logging to Jaeger, first [launch Jaeger according to the instructions in our documentation](https://v3.docs.apostrophecms.org/cookbook/opentelemetry.html). Then start your Apostrophe Assembly project like this:
+
+```
+APOS_OPENTELEMETRY=1 npm run dev
+```
+
+This provides a great deal of visibility into where the time is going when Apostrophe responds to a request. Note that separate hosts can be distinguished via the `http.host` tag attached to each request in Jaeger.
+
+Using OpenTelemetry in a staging environment provided by the Apostrophe team is possible. This involves modifying the provided `telemetry.js` file to log to a hosted backend such as [New Relic](https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/opentelemetry-introduction/) using an appropriate Open Telemetry exporter module. `process.env.ENV` can be used to distinguish between `dev` or no setting (usually local development), `staging` and `prod` when decidig whether to enable an OpenTelemetry backend.
+
+We do not recommend enabling OpenTelemetry in production, at least not permanently, because of the performance impact of the techniques OpenTelemetry uses to obtain the necessary visibility into async calls.
