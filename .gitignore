@@ -5,6 +5,8 @@
 /locales
 npm-debug.log
 /data
+/dashboard/data
+/sites/data
 */apos-build
 */public/apos-frontend
 /dashboard/modules/asset/ui/public
