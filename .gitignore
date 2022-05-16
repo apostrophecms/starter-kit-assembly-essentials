@@ -4,7 +4,7 @@
 /dashboard/locales
 /locales
 npm-debug.log
-/data
+*/data
 */apos-build
 */public/apos-frontend
 /dashboard/modules/asset/ui/public

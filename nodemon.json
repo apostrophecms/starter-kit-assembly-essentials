@@ -16,6 +16,9 @@
     ".git"
   ],
   "ignore": [
+    "**/ui/apos/",
+    "**/ui/src/",
+    "**ui/public/",
     "sites/apos-build/**",
     "sites/public/uploads/**",
     "sites/public/apos-frontend/**",
