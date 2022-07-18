@@ -6,6 +6,7 @@ const themes = require('../../../themes');
 module.exports = {
   options: {
     baseUrlDomains: require('../../../domains.js'),
+    localizedSites: true,
     test: true
   },
   fields: {
