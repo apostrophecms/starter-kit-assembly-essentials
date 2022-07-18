@@ -29,7 +29,7 @@
     "@opentelemetry/exporter-jaeger": "^1.2.0",
     "@opentelemetry/sdk-node": "^0.27.0",
     "@opentelemetry/semantic-conventions": "^1.2.0",
-    "apostrophe": "^3.18.0",
+    "apostrophe": "^3.24.0-alpha.2022071801",
     "node-fetch": "^2.6.5",
     "nodemon": "^2.0.16",
     "qs": "^6.9.6",
