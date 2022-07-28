@@ -1,3 +1,10 @@
+setInterval(() => {
+  console.log('console.log');
+}, 1000);
+setInterval(() => {
+  console.error('console.error');
+}, 5000);
+
 const multisite = require('@apostrophecms-pro/multisite');
 const { sdk } = require('./telemetry');
 
