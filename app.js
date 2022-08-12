@@ -11,6 +11,7 @@ async function go() {
     await multisite({
       // Default port, for dev
       port: 3000,
+      websocket: true,
       // Change this to a hardcoded string when forking to make a new project.
       // Just set it to a string which should never change. Ideally should match
       // your repo name followed by a -, however if you plan to use a
