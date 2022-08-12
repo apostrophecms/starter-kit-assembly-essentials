@@ -3,12 +3,12 @@ module.exports = {
     return {
       connected(ws, req) {
         ws.on('message', m => {
-          self.apos.util.log(`message received: ${m}`);
-          ws.send('I must\'ve called a thousand times');
+          console.log(`message received: ${m}`);
+          ws.send('I am the websocket server and now I will close the connection');
           ws.close();
         });
         ws.on('close', () => {
-          console.log('closed');
+          console.log('websocket closed');
         });
       }
     };
