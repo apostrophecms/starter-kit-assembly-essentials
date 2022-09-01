@@ -1,5 +1,3 @@
-const domains = require('../domains.js');
-
 module.exports = {
   privateDashboards: true,
   modules: {
