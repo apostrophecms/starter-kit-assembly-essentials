@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The purpose of this repo is to serve as a quick start boilerplate for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Tecnically speaking, it serves as a working example of a project built on the `@apostrophecms/multisite` module.
+The purpose of this repo is to serve as a quick start boilerplate for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
 
 This boilerplate project includes:
 
@@ -142,7 +142,7 @@ In all other respects, development is just like normal ApostropheCMS single-site
 
 If you have already started a single-site project, you can move your modules directly from `modules` to `sites/modules`, and move the `modules` section of your `app.js` file to the corresponding section of `sites/index.js`. However take note of the existing settings we provide and merge accordingly.
 
-> **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `@apostrophecms/multisite` and the provided logic in the boilerplate project.
+> **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `@apostrophecms-pro/multisite` and the provided logic in the boilerplate project.
 
 ### Themes
 
@@ -210,7 +210,7 @@ With Microsoft ending Internet Explorer 11 support in 2022, we no longer enable 
 
 If you need to serve static files, you can do this much as you would in standalone A3 development.
 
-The folder `sites/public` maps to `/` in the URL space of a site. For instance, `sites/public/fonts/myfile.ttf` maps to `/fonts/myfile.ttf`. For assets like favicons and fonts, you can add `link` tags to the `extraHead` block already present in `sites/modules/@apostrophecms/templates/views/outerLayout.html`.
+The folder `sites/public` maps to `/` in the URL space of a site. For instance, `sites/public/fonts/myfile.ttf` maps to `/fonts/myfile.ttf`. For assets like favicons and fonts, you can add `link` tags to the `extraHead` block already present in `sites/modules/@apostrophecms/template/views/outerLayout.html`.
 
 ### Palette Configuration
 
