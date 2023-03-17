@@ -6,6 +6,8 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 - [First Steps: required before startup](#first-steps-required-before-startup)
   - [Setting your shortname prefix](#setting-your-shortname-prefix)
   - [Configuring your domains](#configuring-your-domains)
+  - [Adding suffix to your subdomains (optional)](#adding-suffix-to-your-subdomains-optional)
+  - [Changing locale separator of your subdomains (optional)](#changing-locale-separator-of-your-subdomains-optional)
   - [Setting your Dashabord shortname (optional)](#setting-your-dashabord-shortname-optional)
   - [Disabled File Key](#disabled-file-key)
   - [Session Secret](#session-secret)
@@ -66,16 +68,45 @@ You will later be able to set a "shortname" for each site and it will automatica
 >
 > You are not restricted to the environment names `dev`, `staging` and `prod`. However, the first environment configured is assumed to be a local debugging environment for programmers (typically `dev`), and the environment named `prod` is the only one that attempts to serve a site under its `prodHostname`. If you are working with the Apostrophe Assembly team for hosting, ask us for an additional cloud instance for each environment.
 
+### Adding suffix to your subdomains (optional)
+
+You can additionally tweak subdomains for the sites that are using it. 
+
+`shortNameSuffix` configuration option (defaults to empty string), allows you to add additional suffix string to every site short name. For example, for a site with short name `cars` and the following configuration:
+```js
+multisite({
+  // ...
+  shortNameSuffix: '-assembly',
+});
+```
+The resulting base URL for this site will be `https://cars-assembly.localhost:3000`, `https://cars-assembly.staging.your-domain.com`, etc.
+
+> Note that your dashboard will also be affected, the base URL would become `https://dashboard-assembly.staging.your-domain.com`
+
+### Changing locale separator of your subdomains (optional)
+
+`localeSeparator` configuration option (defaults to `.`), allows you to change how the subdomains for localized sites (if chosen so) will be built. By default a dot separator will be used. For example `fr.cars.your-domain.com` will be the URL of a site, having `cars` short name and `fr` locale with "Separate Host" enabled. 
+If you apply the following configuration:
+```js
+multisite({
+  // ...
+  localeSeparator: '-',
+});
+```
+With that change, the hostname above will become `fr-cars.your-domain.com`.
+
+> **Note:** Your configuration won't be applied immediately on the existing sites. You need to update ("touch") your site records in order to apply the changes. You can do that for all existing sites via the CLI command `node app site:touch --site=dashboard`
+
 ### Setting your Dashabord shortname (optional)
 
-By default, your dashboard will be available on a `dashboard` subdomain - `http://dashboard.localhost:3000`, `https://dashboard.staging.example.com`, etc. You can change that with the configuration option `dashboardShortName` in your `app.js`. For example:
+By default, your dashboard will be available on a `dashboard` subdomain - `http://dashboard.localhost:3000`, `https://dashboard.staging.your-domain.com`, etc. You can change that with the configuration option `dashboardShortName` in your `app.js`. For example:
 ```js
 multisite({
   // ...
   dashboardShortName: 'admin',
 });
 ```
-With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.example.com`, etc.
+With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc.
 
 ### Disabled File Key
 
