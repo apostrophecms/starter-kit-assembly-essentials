@@ -83,9 +83,9 @@ The resulting base URL for this site will be `https://cars-assembly.localhost:30
 
 This options applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured, it will be used exactly as given.
 
-> **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs.
-
 > Note that your dashboard will also be affected, the base URL would become `https://dashboard-assembly.staging.your-domain.com`
+
+> **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs.
 
 ### Changing locale separator of your subdomains (optional)
 
