@@ -81,6 +81,10 @@ multisite({
 ```
 The resulting base URL for this site will be `https://cars-assembly.localhost:3000`, `https://cars-assembly.staging.your-domain.com`, etc.
 
+This options applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured, it will be used exactly as given.
+
+> **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs.
+
 > Note that your dashboard will also be affected, the base URL would become `https://dashboard-assembly.staging.your-domain.com`
 
 ### Changing locale separator of your subdomains (optional)
@@ -93,9 +97,13 @@ multisite({
   localeSeparator: '-',
 });
 ```
-With that change, the hostname above will become `fr-cars.your-domain.com`.
+With that change, the hostname above will become `fr-cars.your-domain.com`. 
+
+This options applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured for the locale it will be used exactly as given.
 
 > **Note:** Your configuration won't be applied immediately on the existing sites. You need to update ("touch") your site records in order to apply the changes. You can do that for all existing sites via the CLI command `node app site:touch --site=dashboard`
+
+> **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs. 
 
 ### Setting your Dashabord shortname (optional)
 
@@ -108,7 +116,7 @@ multisite({
 ```
 With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc.
 
-The use of this option is not yet supported with Apostrophe Assembly hosting. Contact us if this is a concern for your project.
+> **Note:** This option is not currently supported by Apostrophe Assembly Hosting. Contact us if this is a concern for your project.
 
 ### Disabled File Key
 
