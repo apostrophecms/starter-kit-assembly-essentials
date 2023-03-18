@@ -108,6 +108,8 @@ multisite({
 ```
 With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc.
 
+The use of this option is not yet supported with Apostrophe Assembly hosting. Contact us if this is a concern for your project.
+
 ### Disabled File Key
 
 In `sites/index.js`, locate `disabledFileKey` and change `CHANGEME` to a random string of your choosing. This is used when disabling access to files in the local backend.
