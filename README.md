@@ -1,5 +1,37 @@
 # Apostrophe Assembly Boilerplate
 
+<!-- TOC is auto generated via VSCode extensions https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one.
+Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
+- [Purpose](#purpose)
+- [First Steps: required before startup](#first-steps-required-before-startup)
+  - [Setting your shortname prefix](#setting-your-shortname-prefix)
+  - [Configuring your domains](#configuring-your-domains)
+  - [Setting your Dashabord shortname (optional)](#setting-your-dashabord-shortname-optional)
+  - [Disabled File Key](#disabled-file-key)
+  - [Session Secret](#session-secret)
+- [Requirements For Development On Your Computer](#requirements-for-development-on-your-computer)
+  - [Operating System: Mac, Linux, or Virtual Linux](#operating-system-mac-linux-or-virtual-linux)
+  - [Software Installation Requirements](#software-installation-requirements)
+  - [`/etc/hosts` File Configuration Requirements](#etchosts-file-configuration-requirements)
+- [Starting Up In Development](#starting-up-in-development)
+- [Site Development](#site-development)
+  - [Where Does My Apostrophe Project Code Go?](#where-does-my-apostrophe-project-code-go)
+  - [Themes](#themes)
+    - [Adding a New Theme](#adding-a-new-theme)
+    - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
+    - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
+    - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
+    - [Developing For IE11](#developing-for-ie11)
+    - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
+  - [Palette Configuration](#palette-configuration)
+- [Dashboard Development](#dashboard-development)
+  - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
+- [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
+- [Hosting](#hosting)
+- [Deployment](#deployment)
+- [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
+
+
 ## Purpose
 
 The purpose of this repo is to serve as a quick start boilerplate for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
@@ -33,6 +65,19 @@ You will later be able to set a "shortname" for each site and it will automatica
 > In the case of production, you will of course also be able to add a final production domain name for *each* site via the user interface. But you will need a "pre-production" hostname for early content creation. That is where `baseUrlDomains` comes into play even for production.
 >
 > You are not restricted to the environment names `dev`, `staging` and `prod`. However, the first environment configured is assumed to be a local debugging environment for programmers (typically `dev`), and the environment named `prod` is the only one that attempts to serve a site under its `prodHostname`. If you are working with the Apostrophe Assembly team for hosting, ask us for an additional cloud instance for each environment.
+
+### Setting your Dashabord shortname (optional)
+
+By default, your dashboard will be available on a `dashboard` subdomain - `http://dashboard.localhost:3000`, `https://dashboard.staging.example.com`, etc. You can change that with the configuration option `dashboardShortName` in your `app.js`. For example:
+```js
+multisite({
+  // ...
+  dashboardShortName: 'admin',
+});
+```
+With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.example.com`, etc.
+
+The use of this option is not yet supported with Apostrophe Assembly hosting. Contact us if this is a concern for your project.
 
 ### Disabled File Key
 
