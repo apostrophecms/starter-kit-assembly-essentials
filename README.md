@@ -68,9 +68,7 @@ You will later be able to set a "shortname" for each site and it will automatica
 >
 > You are not restricted to the environment names `dev`, `staging` and `prod`. However, the first environment configured is assumed to be a local debugging environment for programmers (typically `dev`), and the environment named `prod` is the only one that attempts to serve a site under its `prodHostname`. If you are working with the Apostrophe Assembly team for hosting, ask us for an additional cloud instance for each environment.
 
-### Adding suffix to your subdomains (optional)
-
-You can additionally tweak subdomains for the sites that are using it. 
+### Adding a suffix to your subdomains (optional)
 
 The `shortNameSuffix` configuration option, which defaults to an empty string, allows you to add additional suffix string to every site short name. For example, for a site with short name `cars` and the following configuration:
 ```js
@@ -81,13 +79,13 @@ multisite({
 ```
 The resulting base URL for this site will be `http://cars-assembly.localhost:3000`, `https://cars-assembly.staging.your-domain.com`, etc.
 
-These options applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured, it will be used exactly as given.
+These options apply only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured, it will be used exactly as given.
 
 > Note that your dashboard will also be affected, the base URL would become `https://dashboard-assembly.staging.your-domain.com`
 
 > **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs.
 
-### Changing locale separator of your subdomains (optional)
+### Changing the locale separator of your subdomains (optional)
 
 The `localeSeparator` configuration option, which defaults to `.`, allows you to change how the subdomains for localized sites (if chosen so) will be built. By default a dot separator will be used. For example, if "Separate Host" is enabled for a particular locale, `fr.cars.your-domain.com` will be the URL of a site with the short name `cars` and the `fr` locale. 
 If you apply the following configuration:
@@ -97,15 +95,15 @@ multisite({
   localeSeparator: '-',
 });
 ```
-With that change, the hostname above will become `fr-cars.your-domain.com`. 
+The hostname above will become `fr-cars.your-domain.com`. 
 
-This options applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured for the locale it will be used exactly as given.
+This option applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured for the locale it will be used exactly as given.
 
-> **Note:** Your configuration won't be applied immediately on the existing sites. You need to update ("touch") your site records in order to apply the changes. You can do that for all existing sites via the CLI command `node app site:touch --site=dashboard`
+> **Note:** Your configuration won't be applied immediately on the existing sites. You need to update ("touch") your site records in order to apply the changes. You can do that for all existing sites via the CLI command `node app site:touch --site=dashboard`. If you do not have the `touch` task, update the apostrophe module to the latest 3.x version.
 
 > **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs. 
 
-### Setting your Dashabord shortname (optional)
+### Setting your Dashboard shortname (optional)
 
 By default, your dashboard will be available on a `dashboard` subdomain - `http://dashboard.localhost:3000`, `https://dashboard.staging.your-domain.com`, etc. You can change that with the configuration option `dashboardShortName` in your `app.js`. For example:
 ```js
@@ -114,7 +112,9 @@ multisite({
   dashboardShortName: 'admin',
 });
 ```
-With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc.
+With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc. 
+
+Note that if `shortNameSuffix` is also set, the two options are combined to arrive at the complete dashboard subdomain.
 
 > **Note:** This option is not currently supported by Apostrophe Assembly Hosting. Contact us if this is a concern for your project.
 

@@ -29,9 +29,9 @@ async function go() {
       // the hostname for the `fr` locale with "Separate Host" enabled,
       // would be `fr-site.your-domain.com`.
       localeSeparator: '.',
-      // You may set the dashboard short name to a different value, than the default
-      // 'dashboard'. For exanple if set to `admin`, the dashboard would be
-      // available at `http://admin.yourdomain.com`.
+      // You may set the dashboard short name to a different value than the default
+      // 'dashboard'. For example if set to `admin`, the dashboard would be
+      // available at `https://admin.yourdomain.com`.
       dashboardShortName: process.env.APOS_DASHBOARD_SHORTNAME || 'dashboard',
       // For development. An environment variable overrides this in staging/production
       mongodbUrl: 'mongodb://localhost:27017',
