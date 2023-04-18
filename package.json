@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "eslint": "^7.25.0",
-    "eslint-config-apostrophe": "^3.4.0",
+    "eslint-config-apostrophe": "^3.4.2",
     "stylelint": "^13.13.1",
-    "stylelint-config-apostrophe": "^1.0.1"
+    "stylelint-config-apostrophe": "^1.1.0"
   }
 }
