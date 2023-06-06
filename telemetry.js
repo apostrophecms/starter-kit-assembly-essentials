@@ -4,7 +4,7 @@ const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumenta
 const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
 
 // 1. Add the application meta data (resource)
-const pkg = require('./package-lock.json');
+const pkg = require('./package.json');
 const resource = new resources.Resource({
   [SemanticResourceAttributes.SERVICE_NAME]: pkg.name,
   [SemanticResourceAttributes.SERVICE_VERSION]: pkg.version
