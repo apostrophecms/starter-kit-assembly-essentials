@@ -25,20 +25,20 @@
     "@apostrophecms-pro/document-versions": "^1.0.1",
     "@apostrophecms-pro/multisite": "^3.8.0",
     "@apostrophecms-pro/palette": "^3.0.2",
-    "@opentelemetry/auto-instrumentations-node": "^0.27.4",
-    "@opentelemetry/exporter-jaeger": "^1.2.0",
-    "@opentelemetry/sdk-node": "^0.27.0",
-    "@opentelemetry/semantic-conventions": "^1.2.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.37.1",
+    "@opentelemetry/exporter-jaeger": "^1.15.0",
+    "@opentelemetry/sdk-node": "^0.41.0",
+    "@opentelemetry/semantic-conventions": "^1.15.0",
     "apostrophe": "^3.47.0",
     "node-fetch": "^2.6.5",
-    "nodemon": "^2.0.16",
     "qs": "^6.9.6",
     "require-all": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.25.0",
-    "eslint-config-apostrophe": "^3.4.2",
-    "stylelint": "^13.13.1",
-    "stylelint-config-apostrophe": "^1.1.0"
+    "eslint": "^8.0.0",
+    "eslint-config-apostrophe": "^4.0.0",
+    "stylelint": "^15.0.0",
+    "stylelint-config-apostrophe": "^3.0.0",
+    "nodemon": "^3.0.1"
   }
 }
