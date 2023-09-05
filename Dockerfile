@@ -91,7 +91,7 @@ RUN APOS_RELEASE_ID=`cat /dev/random | tr -dc '0-9' | head -c 8` && echo ${APOS_
 ENV APOS_UPLOADFS_ASSETS=1
 
 # Temporary mongod server is deliberately in the background during the build task
-RUN bash -c "export MONGODB_URL=mongodb://localhost:27017 && mongod --dbpath=/root/tmp-mongodb-data & sleep 5 && npm run build"
+RUN bash -c "export MONGODB_URL=mongodb://localhost:27017 && mongod --dbpath=/root/tmp-mongodb-data & ./scripts/wait-for-port 27017 && npm run build"
 
 # At runtime everything is already baked in
 EXPOSE 3000

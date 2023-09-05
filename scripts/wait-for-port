@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+const net = require('net');
+const port = parseInt(process.argv[process.argv.length - 1]);
+
+go();
+
+async function go() {
+  let connected = false;
+  while (!connected) {
+    try {
+      await attempt('127.0.0.1', port);
+      connected = true;
+    } catch (e) {
+      console.error(e);
+      console.log(`Port ${port} not available yet, retrying in 1 second...`);
+      await delay(1000);
+    }
+  }
+  console.log(`Port ${port} connected`);
+}
+
+async function attempt(host, port) {
+  return new Promise((resolve, reject) => {
+    const client = net.createConnection(port, host);
+    client.on('connect', () => {
+      client.destroy();
+      resolve();
+    });
+    client.on('error', e => {
+      reject(e);
+    });
+  });
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
