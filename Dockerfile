@@ -1,6 +1,7 @@
-# Dockerfile for A3 assembly boilerplate. Assumes
-# S3 for media storage and an external mongodb server.
-# Useful for self-hosted projects
+# Dockerfile for self-hosted A3 assembly boilerplate. Assumes
+# S3 for media storage and an external mongodb server. See
+# comments on each ENV statement below; you'll need to provide
+# each of those arguments with --build-arg
 
 FROM node:18-bullseye
 ENV APOS_MINIFY=1
@@ -30,9 +31,11 @@ ENV NODE_ENV=production
 ENV PATH="/root/.local/bin:$PATH"
 RUN mkdir -p /root/.local/bin
 
-# Install the command line tools for mongodb (not
-# mongodb itself)
+# Install mongodb command line tools
 RUN npm install -g m && echo y | m tools stable
+# Temporary: install mongodb itself purely to satisfy the multisite module,
+# this instance will not be used in production
+RUN echo y | m 5.0 && mkdir -p /root/tmp-mongodb-data
 
 # See below for comments on each
 ARG APOS_PREFIX
@@ -41,10 +44,9 @@ ARG APOS_S3_REGION
 ARG APOS_S3_BUCKET
 ARG APOS_S3_KEY
 ARG APOS_S3_SECRET
-ARG DASHBOARD_HOSTNAME
+ARG APOS_DASHBOARD_HOSTNAME
 ARG PLATFORM_BALANCER_API_KEY
 ARG CDN
-ARG MONGODB_URL
 
 # Can be removed if you remove the relevant code from
 # the boilerplate project, which is intended to pass a hint
@@ -62,7 +64,7 @@ ENV APOS_PREFIX=${APOS_PREFIX}
 ENV ENV=${ENV}
 
 # e.g. dashboard.myplatformsdomainname.com
-ENV DASHBOARD_HOSTNAME=${DASHBOARD_HOSTNAME}
+ENV APOS_DASHBOARD_HOSTNAME=${APOS_DASHBOARD_HOSTNAME}
 
 # If not using S3, configure uploadfs for your preferred
 # storage using environment variables, or make sure
@@ -90,11 +92,11 @@ RUN APOS_RELEASE_ID=`cat /dev/random | tr -dc '0-9' | head -c 8` && echo ${APOS_
 # Store shared static assets in uploadfs
 ENV APOS_UPLOADFS_ASSETS=1
 
-ENV MONGODB_URL=${MONGODB_URL}
-
-# Build assets for all themes
-RUN npm run build
+# Temporary mongod server is deliberately in the background during the build task
+RUN bash -c "export MONGODB_URL=mongodb://localhost:27017 && mongod --dbpath=/root/tmp-mongodb-data & sleep 5 && npm run build"
 
 # At runtime everything is already baked in
 EXPOSE 3000
-CMD npm run production-start
+
+# Will fail unless --env is used to specify the true MONGODB_URL to "docker run"
+CMD bash -c "npm run production-start"
