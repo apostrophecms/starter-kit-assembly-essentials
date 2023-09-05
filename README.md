@@ -408,3 +408,40 @@ This provides a great deal of visibility into where the time is going when Apost
 Using OpenTelemetry in a staging environment provided by the Apostrophe team is possible. This involves modifying the provided `telemetry.js` file to log to a hosted backend such as [New Relic](https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/opentelemetry-introduction/) using an appropriate Open Telemetry exporter module. `process.env.ENV` can be used to distinguish between `dev` or no setting (usually local development), `staging` and `prod` when decidig whether to enable an OpenTelemetry backend.
 
 We do not recommend enabling OpenTelemetry in production, at least not permanently, because of the performance impact of the techniques OpenTelemetry uses to obtain the necessary visibility into async calls.
+
+## Self-hosting and the sample Dockerfile
+
+A sample `Dockerfile` is provided with this project and can be used for self-hosting. See also the provided `.dockerignore` file.
+
+Typical `build` and `run` commands look like:
+
+```bash
+# build command
+docker build -t a3-assembly-boilerplate . \
+  --build-arg="NPMRC=//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN_GOES_HERE" \
+  --build-arg="ENV=prod" --build-arg="APOS_PREFIX=YOUR-PREFIX-GOES-HERE-" \
+  --build-arg="DASHBOARD_HOSTNAME=dashboard.YOUR-DOMAIN-NAME-GOES-HERE.com" \
+  --build-arg="PLATFORM_BALANCER_API_KEY=YOUR-STRING-GOES-HERE" \
+  --build-arg="APOS_S3_REGION=YOURS-GOES-HERE" \
+  --build-arg="APOS_S3_BUCKET=YOURS-GOES-HERE" \
+  --build-arg="APOS_S3_KEY=YOURS-GOES-HERE" \
+  --build-arg="APOS_S3_SECRET=YOURS-GOES-HERE"
+
+# run command
+docker run -it --env MONGODB_URL=YOUR-MONGODB-ATLAS-URL-GOES-HERE a3-assembly-boilerplate
+```
+
+To avoid passing the real MongoDB URL to the build task, currently the provided Dockerfile uses a
+temporary instance of `mongod` to satisfy a requirement that it be present for the build task.
+
+An npm token is required to successfully `npm install` the private packages inside the
+image during the build.
+
+S3 credentials are passed to the build so that the static assets can be mirrored to S3, however
+at a cost in performance this can be avoided by removing `APOS_UPLOADFS_ASSETS=1` from
+the `Dockerfile` and removing the references to these environment variables as well. Note
+that you will still need S3 credentials in the `run` command, unless you arrange for
+`dashboard/public/uploads` and `sites/public/uploads` to be persistent volumes on a
+filesystem shared by all instances. This is slow, so we recommend using S3 or configuring
+a different [uploadfs backend](https://github.com/apostrophecms/uploadfs) such as
+Azure Blob Storage or Google Cloud Storage.
