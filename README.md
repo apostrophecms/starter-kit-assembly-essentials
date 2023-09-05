@@ -411,7 +411,7 @@ We do not recommend enabling OpenTelemetry in production, at least not permanent
 
 ## Self-hosting and the sample Dockerfile
 
-A sample `Dockerfile` is provided with this project and can be used for self-hosting.
+A sample `Dockerfile` is provided with this project and can be used for self-hosting. See also the provided `.dockerignore` file.
 
 Typical `build` and `run` commands look like:
 
