@@ -75,22 +75,25 @@ module.exports = {
           // have the PB API key, so just make sure we have it first.
 
           if ((self.apos.options.multisite.activeEnv !== self.apos.options.multisite.debugEnv) && self.apos.baseUrl && fs.existsSync('/opt/cloud/platform-balancer-api-key')) {
-            const refreshUrl = self.apos.baseUrl + '/platform-balancer/refresh';
-            const response = await fetch(refreshUrl, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                // Since this key is visible to the Apostrophe application code in production,
-                // it is only capable of one thing: asking nicely that certificates be
-                // generated, if it's time and they are needed, for sites
-                // that are already in the system. Thus not a security risk
-                key: fs.readFileSync('/opt/cloud/platform-balancer-api-key', 'utf8').trim()
-              })
-            });
-            if (response.status !== 200) {
-              throw await response.text();
+            const key = fs.readFileSync('/opt/cloud/platform-balancer-api-key', 'utf8').trim();
+            if (key.length) {
+              const refreshUrl = self.apos.baseUrl + '/platform-balancer/refresh';
+              const response = await fetch(refreshUrl, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  // Since this key is visible to the Apostrophe application code in production,
+                  // it is only capable of one thing: asking nicely that certificates be
+                  // generated, if it's time and they are needed, for sites
+                  // that are already in the system. Thus not a security risk
+                  key
+                })
+              });
+              if (response.status !== 200) {
+                throw await response.text();
+              }
             }
           }
         }

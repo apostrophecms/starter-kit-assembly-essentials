@@ -392,6 +392,10 @@ Apostrophe will complete asset builds for each theme, as well as running any nec
 
 A sample `Dockerfile` is provided with this project and can be used for self-hosting. See also the provided `.dockerignore` file.
 
+This `Dockerfile` assumes you have obtained an Amazon S3 storage bucket and set up MongoDB hosting
+via MongoDB Atlas. The `Dockerfile` is designed to support running as many instances as you wish
+on separate servers and load-balancing them via a mechanism of your choice.
+
 Typical `build` and `run` commands look like:
 
 ```bash
@@ -424,6 +428,11 @@ that you will still need S3 credentials in the `run` command, unless you arrange
 filesystem shared by all instances. This is slow, so we recommend using S3 or configuring
 a different [uploadfs backend](https://github.com/apostrophecms/uploadfs) such as
 Azure Blob Storage or Google Cloud Storage.
+
+If you provide a `PLATFORM_BALANCER_API_KEY`, then your dashboard hostname must
+also accept a JSON-encoded `POST` request to `/platform-balancer/refresh` with a single `key`
+parameter. You can use that request as a trigger to refresh your list of sites when an admin adds
+or edits a site in the dashboard. If you don't want to do this, just don't set the variable.
 
 ## Profiling with OpenTelemetry
 

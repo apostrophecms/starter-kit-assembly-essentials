@@ -1,7 +1,5 @@
 # Dockerfile for self-hosted A3 assembly boilerplate. Assumes
-# S3 for media storage and an external mongodb server. See
-# comments on each ENV statement below; you'll need to provide
-# each of those arguments with --build-arg
+# S3 for media storage and an external mongodb server.
 
 FROM node:18-bullseye
 ENV APOS_MINIFY=1
