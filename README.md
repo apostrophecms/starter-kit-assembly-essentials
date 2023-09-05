@@ -29,7 +29,7 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 - [Dashboard Development](#dashboard-development)
   - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
 - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
-- [Deployment and Hosting](#deployment)
+- [Deployment and Hosting](#deployment-and-hosting)
 - [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
 
 
