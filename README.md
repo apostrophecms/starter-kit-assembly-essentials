@@ -29,8 +29,7 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 - [Dashboard Development](#dashboard-development)
   - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
 - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
-- [Hosting](#hosting)
-- [Deployment](#deployment)
+- [Deployment and Hosting](#deployment)
 - [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
 
 
@@ -381,13 +380,7 @@ node app mongo:mongorestore --site=test1.localhost -- --drop
 
 Note the use of `--` by itself as an end marker for the options to Apostrophe, allowing the `--drop` option to be passed on to `mongodump`.
 
-## Hosting
-
-Hosting for staging and production clouds is typically provided by the Apostrophe Assembly team.
-
-Self-hosted arrangements can also be made. For more information contact the Apostrophe Assembly team.
-
-## Deployment
+## Deployment and Hosting
 
 ### Hosting with Us
 
