@@ -1,7 +1,7 @@
 # Self-hosting recommendations
 
-*This page is about self-hosting Apostrophe in staging and production environments.
-For a **development** environment, we recommend running Apostrophe directly on
+*This page is about self-hosting Apostrophe Assembly in staging and production environments.
+For a **development** environment, we recommend running Apostrophe Assembly directly on
 MacOS, Linux, or Windows Subsystem for Linux.*
 
 A sample `Dockerfile` is provided with this project and can be used for self-hosting.
