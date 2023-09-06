@@ -388,51 +388,11 @@ If we are hosting Apostrophe Assembly for you, then you can deploy updates to yo
 
 Apostrophe will complete asset builds for each theme, as well as running any necessary new database migrations for each site, before switching to the newly deployed version of the code.
 
-### Self-hosting and the sample Dockerfile
+### Self-hosting
 
-A sample `Dockerfile` is provided with this project and can be used for self-hosting. See also the provided `.dockerignore` file.
-
-This `Dockerfile` assumes you have obtained an Amazon S3 storage bucket and set up MongoDB hosting
-via MongoDB Atlas. The `Dockerfile` is designed to support running as many instances as you wish
-on separate servers and load-balancing them via a mechanism of your choice.
-
-Typical `build` and `run` commands look like:
-
-```bash
-# build command
-docker build -t a3-assembly-boilerplate . \
-  --build-arg="NPMRC=//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN_GOES_HERE" \
-  --build-arg="ENV=prod" --build-arg="APOS_PREFIX=YOUR-PREFIX-GOES-HERE-" \
-  --build-arg="DASHBOARD_HOSTNAME=dashboard.YOUR-DOMAIN-NAME-GOES-HERE.com" \
-  --build-arg="PLATFORM_BALANCER_API_KEY=YOUR-STRING-GOES-HERE" \
-  --build-arg="APOS_S3_REGION=YOURS-GOES-HERE" \
-  --build-arg="APOS_S3_BUCKET=YOURS-GOES-HERE" \
-  --build-arg="APOS_S3_KEY=YOURS-GOES-HERE" \
-  --build-arg="APOS_S3_SECRET=YOURS-GOES-HERE"
-
-# run command
-docker run -it --env MONGODB_URL=YOUR-MONGODB-ATLAS-URL-GOES-HERE a3-assembly-boilerplate
-```
-
-To avoid passing the real MongoDB URL to the build task, currently the provided Dockerfile uses a
-temporary instance of `mongod` to satisfy a requirement that it be present for the build task.
-
-An npm token is required to successfully `npm install` the private packages inside the
-image during the build.
-
-S3 credentials are passed to the build so that the static assets can be mirrored to S3, however
-at a cost in performance this can be avoided by removing `APOS_UPLOADFS_ASSETS=1` from
-the `Dockerfile` and removing the references to these environment variables as well. Note
-that you will still need S3 credentials in the `run` command, unless you arrange for
-`dashboard/public/uploads` and `sites/public/uploads` to be persistent volumes on a
-filesystem shared by all instances. This is slow, so we recommend using S3 or configuring
-a different [uploadfs backend](https://github.com/apostrophecms/uploadfs) such as
-Azure Blob Storage or Google Cloud Storage.
-
-If you provide a `PLATFORM_BALANCER_API_KEY`, then your dashboard hostname must
-also accept a JSON-encoded `POST` request to `/platform-balancer/refresh` with a single `key`
-parameter. You can use that request as a trigger to refresh your list of sites when an admin adds
-or edits a site in the dashboard. If you don't want to do this, just don't set the variable.
+See [self-hosting](self-hosting.md) for more information about self-hosting with
+the provided `Dockerfile`. There are a number of important details to consider, so be sure to
+read the [self-hosting notes](self-hosting.md) before beginning deployment.
 
 ## Profiling with OpenTelemetry
 
