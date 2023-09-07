@@ -1,7 +1,7 @@
 module.exports = {
   privateDashboards: true,
   modules: {
-    '@apostrophecms/attachment': {
+    '@apostrophecms/uploadfs': {
       options: {
         uploadfs: {
           disabledFileKey: 'CHANGEME'
