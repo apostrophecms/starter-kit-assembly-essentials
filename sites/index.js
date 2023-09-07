@@ -6,7 +6,7 @@ module.exports = function (site) {
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
     modules: {
-      '@apostrophecms/attachment': {
+      '@apostrophecms/uploadfs': {
         options: {
           uploadfs: {
             // Be sure to change
