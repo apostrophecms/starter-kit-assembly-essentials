@@ -56,6 +56,7 @@ module.exports = function (site) {
       '@apostrophecms-pro/basics-footer-widget': {},
       '@apostrophecms-pro/palette': {},
       '@apostrophecms-pro/document-versions': {},
+      '@apostrophecms/import-export': {},
       websocket: {}
     }
   };
