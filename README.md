@@ -2,36 +2,40 @@
 
 <!-- TOC is auto generated via VSCode extensions https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one.
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
-- [Purpose](#purpose)
-- [First Steps: required before startup](#first-steps-required-before-startup)
-  - [Setting your shortname prefix](#setting-your-shortname-prefix)
-  - [Configuring your domains](#configuring-your-domains)
-  - [Adding suffix to your subdomains (optional)](#adding-suffix-to-your-subdomains-optional)
-  - [Changing locale separator of your subdomains (optional)](#changing-locale-separator-of-your-subdomains-optional)
-  - [Setting your Dashabord shortname (optional)](#setting-your-dashabord-shortname-optional)
-  - [Disabled File Key](#disabled-file-key)
-  - [Session Secret](#session-secret)
-- [Requirements For Development On Your Computer](#requirements-for-development-on-your-computer)
-  - [Operating System: Mac, Linux, or Virtual Linux](#operating-system-mac-linux-or-virtual-linux)
-  - [Software Installation Requirements](#software-installation-requirements)
-  - [`/etc/hosts` File Configuration Requirements](#etchosts-file-configuration-requirements)
-- [Starting Up In Development](#starting-up-in-development)
-- [Site Development](#site-development)
-  - [Where Does My Apostrophe Project Code Go?](#where-does-my-apostrophe-project-code-go)
-  - [Themes](#themes)
-    - [Adding a New Theme](#adding-a-new-theme)
-    - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
-    - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
-    - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
-    - [Developing For IE11](#developing-for-ie11)
-    - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
-  - [Palette Configuration](#palette-configuration)
-- [Dashboard Development](#dashboard-development)
-  - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
-- [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
-- [Hosting](#hosting)
-- [Deployment](#deployment)
-- [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
+- [Apostrophe Assembly Boilerplate](#apostrophe-assembly-boilerplate)
+  - [Purpose](#purpose)
+    - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-the-apostrophe-cli-is-not-currently-intended-for-multisite-projects)
+  - [First Steps: required before startup](#first-steps-required-before-startup)
+    - [Setting your shortname prefix](#setting-your-shortname-prefix)
+    - [Configuring your domains](#configuring-your-domains)
+    - [Adding a suffix to your subdomains (optional)](#adding-a-suffix-to-your-subdomains-optional)
+    - [Changing the locale separator of your subdomains (optional)](#changing-the-locale-separator-of-your-subdomains-optional)
+    - [Setting your Dashboard shortname (optional)](#setting-your-dashboard-shortname-optional)
+    - [Disabled File Key](#disabled-file-key)
+    - [Session Secret](#session-secret)
+  - [Requirements For Development On Your Computer](#requirements-for-development-on-your-computer)
+    - [Operating System: Mac, Linux, or Virtual Linux](#operating-system-mac-linux-or-virtual-linux)
+    - [Software Installation Requirements](#software-installation-requirements)
+    - [`/etc/hosts` File Configuration Requirements](#etchosts-file-configuration-requirements)
+  - [Starting Up In Development](#starting-up-in-development)
+  - [Scheduling tasks with Apostrophe Assembly hosting](#scheduling-tasks-with-apostrophe-assembly-hosting)
+  - [Site Development](#site-development)
+    - [Where Does My Apostrophe Project Code Go?](#where-does-my-apostrophe-project-code-go)
+    - [Themes](#themes)
+      - [Adding a New Theme](#adding-a-new-theme)
+      - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
+      - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
+      - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
+      - [Developing For IE11](#developing-for-ie11)
+      - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
+    - [Palette Configuration](#palette-configuration)
+  - [Dashboard Development](#dashboard-development)
+    - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
+  - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
+  - [Hosting](#hosting)
+  - [Deployment](#deployment)
+  - [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
+  - [Self-hosting and the sample Dockerfile](#self-hosting-and-the-sample-dockerfile)
 
 
 ## Purpose
@@ -45,6 +49,8 @@ This boilerplate project includes:
 * An example of project-level frontend asset generation via a modern webpack build.
 * Best practices for easy hostname configuration in dev, staging and prod environments.
 * Support for multiple themes.
+
+### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**
 
 ## First Steps: required before startup
 
