@@ -4,7 +4,7 @@
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
 - [Apostrophe Assembly Boilerplate](#apostrophe-assembly-boilerplate)
   - [Purpose](#purpose)
-    - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. Installing from the CLI can sometimes fail and will not correctly set up passwords for the dashboard and individual sites.**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-installing-from-the-cli-can-sometimes-fail-and-will-not-correctly-set-up-passwords-for-the-dashboard-and-individual-sites)
+    - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-the-apostrophe-cli-is-not-currently-intended-for-multisite-projects)
   - [First Steps: required before startup](#first-steps-required-before-startup)
     - [Setting your shortname prefix](#setting-your-shortname-prefix)
     - [Configuring your domains](#configuring-your-domains)
@@ -50,7 +50,7 @@ This boilerplate project includes:
 * Best practices for easy hostname configuration in dev, staging and prod environments.
 * Support for multiple themes.
 
-### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. Installing from the CLI can sometimes fail and will not correctly set up passwords for the dashboard and individual sites.**
+### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**
 
 ## First Steps: required before startup
 
