@@ -93,6 +93,9 @@ module.exports = {
               throw await response.text();
             }
           }
+        },
+        async logTitle(req, piece, options) {
+          console.log(`in afterSave for ${piece.title}`);
         }
       }
     };
