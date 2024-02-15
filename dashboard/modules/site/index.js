@@ -54,6 +54,31 @@ module.exports = {
       }
     }
   },
+  permissions: {
+    add: {
+      editLocales: {
+        label: 'Edit Locales'
+      },
+      editOther: {
+        label: 'Edit Other'
+      }
+    }
+  },
+  init(self) {
+    for (const field of self.schema) {
+      if (field.name === 'locales') {
+        field.editPermission = {
+          type: 'site',
+          action: 'editLocales'
+        };
+      } else {
+        field.editPermission = {
+          type: 'site',
+          action: 'editOther'
+        }
+      }
+    }
+  },
   tasks(self, options) {
     return {
       'list-themes': {

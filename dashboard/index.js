@@ -1,5 +1,4 @@
 module.exports = {
-  privateDashboards: true,
   modules: {
     '@apostrophecms/attachment': {
       options: {
@@ -11,6 +10,8 @@ module.exports = {
     helper: {},
     site: {},
     'site-page': {},
-    asset: {}
+    asset: {},
+    '@apostrophecms-pro/advanced-permission': {},
+    '@apostrophecms-pro/advanced-permission-group': {}
   }
 };
