@@ -2,35 +2,40 @@
 
 <!-- TOC is auto generated via VSCode extensions https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one.
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
-- [Purpose](#purpose)
-- [First Steps: required before startup](#first-steps-required-before-startup)
-  - [Setting your shortname prefix](#setting-your-shortname-prefix)
-  - [Configuring your domains](#configuring-your-domains)
-  - [Adding suffix to your subdomains (optional)](#adding-suffix-to-your-subdomains-optional)
-  - [Changing locale separator of your subdomains (optional)](#changing-locale-separator-of-your-subdomains-optional)
-  - [Setting your Dashabord shortname (optional)](#setting-your-dashabord-shortname-optional)
-  - [Disabled File Key](#disabled-file-key)
-  - [Session Secret](#session-secret)
-- [Requirements For Development On Your Computer](#requirements-for-development-on-your-computer)
-  - [Operating System: Mac, Linux, or Virtual Linux](#operating-system-mac-linux-or-virtual-linux)
-  - [Software Installation Requirements](#software-installation-requirements)
-  - [`/etc/hosts` File Configuration Requirements](#etchosts-file-configuration-requirements)
-- [Starting Up In Development](#starting-up-in-development)
-- [Site Development](#site-development)
-  - [Where Does My Apostrophe Project Code Go?](#where-does-my-apostrophe-project-code-go)
-  - [Themes](#themes)
-    - [Adding a New Theme](#adding-a-new-theme)
-    - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
-    - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
-    - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
-    - [Developing For IE11](#developing-for-ie11)
-    - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
-  - [Palette Configuration](#palette-configuration)
-- [Dashboard Development](#dashboard-development)
-  - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
-- [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
-- [Deployment and Hosting](#deployment-and-hosting)
-- [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
+- [Apostrophe Assembly Boilerplate](#apostrophe-assembly-boilerplate)
+  - [Purpose](#purpose)
+    - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-the-apostrophe-cli-is-not-currently-intended-for-multisite-projects)
+  - [First Steps: required before startup](#first-steps-required-before-startup)
+    - [Setting your shortname prefix](#setting-your-shortname-prefix)
+    - [Configuring your domains](#configuring-your-domains)
+    - [Adding a suffix to your subdomains (optional)](#adding-a-suffix-to-your-subdomains-optional)
+    - [Changing the locale separator of your subdomains (optional)](#changing-the-locale-separator-of-your-subdomains-optional)
+    - [Setting your Dashboard shortname (optional)](#setting-your-dashboard-shortname-optional)
+    - [Disabled File Key](#disabled-file-key)
+    - [Session Secret](#session-secret)
+  - [Requirements For Development On Your Computer](#requirements-for-development-on-your-computer)
+    - [Operating System: Mac, Linux, or Virtual Linux](#operating-system-mac-linux-or-virtual-linux)
+    - [Software Installation Requirements](#software-installation-requirements)
+    - [`/etc/hosts` File Configuration Requirements](#etchosts-file-configuration-requirements)
+  - [Starting Up In Development](#starting-up-in-development)
+  - [Scheduling tasks with Apostrophe Assembly hosting](#scheduling-tasks-with-apostrophe-assembly-hosting)
+  - [Site Development](#site-development)
+    - [Where Does My Apostrophe Project Code Go?](#where-does-my-apostrophe-project-code-go)
+    - [Themes](#themes)
+      - [Adding a New Theme](#adding-a-new-theme)
+      - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
+      - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
+      - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
+      - [Developing For IE11](#developing-for-ie11)
+      - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
+    - [Palette Configuration](#palette-configuration)
+  - [Dashboard Development](#dashboard-development)
+    - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
+  - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
+  - [Hosting](#hosting)
+  - [Deployment](#deployment)
+  - [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
+  - [Self-hosting and the sample Dockerfile](#self-hosting-and-the-sample-dockerfile)
 
 
 ## Purpose
@@ -44,6 +49,8 @@ This boilerplate project includes:
 * An example of project-level frontend asset generation via a modern webpack build.
 * Best practices for easy hostname configuration in dev, staging and prod environments.
 * Support for multiple themes.
+
+### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**
 
 ## First Steps: required before startup
 
@@ -86,7 +93,7 @@ These options apply only when the hostname is determined in part by the `shortNa
 
 ### Changing the locale separator of your subdomains (optional)
 
-The `localeSeparator` configuration option, which defaults to `.`, allows you to change how the subdomains for localized sites (if chosen so) will be built. By default a dot separator will be used. For example, if "Separate Host" is enabled for a particular locale, `fr.cars.your-domain.com` will be the URL of a site with the short name `cars` and the `fr` locale. 
+The `localeSeparator` configuration option, which defaults to `.`, allows you to change how the subdomains for localized sites (if chosen so) will be built. By default a dot separator will be used. For example, if "Separate Host" is enabled for a particular locale, `fr.cars.your-domain.com` will be the URL of a site with the short name `cars` and the `fr` locale.
 If you apply the following configuration:
 ```js
 multisite({
@@ -94,13 +101,13 @@ multisite({
   localeSeparator: '-',
 });
 ```
-The hostname above will become `fr-cars.your-domain.com`. 
+The hostname above will become `fr-cars.your-domain.com`.
 
 This option applies only when the hostname is determined in part by the `shortName` field for the site, so if a production hostname is configured for the locale it will be used exactly as given.
 
 > **Note:** Your configuration won't be applied immediately on the existing sites. You need to update ("touch") your site records in order to apply the changes. You can do that for all existing sites via the CLI command `node app site:touch --site=dashboard`. If you do not have the `touch` task, update the apostrophe module to the latest 3.x version.
 
-> **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs. 
+> **Note:** This option is not currently supported by Apostrophe Assembly Hosting, as we apply the naming convention for you when hosting for you. It's there for self-hosted customers with different needs.
 
 ### Setting your Dashboard shortname (optional)
 
@@ -111,7 +118,7 @@ multisite({
   dashboardShortName: 'admin',
 });
 ```
-With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc. 
+With the setting above, the Dashboard application will be available at `http://admin.localhost:3000`, `https://admin.staging.your-domain.com`, etc.
 
 Note that if `shortNameSuffix` is also set, the two options are combined to arrive at the complete dashboard subdomain.
 
@@ -380,19 +387,17 @@ node app mongo:mongorestore --site=test1.localhost -- --drop
 
 Note the use of `--` by itself as an end marker for the options to Apostrophe, allowing the `--drop` option to be passed on to `mongodump`.
 
-## Deployment and Hosting
+## Hosting
 
-### Hosting with Us
+Hosting for staging and production clouds is typically provided by the Apostrophe Assembly team.
+
+Self-hosted arrangements can also be made. For more information contact the Apostrophe Assembly team.
+
+## Deployment
 
 If we are hosting Apostrophe Assembly for you, then you can deploy updates to your staging cloud by pushing to your `staging` git branch, and deploy updates to your production cloud by pushing to your `production` git branch. You will receive notifications in our shared Slack channel, including links to access the deployment progress logs.
 
 Apostrophe will complete asset builds for each theme, as well as running any necessary new database migrations for each site, before switching to the newly deployed version of the code.
-
-### Self-hosting
-
-See [self-hosting](self-hosting.md) for more information about self-hosting with
-the provided `Dockerfile`. There are a number of important details to consider, so be sure to
-read the [self-hosting notes](self-hosting.md) before beginning deployment.
 
 ## Profiling with OpenTelemetry
 
@@ -410,4 +415,39 @@ Using OpenTelemetry in a staging environment provided by the Apostrophe team is 
 
 We do not recommend enabling OpenTelemetry in production, at least not permanently, because of the performance impact of the techniques OpenTelemetry uses to obtain the necessary visibility into async calls.
 
+## Self-hosting and the sample Dockerfile
 
+A sample `Dockerfile` is provided with this project and can be used for self-hosting. See also the provided `.dockerignore` file.
+
+Typical `build` and `run` commands look like:
+
+```bash
+# build command
+docker build -t a3-assembly-boilerplate . \
+  --build-arg="NPMRC=//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN_GOES_HERE" \
+  --build-arg="ENV=prod" --build-arg="APOS_PREFIX=YOUR-PREFIX-GOES-HERE-" \
+  --build-arg="DASHBOARD_HOSTNAME=dashboard.YOUR-DOMAIN-NAME-GOES-HERE.com" \
+  --build-arg="PLATFORM_BALANCER_API_KEY=YOUR-STRING-GOES-HERE" \
+  --build-arg="APOS_S3_REGION=YOURS-GOES-HERE" \
+  --build-arg="APOS_S3_BUCKET=YOURS-GOES-HERE" \
+  --build-arg="APOS_S3_KEY=YOURS-GOES-HERE" \
+  --build-arg="APOS_S3_SECRET=YOURS-GOES-HERE"
+
+# run command
+docker run -it --env MONGODB_URL=YOUR-MONGODB-ATLAS-URL-GOES-HERE a3-assembly-boilerplate
+```
+
+To avoid passing the real MongoDB URL to the build task, currently the provided Dockerfile uses a
+temporary instance of `mongod` to satisfy a requirement that it be present for the build task.
+
+An npm token is required to successfully `npm install` the private packages inside the
+image during the build.
+
+S3 credentials are passed to the build so that the static assets can be mirrored to S3, however
+at a cost in performance this can be avoided by removing `APOS_UPLOADFS_ASSETS=1` from
+the `Dockerfile` and removing the references to these environment variables as well. Note
+that you will still need S3 credentials in the `run` command, unless you arrange for
+`dashboard/public/uploads` and `sites/public/uploads` to be persistent volumes on a
+filesystem shared by all instances. This is slow, so we recommend using S3 or configuring
+a different [uploadfs backend](https://github.com/apostrophecms/uploadfs) such as
+Azure Blob Storage or Google Cloud Storage.
