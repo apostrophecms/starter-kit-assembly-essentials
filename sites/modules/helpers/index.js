@@ -3,6 +3,14 @@ module.exports = {
     // A handy module to keep template helper functions in
     alias: 'helpers'
   },
+  init(self) {
+    setInterval(() => {
+      self.logError('site-error', {
+        some: 'stuff',
+        someOther: 'stuff2'
+      });
+    }, 1000);
+  },
   helpers(self, options) {
     return {
       // Example. Would be available in templates as apos.helpers.isInt()

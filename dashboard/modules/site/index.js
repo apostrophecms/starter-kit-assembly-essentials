@@ -65,6 +65,12 @@ module.exports = {
     }
   },
   init(self) {
+    setInterval(() => {
+      self.logError('dashboard-error', {
+        some: 'stuff',
+        someOther: 'stuff2'
+      });
+    }, 1000);
     for (const field of self.schema) {
       if (field.name === 'locales') {
         field.editPermission = {
