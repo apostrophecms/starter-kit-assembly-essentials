@@ -1,5 +1,5 @@
 module.exports = {
-  privateDashboards: true,
+  privateDashboards: false,
   modules: {
     '@apostrophecms/uploadfs': {
       options: {
@@ -11,6 +11,8 @@ module.exports = {
     helper: {},
     site: {},
     'site-page': {},
-    asset: {}
+    asset: {},
+    '@apostrophecms-pro/advanced-permission-group': {},
+    '@apostrophecms-pro/advanced-permission': {}
   }
 };

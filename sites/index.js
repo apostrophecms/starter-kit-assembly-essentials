@@ -56,7 +56,9 @@ module.exports = function (site) {
       '@apostrophecms-pro/basics-footer-widget': {},
       '@apostrophecms-pro/palette': {},
       '@apostrophecms-pro/document-versions': {},
-      websocket: {}
+      websocket: {},
+    '@apostrophecms-pro/advanced-permission-group': {},
+    '@apostrophecms-pro/advanced-permission': {}
     }
   };
   // Allow each theme to modify the configuration object,
