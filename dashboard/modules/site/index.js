@@ -10,6 +10,23 @@ module.exports = {
   },
   fields: {
     add: {
+      // This field is hidden and isalways overridden server side on save based on the UI field below
+      _brand: {
+        label: 'Brand',
+        type: 'relationship',
+        required: true,
+        min: 1,
+        max: 1,
+        withType: 'brand',
+        hidden: true
+      },
+      // Actual UI for selecting the above, with choices limited to those this user can pick
+      brand: {
+        label: 'brand',
+        type: 'select',
+        choices: 'brandChoices',
+        required: true
+      },
       logo: {
         label: 'Logo',
         type: 'area',
@@ -36,6 +53,7 @@ module.exports = {
       basics: {
         label: 'Basics',
         fields: [
+          'brand',
           'title',
           'theme',
           'logo',
@@ -64,9 +82,48 @@ module.exports = {
       }
     };
   },
+  queries(self, query) {
+    return {
+      builders: {
+        viewers: {
+          finalize() {
+            if (query.get('permission').startsWith('view')) {
+              query.and({
+                viewerIds: req.user._id
+              });
+            }
+          }
+        },
+        captureOldBrand: {
+          after(results) {
+            for (const result of results) {
+              // So we can detect changes
+              result._oldBrand = self.apos.util.clonePermanent(result._brand);
+            }
+          }
+        }
+      }
+    };
+  },
   handlers(self, options) {
     return {
+      beforeSave: {
+        async overrideBrandField(req, site) {
+          const brand = await self.apos.brand.find(req, {
+            _id: site.brand
+          }, {
+            permission: 'createSite'
+          });
+          if (!brand) {
+            throw self.apos.error('forbidden');
+          }
+          site._brand = [ brand ];
+        },
+      }
       afterSave: {
+        async brandMigration(req, site) {
+          
+        },
         async ensureCertificate(req, piece, options) {
           // Use the platform balancer API to immediately get a certificate for
           // the new site, so it can be accessed right away after creation.
@@ -99,5 +156,16 @@ module.exports = {
         }
       }
     };
+  },
+  methods(self) {
+    return {
+      async brandChoices(req) {
+        const brands = await self.apos.brand.find(req, {}).permission('createSite');
+        return brands.map(({ _id, title }) => {
+          value: _id,
+          label: title
+        });
+      }
+    }
   }
 };
