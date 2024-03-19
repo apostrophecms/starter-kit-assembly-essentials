@@ -72,6 +72,9 @@ module.exports = {
       }
     }
   },
+  init(self) {
+    self.hidePermissions();
+  },
   tasks(self, options) {
     return {
       'list-themes': {
@@ -85,20 +88,15 @@ module.exports = {
   queries(self, query) {
     return {
       builders: {
+        // Because per-doc view permissions don't exist in advanced permission yet
         viewers: {
           finalize() {
             if (query.get('permission').startsWith('view')) {
-              query.and({
-                viewerIds: req.user._id
-              });
-            }
-          }
-        },
-        captureOldBrand: {
-          after(results) {
-            for (const result of results) {
-              // So we can detect changes
-              result._oldBrand = self.apos.util.clonePermanent(result._brand);
+              if (!self.apos.permission.can(query.req, 'edit', 'brand')) {
+                query.and({
+                  viewerIds: req.user._id
+                });
+              }
             }
           }
         }
@@ -107,24 +105,14 @@ module.exports = {
   },
   handlers(self, options) {
     return {
-      beforeSave: {
-        async overrideBrandField(req, site) {
-          const brand = await self.apos.brand.find(req, {
-            _id: site.brand
-          }, {
-            permission: 'createSite'
-          });
-          if (!brand) {
-            throw self.apos.error('forbidden');
-          }
-          site._brand = [ brand ];
-        },
-      }
       afterSave: {
-        async brandMigration(req, site) {
-          
-        },
         async ensureCertificate(req, piece, options) {
+
+          if (options.refreshingBrand) {
+            // We're just refreshing permissions for a brand, don't make a lot of API calls
+            return;
+          }
+
           // Use the platform balancer API to immediately get a certificate for
           // the new site, so it can be accessed right away after creation.
           //
@@ -157,14 +145,82 @@ module.exports = {
       }
     };
   },
+  extendHandlers(self) {
+    return {
+      beforeSave: {
+        async setPerDocumentPermissions(_super, req, site, options) {
+          // Get the brand from the dynamic select field and override the
+          // userPermissions and groupPermissions fields accordingly
+          // before calling the superclass version
+          const brand = await self.apos.brand.find(req, {
+            _id: site.brand
+          }, {
+            permission: 'createSite'
+          });
+          if (!brand) {
+            if (!self.apos.permission.can(req, 'edit', 'brand')) {
+              throw self.apos.error('forbidden');
+            }
+            site._brand = [];
+            site.userPermissions = [];
+            site.groupPermissions = [];
+          } else {
+            site._brand = [ brand ];
+            site.userPermissions = self.transformBrandPermissions(brand, 'user');
+            site.groupPermissions = self.transformBrandPermissions(brand, 'group');
+            site.viewerIds = [
+              ...site.userPermissions.filter(({ view }) => view).map(({ _users }) => _users[0]._id),
+              ...site.groupPermissions.filter(({ view }) => view).map(({ _groups }) => _groups[0]._id)
+            ];
+          }
+          return _super(req, site, options);
+        }
+      }
+    };
+  },
   methods(self) {
     return {
+      // Generate the dynamic select field choices according to the list of
+      // brands that this user can actually create sites in
       async brandChoices(req) {
         const brands = await self.apos.brand.find(req, {}).permission('createSite');
-        return brands.map(({ _id, title }) => {
+        return brands.map(({ _id, title }) => ({
           value: _id,
           label: title
-        });
+        }));
+      },
+      // For a given category (user or group), transform relevant permissions
+      // of a brand (those starting with dashboardSite) into permissions of
+      // an individual site in that brand by removing the dashboardSite prefix
+      // and lowercasing the first character. This is used to override
+      // userPermissions and groupPermissions
+      transformBrandPermissions(brand, category) {
+        const permissions = brand[`${category}Permissions`];
+        const result = [];
+        for (const permission of permissions) {
+          const relevant = {};
+          for (const name of Object.keys(permission)) {
+            if (name.startsWith('dashboardSite')) {
+              const temp = name.substring(name, 'dashboardSite'.length);
+              const sitePermissionName = temp.substring(0, 1).toLowerCase() + temp.substring(1);
+              relevant[sitePermissionName] = permission[name];
+            }
+          }
+          if (relevant.length) {
+            const principalKey = `_${category}s`;
+            result.push({
+              [principalKey]: permission[principalKey],
+              ...relevant
+            });
+          }
+        }
+      },
+      hidePermissions() {
+        // See above for how these fields are overridden with brand permissions in practice
+        const userPermissions = self.schema.find(field => field.name === 'userPermissions');
+        userPermissions.hidden = true;
+        const groupPermissions = self.schema.find(field => field.name === 'userPermissions');
+        groupPermissions.hidden = true;
       }
     }
   }

@@ -2,7 +2,8 @@ module.exports = {
   options: {
     label: 'Brand',
     pluralLabel: 'Brands',
-    alias: 'brand'
+    alias: 'brand',
+    localized: false
   },
   permissions(self) {
     return {
@@ -10,11 +11,11 @@ module.exports = {
         createSite: {
           label: 'Create Site'
         },
-        editSiteSettings: {
+        dashboardSiteEdit: {
           label: 'Modify Site Settings',
           help: 'This refers to the settings of the site within the dashboard.'
         },
-        viewSite: {
+        dashboardSiteView: {
           label: 'View Site in Dashboard',
           help: 'This refers to seeing the site listed in the dashboard for convenience.'
         }
@@ -24,19 +25,20 @@ module.exports = {
   handlers(self) {
     return {
       beforeSave: {
-        updateBrandSites(req, brand) {
-          return self.updateBrandSites({
-            brand
+        async updateBrandSites(req, brand) {
+          const sites = await self.apos.site.find(req, {
+            _brand: brand._id
           });
+          for (const site of sites) {
+            if (brand.archived) {
+              // If archiving a brand, archive the current sites too. Not necessarily
+              // true in reverse.
+              site.archived = true;
+            }
+            await self.apos.site.update(req, site, { refreshingBrand: true });
+          }
         }
       },
-      'site:beforeSave'(req, site) {
-        updateBrandSites(req, site) {
-          return self.updateBrandSites({
-            site
-          });
-        }
-      }
     }
   },
   methods(self) {
