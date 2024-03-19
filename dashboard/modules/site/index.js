@@ -8,21 +8,26 @@ module.exports = {
     baseUrlDomains: require('../../../domains.js'),
     localizedSites: true
   },
+  permissions: {
+    add: {
+      // Copied over automatically from siteDashboardView in brand
+      view: {
+        label: 'View',
+        perDoc: true
+      }
+    }
+  },
   fields: {
     add: {
-      // This field is hidden and isalways overridden server side on save based on the UI field below
+      // This field is hidden and is always overridden server side on save based on the UI field below
       _brand: {
-        label: 'Brand',
         type: 'relationship',
-        required: true,
-        min: 1,
-        max: 1,
         withType: 'brand',
         hidden: true
       },
       // Actual UI for selecting the above, with choices limited to those this user can pick
       brand: {
-        label: 'brand',
+        label: 'Brand',
         type: 'select',
         choices: 'brandChoices',
         required: true
@@ -54,6 +59,10 @@ module.exports = {
         label: 'Basics',
         fields: [
           'brand',
+          // Group the hidden fields here so they don't create empty groups
+          '_brand',
+          'userPermissions',
+          'groupPermissions',
           'title',
           'theme',
           'logo',
@@ -91,12 +100,25 @@ module.exports = {
         // Because per-doc view permissions don't exist in advanced permission yet
         viewers: {
           finalize() {
-            if (query.get('permission').startsWith('view')) {
-              if (!self.apos.permission.can(query.req, 'edit', 'brand')) {
-                query.and({
-                  viewerIds: req.user._id
-                });
+            try {
+              const req = query.req;
+              const permission = query.get('permission') || 'view';
+              if (permission.startsWith('view')) {
+                if (!self.apos.permission.can(req, 'edit', 'brand')) {
+                  if (req.user) {
+                    query.and({
+                      viewerIds: req.user._id
+                    });
+                  } else {
+                    query.and({
+                      _id: '__iNeverMatch'
+                    });
+                  }
+                }
               }
+            } catch (e) {
+              console.error(e);
+              throw e;
             }
           }
         }
@@ -155,23 +177,24 @@ module.exports = {
           const brand = await self.apos.brand.find(req, {
             _id: site.brand
           }, {
-            permission: 'createSite'
-          });
+            permission: 'dashboardSiteCreate'
+          }).toObject();
+          // Brands stand in for groups here (Alex was right)
+          site.groupPermissions = [];
           if (!brand) {
+            console.log('no brand');
             if (!self.apos.permission.can(req, 'edit', 'brand')) {
               throw self.apos.error('forbidden');
             }
             site._brand = [];
             site.userPermissions = [];
-            site.groupPermissions = [];
+            site.viewerIds = [];
           } else {
+            console.log('has brand');
             site._brand = [ brand ];
             site.userPermissions = self.transformBrandPermissions(brand, 'user');
-            site.groupPermissions = self.transformBrandPermissions(brand, 'group');
-            site.viewerIds = [
-              ...site.userPermissions.filter(({ view }) => view).map(({ _users }) => _users[0]._id),
-              ...site.groupPermissions.filter(({ view }) => view).map(({ _groups }) => _groups[0]._id)
-            ];
+            site.viewerIds = site.userPermissions.filter(({ view }) => view).map(({ _users }) => _users[0]._id);
+            console.log('viewer ids:', site.viewerIds);
           }
           return _super(req, site, options);
         }
@@ -183,43 +206,50 @@ module.exports = {
       // Generate the dynamic select field choices according to the list of
       // brands that this user can actually create sites in
       async brandChoices(req) {
-        const brands = await self.apos.brand.find(req, {}).permission('createSite');
+        const brands = await self.apos.brand.find(req, {}).permission('dashboardSiteCreate').toArray();
         return brands.map(({ _id, title }) => ({
           value: _id,
           label: title
         }));
       },
-      // For a given category (user or group), transform relevant permissions
+      // For a given category (e.g. "user"), transform relevant permissions
       // of a brand (those starting with dashboardSite) into permissions of
       // an individual site in that brand by removing the dashboardSite prefix
       // and lowercasing the first character. This is used to override
-      // userPermissions and groupPermissions
+      // userPermissions. For now brand per-user permissions seem to be a good substitute
+      // for groups and simplify a lot of lifecycle handling, so we only call this for users
+      // at the moment, but that could change
       transformBrandPermissions(brand, category) {
+        console.log(brand);
         const permissions = brand[`${category}Permissions`];
         const result = [];
         for (const permission of permissions) {
           const relevant = {};
           for (const name of Object.keys(permission)) {
             if (name.startsWith('dashboardSite')) {
-              const temp = name.substring(name, 'dashboardSite'.length);
+              const temp = name.substring('dashboardSite'.length);
               const sitePermissionName = temp.substring(0, 1).toLowerCase() + temp.substring(1);
               relevant[sitePermissionName] = permission[name];
             }
           }
-          if (relevant.length) {
+          if (Object.keys(relevant).length) {
             const principalKey = `_${category}s`;
+            const idsKey = `${category}sIds`;
             result.push({
               [principalKey]: permission[principalKey],
+              [idsKey]: permission[idsKey],
               ...relevant
             });
           }
+          console.log('relevant is:', relevant);
         }
+        return result;
       },
       hidePermissions() {
         // See above for how these fields are overridden with brand permissions in practice
         const userPermissions = self.schema.find(field => field.name === 'userPermissions');
         userPermissions.hidden = true;
-        const groupPermissions = self.schema.find(field => field.name === 'userPermissions');
+        const groupPermissions = self.schema.find(field => field.name === 'groupPermissions');
         groupPermissions.hidden = true;
       }
     }

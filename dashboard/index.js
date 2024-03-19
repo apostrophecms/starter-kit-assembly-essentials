@@ -1,6 +1,7 @@
 module.exports = {
-  privateDashboards: true,
   modules: {
+    '@apostrophecms-pro/advanced-permission': {},
+    '@apostrophecms-pro/advanced-permission-group': {},
     '@apostrophecms/uploadfs': {
       options: {
         uploadfs: {
@@ -9,6 +10,7 @@ module.exports = {
       }
     },
     helper: {},
+    brand: {},
     site: {},
     'site-page': {},
     asset: {}

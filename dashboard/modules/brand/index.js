@@ -1,4 +1,5 @@
 module.exports = {
+  extend: '@apostrophecms/piece-type',
   options: {
     label: 'Brand',
     pluralLabel: 'Brands',
@@ -8,27 +9,35 @@ module.exports = {
   permissions(self) {
     return {
       add: {
-        createSite: {
-          label: 'Create Site'
+        dashboardSiteView: {
+          label: 'View Site in Dashboard',
+          help: 'This refers to seeing the site listed in the dashboard for convenience.',
+          perDoc: true
+        },
+        dashboardSiteCreate: {
+          label: 'Create Site',
+          perDoc: true
         },
         dashboardSiteEdit: {
           label: 'Modify Site Settings',
-          help: 'This refers to the settings of the site within the dashboard.'
+          help: 'This refers to the settings of the site within the dashboard.',
+          perDoc: true
         },
-        dashboardSiteView: {
-          label: 'View Site in Dashboard',
-          help: 'This refers to seeing the site listed in the dashboard for convenience.'
-        }
       }
     }
   },
+  init(self) {
+    self.hideGroupPermissions();
+  },
   handlers(self) {
+    // TODO what if a user is removed from / added to a group etc. Should we make
+    // brands stand in for groups here to simplify that
     return {
       beforeSave: {
         async updateBrandSites(req, brand) {
           const sites = await self.apos.site.find(req, {
             _brand: brand._id
-          });
+          }).toArray();
           for (const site of sites) {
             if (brand.archived) {
               // If archiving a brand, archive the current sites too. Not necessarily
@@ -43,16 +52,12 @@ module.exports = {
   },
   methods(self) {
     return {
-      // Update the permissions of sites based on their current relationships to
-      // brands. For performance, either `site` or `brand` must be specified to limit
-      // the scope.
-      async updateBrandSites({ brand = null, site = null } = {}) {
-        if (!(brand || site)) {
-          throw self.apos.error('invalid', 'Either brand or site must be specified in updateBrandSites');
-        }
-        // TODO:
-        // populate viewerIds, since there is no native per-doc view permission yet
-        // copy custom permissions
+      hideGroupPermissions() {
+        // Group permissions on brands are not used, the replication rules become
+        // very complex, use instead the user permissions of the brand as a simple
+        // group equivalent
+        const groupPermissions = self.schema.find(field => field.name === 'groupPermissions');
+        groupPermissions.hidden = true;
       }
     }
   }
