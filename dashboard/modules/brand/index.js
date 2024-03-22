@@ -26,28 +26,67 @@ module.exports = {
       }
     }
   },
-  init(self) {
+  async init(self) {
     self.hideGroupPermissions();
+    await self.insertSiteCreatorsGroup();
   },
   handlers(self) {
-    // TODO what if a user is removed from / added to a group etc. Should we make
-    // brands stand in for groups here to simplify that
     return {
       beforeSave: {
         async updateBrandSites(req, brand) {
           const sites = await self.apos.site.find(req, {
             _brand: brand._id
-          }).toArray();
+          }).permission(false).toArray();
           for (const site of sites) {
             if (brand.archived) {
               // If archiving a brand, archive the current sites too. Not necessarily
               // true in reverse.
               site.archived = true;
             }
-            await self.apos.site.update(req, site, { refreshingBrand: true });
+            await self.apos.site.update(req, site, { refreshingBrand: true, permissions: false });
           }
         }
       },
+      afterSave: {
+        async updateSiteCreatorsGroup(req) {
+          const brands = await self.find(req).permission(false).toArray();
+          const usersIds = [];
+          for (const brand of brands) {
+            const { userPermissions } = brand;
+            for (const userPermission of userPermissions) {
+              const id = userPermission?.usersIds?.[0];
+              if (id && userPermission.dashboardSiteCreate) {
+                usersIds.push(id);
+              }
+            }
+          }
+          let group = (await self.apos.doc.db.findOne({
+            type: '@apostrophecms-pro/advanced-permission-group',
+            siteCreators: true,
+            archived: false
+          })) || await self.insertSiteCreatorsGroup();
+          await self.apos.doc.db.updateMany({
+            type: '@apostrophecms/user',
+            _id: {
+              $nin: usersIds
+            }
+          }, {
+            $pull: {
+              groupsIds: group._id
+            }
+          });
+          await self.apos.doc.db.updateMany({
+            type: '@apostrophecms/user',
+            _id: {
+              $in: usersIds
+            }
+          }, {
+            $addToSet: {
+              groupsIds: group._id
+            }
+          });
+        }
+      }
     }
   },
   methods(self) {
@@ -58,22 +97,28 @@ module.exports = {
         // group equivalent
         const groupPermissions = self.schema.find(field => field.name === 'groupPermissions');
         groupPermissions.hidden = true;
-      }
-    }
-  },
-  queries(self, query) {
-    return {
-      builders: {
-        oldBrand: {
-          after(results) {
-            for (const result of results) {
-              // Make it visible for comparison
-              result._oldBrandId = result._brand?.[0]?._id;
-            }
-            return results;
-          }
+      },
+      async insertSiteCreatorsGroup() {
+        const req = self.apos.task.getReq();
+        const groupModule = self.apos.modules['@apostrophecms-pro/advanced-permission-group'];
+        const siteCreatorsGroup = await groupModule.find(req, {
+          siteCreators: true
+        }).toObject();
+        if (!siteCreatorsGroup) {
+          return groupModule.insert(req, {
+            title: 'Site Creators Via Brands (do not edit)',
+            siteCreators: true,
+            permissionsByType: [
+              {
+                type: 'site',
+                permissions: [
+                  'create'
+                ]
+              }
+            ]
+          });
         }
       }
-    };
+    }
   }
 };

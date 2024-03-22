@@ -30,7 +30,11 @@ module.exports = {
         label: 'Brand',
         type: 'select',
         choices: 'brandChoices',
-        required: true
+        required: true,
+        permission: {
+          type: 'site',
+          action: 'create'
+        }
       },
       logo: {
         label: 'Logo',
@@ -121,6 +125,15 @@ module.exports = {
               throw e;
             }
           }
+        },
+        oldBrand: {
+          after(results) {
+            for (const result of results) {
+              // Make it visible for comparison
+              result._oldBrandId = result.brandIds?.[0]
+            }
+            return results;
+          }
         }
       }
     };
@@ -174,6 +187,7 @@ module.exports = {
           // Get the brand from the dynamic select field and override the
           // userPermissions and groupPermissions fields accordingly
           // before calling the superclass version
+          console.log('====>', site.brand);
           const brand = await self.apos.brand.find(req, {
             _id: site.brand
           }).permission(false).toObject();
@@ -194,8 +208,10 @@ module.exports = {
               throw self.apos.error('forbidden');
             }
             site._brand = [ brand ];
+            site.brandIds = [ brand._id ];
             site.userPermissions = self.transformBrandPermissions(brand);
             site.viewerIds = site.userPermissions.filter(({ view }) => view).map(({ _users }) => _users[0]._id);
+            console.log('site brand is....', site._brand);
           }
           return _super(req, site, options);
         }
@@ -206,7 +222,9 @@ module.exports = {
     return {
       // Generate the dynamic select field choices according to the list of
       // brands that this user can actually create sites in
-      async brandChoices(req, { docId: siteId }) {
+      async brandChoices(req, options) {
+        console.log('----->', options);
+        const siteId = options.docId;
         const site = siteId && await self.find(req, {
           _id: siteId
         }).toObject();
@@ -217,7 +235,10 @@ module.exports = {
         // Currently we do not annotate custom permissions by default
         self.apos.permission.annotate(req, 'dashboardSiteCreate', brands);
         // Make sure the current brand setting of the site is always a choice
-        brands = brands.filter(({ _id, _dashboardSiteCreate }) => _dashboardSiteCreate || (_id === site?._brand[0]?._id));
+        console.log('BRANDS: ***', brands);
+        console.log('SITE: -->', site);
+        brands = brands.filter(({ _id, _dashboardSiteCreate }) => _dashboardSiteCreate || (_id === site?.brandIds?.[0]));
+        console.log('AFTER FILTER: ***', brands);
         return brands.map(({ _id, title }) => ({
           value: _id,
           label: title
