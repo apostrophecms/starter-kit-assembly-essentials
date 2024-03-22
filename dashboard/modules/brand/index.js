@@ -60,5 +60,20 @@ module.exports = {
         groupPermissions.hidden = true;
       }
     }
+  },
+  queries(self, query) {
+    return {
+      builders: {
+        oldBrand: {
+          after(results) {
+            for (const result of results) {
+              // Make it visible for comparison
+              result._oldBrandId = result._brand?.[0]?._id;
+            }
+            return results;
+          }
+        }
+      }
+    };
   }
 };

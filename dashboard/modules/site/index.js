@@ -176,13 +176,13 @@ module.exports = {
           // before calling the superclass version
           const brand = await self.apos.brand.find(req, {
             _id: site.brand
-          }, {
-            permission: 'dashboardSiteCreate'
-          }).toObject();
+          }).permission(false).toObject();
+          if (brand) {
+            self.apos.permission.annotate(req, 'dashboardSiteCreate', [ brand ]);
+          }
           // Brands stand in for groups here (Alex was right)
           site.groupPermissions = [];
           if (!brand) {
-            console.log('no brand');
             if (!self.apos.permission.can(req, 'edit', 'brand')) {
               throw self.apos.error('forbidden');
             }
@@ -190,11 +190,12 @@ module.exports = {
             site.userPermissions = [];
             site.viewerIds = [];
           } else {
-            console.log('has brand');
+            if (!brand._dashboardSiteCreate && (site.brand !== site._oldBrandId)) {
+              throw self.apos.error('forbidden');
+            }
             site._brand = [ brand ];
-            site.userPermissions = self.transformBrandPermissions(brand, 'user');
+            site.userPermissions = self.transformBrandPermissions(brand);
             site.viewerIds = site.userPermissions.filter(({ view }) => view).map(({ _users }) => _users[0]._id);
-            console.log('viewer ids:', site.viewerIds);
           }
           return _super(req, site, options);
         }
@@ -205,23 +206,30 @@ module.exports = {
     return {
       // Generate the dynamic select field choices according to the list of
       // brands that this user can actually create sites in
-      async brandChoices(req) {
-        const brands = await self.apos.brand.find(req, {}).permission('dashboardSiteCreate').toArray();
+      async brandChoices(req, { docId: siteId }) {
+        const site = siteId && await self.find(req, {
+          _id: siteId
+        }).toObject();
+        // Currently the `permission()` query builder only covers
+        // `contributor` and `editor`, not good enough in this use case,
+        // so find them all
+        let brands = await self.apos.brand.find(req, {}).toArray();
+        // Currently we do not annotate custom permissions by default
+        self.apos.permission.annotate(req, 'dashboardSiteCreate', brands);
+        // Make sure the current brand setting of the site is always a choice
+        brands = brands.filter(({ _id, _dashboardSiteCreate }) => _dashboardSiteCreate || (_id === site?._brand[0]?._id));
         return brands.map(({ _id, title }) => ({
           value: _id,
           label: title
         }));
       },
-      // For a given category (e.g. "user"), transform relevant permissions
+      // Transform relevant user permissions
       // of a brand (those starting with dashboardSite) into permissions of
       // an individual site in that brand by removing the dashboardSite prefix
       // and lowercasing the first character. This is used to override
-      // userPermissions. For now brand per-user permissions seem to be a good substitute
-      // for groups and simplify a lot of lifecycle handling, so we only call this for users
-      // at the moment, but that could change
-      transformBrandPermissions(brand, category) {
-        console.log(brand);
-        const permissions = brand[`${category}Permissions`];
+      // userPermissions
+      transformBrandPermissions(brand) {
+        const permissions = brand.userPermissions;
         const result = [];
         for (const permission of permissions) {
           const relevant = {};
@@ -233,15 +241,14 @@ module.exports = {
             }
           }
           if (Object.keys(relevant).length) {
-            const principalKey = `_${category}s`;
-            const idsKey = `${category}sIds`;
             result.push({
-              [principalKey]: permission[principalKey],
-              [idsKey]: permission[idsKey],
+              // Normally a non-admin can't manipulate users at all,
+              // minimally populate those objects from the ids properties
+              _users: permission.usersIds.map(_id => ({ _id })),
+              usersIds: permission.usersIds,
               ...relevant
             });
           }
-          console.log('relevant is:', relevant);
         }
         return result;
       },
