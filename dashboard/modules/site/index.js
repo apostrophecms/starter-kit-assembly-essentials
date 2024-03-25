@@ -187,7 +187,6 @@ module.exports = {
           // Get the brand from the dynamic select field and override the
           // userPermissions and groupPermissions fields accordingly
           // before calling the superclass version
-          console.log('====>', site.brand);
           const brand = await self.apos.brand.find(req, {
             _id: site.brand
           }).permission(false).toObject();
@@ -223,8 +222,7 @@ module.exports = {
       // Generate the dynamic select field choices according to the list of
       // brands that this user can actually create sites in
       async brandChoices(req, options) {
-        console.log('----->', options);
-        const siteId = options.docId;
+        const siteId = options?.docId;
         const site = siteId && await self.find(req, {
           _id: siteId
         }).toObject();

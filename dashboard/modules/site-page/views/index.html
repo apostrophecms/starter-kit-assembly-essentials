@@ -3,10 +3,34 @@
 {% import 'card.html' as card with context -%}
 {% import '@apostrophecms/pager:macros.html' as pager with context %}
 
+{%- macro here(url, changes) -%}
+  {{ url | build({
+    brand: data.query.brand
+  }, changes) }}
+{%- endmacro -%}
+
+{% set brands = data.piecesFilters.brand %}
+
 {% block main %}
 <main class="c-site-index">
   <div class="c-site-index__background"></div>
   <div class="o-container">
+    <nav class="o-brands">
+      {% if brands.length > 1 %}
+        <h3>Brands</h3>
+        <ul>
+          {% for brand in brands %}
+            <li>
+              {% if data.query.brand == brand.value %}
+                <a href="{{ here(data.url, { brand: null }) }}">{{ brand.label }} ⓧ</a>
+              {% else %}
+                <a href="{{ here(data.url, { brand: brand.value }) }}">{{ brand.label }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
     {{ card.renderAll(data.pieces) }}
     {{ pager.render({
       page: data.currentPage,

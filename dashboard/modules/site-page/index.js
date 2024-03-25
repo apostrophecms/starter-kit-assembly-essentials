@@ -3,7 +3,12 @@ module.exports = {
   options: {
     label: 'Site Page',
     perPage: 50,
-    contextBar: false
+    contextBar: false,
+    piecesFilters: [
+      {
+        name: 'brand'
+      }
+    ]
   },
   methods(self, options) {
     return {
