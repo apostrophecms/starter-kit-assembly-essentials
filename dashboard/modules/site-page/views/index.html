@@ -15,22 +15,16 @@
 <main class="c-site-index">
   <div class="c-site-index__background"></div>
   <div class="o-container">
-    <nav class="o-brands">
-      {% if brands.length > 1 %}
-        <h3>Brands</h3>
-        <ul>
+    {% if brands.length > 1 %}
+      <select-link>
+        <select name="brand">
+          <option value="{{ here(data.url, { brand: null }) }}" {% if not data.query.brand %}selected{%endif %}>Any</option>
           {% for brand in brands %}
-            <li>
-              {% if data.query.brand == brand.value %}
-                <a href="{{ here(data.url, { brand: null }) }}">{{ brand.label }} ⓧ</a>
-              {% else %}
-                <a href="{{ here(data.url, { brand: brand.value }) }}">{{ brand.label }}</a>
-              {% endif %}
-            </li>
+            <option value="{{ here(data.url, { brand: brand.value }) }}" {% if data.query.brand == brand.value %}selected{%endif %}>{{ brand.label }}</option>
           {% endfor %}
-        </ul>
-      {% endif %}
-    </nav>
+        </select>
+      </select-link>
+    {% endif %}
     {{ card.renderAll(data.pieces) }}
     {{ pager.render({
       page: data.currentPage,
