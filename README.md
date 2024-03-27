@@ -467,7 +467,7 @@ module.exports = {
       staging: 'staging.com',
       prod: 'production.com'
     },
-    localizedSites: true,
+    localizedSites: true
   }
 }
 ```
@@ -478,7 +478,8 @@ You can add as many locales as you want, and for each of them you can give it a 
 
 If the separate host is set to `true`, the locale will be used as a subdomain of the domain name
 in addition to the separate production hostname if that field has been filled out and DNS has been configured for it.
-The prefix will always be used if it exists, allowing multiple locales to share the same `separateProductionHostname`.
+There is now also `stagingSubdomain` to allow a free choice of staging subdomain name,
+for those who want to test the effects of `separateProductionHostname` being set the same for any group of sites in advance.
 
 Let's say we have a French locale with these options:
 
