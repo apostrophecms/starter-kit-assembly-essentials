@@ -210,7 +210,6 @@ module.exports = {
             site.brandIds = [ brand._id ];
             site.userPermissions = self.transformBrandPermissions(brand);
             site.viewerIds = site.userPermissions.filter(({ view }) => view).map(({ _users }) => _users[0]._id);
-            console.log('site brand is....', site._brand);
           }
           return _super(req, site, options);
         }
@@ -233,10 +232,7 @@ module.exports = {
         // Currently we do not annotate custom permissions by default
         self.apos.permission.annotate(req, 'dashboardSiteCreate', brands);
         // Make sure the current brand setting of the site is always a choice
-        console.log('BRANDS: ***', brands);
-        console.log('SITE: -->', site);
         brands = brands.filter(({ _id, _dashboardSiteCreate }) => _dashboardSiteCreate || (_id === site?.brandIds?.[0]));
-        console.log('AFTER FILTER: ***', brands);
         return brands.map(({ _id, title }) => ({
           value: _id,
           label: title

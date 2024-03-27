@@ -32,11 +32,9 @@ module.exports = {
   },
   handlers(self) {
     return {
-      beforeSave: {
+      afterSave: {
         async updateBrandSites(req, brand) {
-          const sites = await self.apos.site.find(req, {
-            _brand: brand._id
-          }).permission(false).toArray();
+          const sites = await self.apos.site.find(req)._brand(brand._id).permission(false).toArray();
           for (const site of sites) {
             if (brand.archived) {
               // If archiving a brand, archive the current sites too. Not necessarily
@@ -45,9 +43,7 @@ module.exports = {
             }
             await self.apos.site.update(req, site, { refreshingBrand: true, permissions: false });
           }
-        }
-      },
-      afterSave: {
+        },
         async updateSiteCreatorsGroup(req) {
           const brands = await self.find(req).permission(false).toArray();
           const usersIds = [];

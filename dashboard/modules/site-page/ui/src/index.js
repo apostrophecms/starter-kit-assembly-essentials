@@ -5,13 +5,15 @@ export default function() {
       this.init();
     }
     async init() {
-      this.addEventListener('change', () => {
-        console.log(e);
-        const value = e.value;
+      const initialValue = this.querySelector('option[selected]').value;
+      this.addEventListener('change', e => {
+        const value = e.target.value;
+        e.target.value = initialValue;
         window.location.href = value;
         e.preventDefault();
         e.stopPropagation();
       });
+      this.querySelector('select').value = initialValue;
     }
   }
   customElements.define('select-link', SelectLink);  

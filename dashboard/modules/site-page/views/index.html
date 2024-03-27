@@ -18,7 +18,7 @@
     {% if brands.length > 1 %}
       <select-link>
         <select name="brand">
-          <option value="{{ here(data.url, { brand: null }) }}" {% if not data.query.brand %}selected{%endif %}>Any</option>
+          <option value="{{ here(data.url, { brand: null }) }}" {% if not data.query.brand %}selected{%endif %}>Any Brand</option>
           {% for brand in brands %}
             <option value="{{ here(data.url, { brand: brand.value }) }}" {% if data.query.brand == brand.value %}selected{%endif %}>{{ brand.label }}</option>
           {% endfor %}
