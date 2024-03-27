@@ -451,3 +451,75 @@ that you will still need S3 credentials in the `run` command, unless you arrange
 filesystem shared by all instances. This is slow, so we recommend using S3 or configuring
 a different [uploadfs backend](https://github.com/apostrophecms/uploadfs) such as
 Azure Blob Storage or Google Cloud Storage.
+
+## Localized domain names
+
+It is possible to allow dashboard administrators to define the locales for each site.
+To do that, you must set the flag `localizedSites` to true, in the `site` module options.
+
+```javascript
+// in dashboard/modules/site/index.js
+
+module.exports = {
+  options: {
+    baseUrlDomains: {
+      local: 'localhost:3000',
+      staging: 'staging.com',
+      prod: 'production.com'
+    },
+    localizedSites: true,
+  }
+}
+```
+`baseUrlDomains` must be defined to allow localized domains.
+
+Once this has been done, you can access new fields in the `locales` tab when editing your site on the dashboard.
+You can add as many locales as you want, and for each of them you can give it a name, label, prefix, choose if you want a separate host, and if so, set a separate production hostname.
+
+If the separate host is set to `true`, the locale will be used as a subdomain of the domain name
+in addition to the separate production hostname if that field has been filled out and DNS has been configured for it.
+The prefix will always be used if it exists, allowing multiple locales to share the same `separateProductionHostname`.
+
+Let's say we have a French locale with these options:
+
+| Fields                       | Values               |
+|------------------------------|----------------------|
+| Label                        | `French`             |
+| Prefix                       |                      |
+| Separate Host                | `true`               |
+| Separate Production Hostname | `my-french-site.com` |
+
+
+And our site piece `shortName` is set to `site`.
+
+In this case, if the environment variable `ENV` is set to `staging`, we will have `fr.site.staging.com` as the hostname.
+If we are in production, so `ENV` is set to `prod`, we will have `fr.site.production.com` and `my-french-site.com` (only in production) as hostnames.
+
+If we set a prefix, such as `/fr`, then only URLs in which the path part begins with `/fr` will display content from that locale. This way some locales can share the same `separateProductionHostname` being differentiated by the prefix.
+
+If `separateHost` is set to `false` and `prefix` is `/fr`, we simply use the latter to differentiate locales: `site.localhost:3000/fr`, `site.staging.com/fr`, `site.production.com/fr`.
+
+Note that you can have only one locale with no prefix _and_ no separate host, that would be the default one.
+
+## Private locales
+
+You can make a locale `private`, meaning that this locale is only visible for logged in users.
+
+There is a new `boolean` field with the label `Private Locale` for each configured locale in your dashboard.
+
+When adding the option `localizedSites` to the `site` module of your project, instead of `true` you can pass an object and specify the option `privateByDefault`.
+If this sub-option is set to `true`, every new locale created will have its `private` property set to `true` by default, otherwise they will be public by default.
+
+```javascript
+// in dashboard/modules/site/index.js
+{
+  options: {
+    baseUrlDomains: { ... },
+    localizedSites: {
+      privateByDefault: true
+    }
+  }
+}
+````
+
+The `private` option will be editable from the dashboard when editing your site locales.
