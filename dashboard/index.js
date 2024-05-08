@@ -13,13 +13,13 @@ module.exports = {
     },
     helper: {},
     '@apostrophecms-pro/multisite-dashboard': {},
-    '@apostrophecms-pro/site': {
+    site: {
       options: {
         themes,
         baseUrlDomains
       }
     },
-    '@apostrophecms-pro/site-page': {},
+    'site-page': {},
     asset: {}
   }
 };
