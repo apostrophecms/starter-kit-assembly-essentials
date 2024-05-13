@@ -36,6 +36,8 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Deployment](#deployment)
   - [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
   - [Self-hosting and the sample Dockerfile](#self-hosting-and-the-sample-dockerfile)
+  - [Localized domain names](#localized-domain-names)
+  - [Private locales](#private-locales)
 
 
 ## Purpose
@@ -349,7 +351,9 @@ For complete information and a sample configuration, see the [@apostrophecms-pro
 
 ## Dashboard Development
 
-**The dashboard site has one job: managing the other sites.** As such you don't need to worry about making this site a pretty experience for the general public, because they won't have access to it. However you may want to dress up this experience and add extra functionality for your own customer admin team (the people who add and remove sites frmo the platform).
+**The dashboard site has one job: managing the other sites.** As such you don't need to worry about making this site a pretty experience for the general public, because they won't have access to it. However you may want to dress up this experience and add extra functionality for your own customer admin team (the people who add and remove sites from the platform).
+
+This starter kit has the `@apostrophecms-pro/multisite-dashboard` extension installed. This converts the dashboard from sites being presented as individual cards to a scrollable list. Each site now has a link for login to the site, as well as navigation to the home-page. This extension also creates a search box that makes finding sites easier. Finally, this extension also adds a template tab to the site creation modal. When creating or editing a site you can select to make it a template by clicking on "Template" control in the "Basics" tab. This will still be an active site, but it will be moved to the template tab. Sites in the template tab can be duplicated by selection that option in the context menu to the far right.
 
 The dashboard site can be extended much like the regular sites. Dashboard development is very similar to regular site development, except that modules live in `dashboard/modules`, what normally resides in `app.js` lives in `dashboard/index.js`, and so on.
 
