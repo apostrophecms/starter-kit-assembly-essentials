@@ -64,7 +64,7 @@ Before you do anything else, set the fallback value for the `shortnamePrefix` op
 
 ### Configuring your domains
 
-After cloning this project, be sure to edit the `domains.js` file in the root of the project and change the list to match your real project's dev, staging and production domains.
+After cloning this project, be sure to edit the `domains.js` file in the root of the project and change the list to match your real project's dev, staging and production domains. The `@apostrophecms-pro/multisite-dashboard` extension `site` module requires an object with `dev`, `staging`, and `production` URL strings for the `baseUrlDomains` option. This file provides those values.
 
 If you are doing local development on your own computer, leave the `dev` domain set to `localhost:3000`. For staging and production, the Apostrophe Assembly team will typically preconfigure this for you and you won't need to worry about DNS or certificates.
 
@@ -147,8 +147,7 @@ Another option is to use the Windows Subsystem for Linux, which is also an Ubunt
 To test-drive the project in development, make sure you have Apostrophe's usual dependencies on your local machine:
 
 * MongoDB (4.4.x or better)
-* NodeJS (14.x or better, latest long term support release recommended)
-* Imagemagick (for fast, high-quality image rendering)
+* NodeJS (18.x or better, latest long term support release recommended)
 
 For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
 
@@ -458,8 +457,7 @@ Azure Blob Storage or Google Cloud Storage.
 
 ## Localized domain names
 
-It is possible to allow dashboard administrators to define the locales for each site.
-To do that, you must set the flag `localizedSites` to true, in the `site` module options.
+Dashboard administrators can define the locales for each site from the `locales` tab of the site editor modal. This is turned on by default with the `localizedSites` option of the `site` module set to `true`.
 
 ```javascript
 // in dashboard/modules/site/index.js
@@ -475,9 +473,7 @@ module.exports = {
   }
 }
 ```
-`baseUrlDomains` must be defined to allow localized domains.
 
-Once this has been done, you can access new fields in the `locales` tab when editing your site on the dashboard.
 You can add as many locales as you want, and for each of them you can give it a name, label, prefix, choose if you want a separate host, and if so, set a separate production hostname.
 
 If the separate host is set to `true`, the locale will be used as a subdomain of the domain name
