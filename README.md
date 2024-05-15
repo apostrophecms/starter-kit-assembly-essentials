@@ -64,7 +64,7 @@ Before you do anything else, set the fallback value for the `shortnamePrefix` op
 
 ### Configuring your domains
 
-After cloning this project, be sure to edit the `domains.js` file in the root of the project and change the list to match your real project's dev, staging and production domains. The `@apostrophecms-pro/multisite-dashboard` extension `site` module requires an object with `dev`, `staging`, and `production` URL strings for the `baseUrlDomains` option. This file provides those values.
+After cloning this project, be sure to edit the `domains.js` file in the root directory and update the list to match your actual project's domains, typically for development, staging, and production. The `@apostrophecms-pro/multisite-dashboard` extension's `site` module requires an object with URL strings for the `baseUrlDomains` option, and this file provides those values. While `dev`, `staging`, and `prod` are common domain names, you can use other names, but the first one defined in the object will be considered the development environment.
 
 If you are doing local development on your own computer, leave the `dev` domain set to `localhost:3000`. For staging and production, the Apostrophe Assembly team will typically preconfigure this for you and you won't need to worry about DNS or certificates.
 
