@@ -36,6 +36,8 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Deployment](#deployment)
   - [Profiling with OpenTelemetry](#profiling-with-opentelemetry)
   - [Self-hosting and the sample Dockerfile](#self-hosting-and-the-sample-dockerfile)
+  - [Localized domain names](#localized-domain-names)
+  - [Private locales](#private-locales)
 
 
 ## Purpose
@@ -62,7 +64,7 @@ Before you do anything else, set the fallback value for the `shortnamePrefix` op
 
 ### Configuring your domains
 
-After cloning this project, be sure to edit the `domains.js` file in the root of the project and change the list to match your real project's dev, staging and production domains.
+After cloning this project, be sure to edit the `domains.js` file in the root directory and update the list to match your actual project's domains, typically for development, staging, and production. The `@apostrophecms-pro/multisite-dashboard` extension's `site` module requires an object with URL strings for the `baseUrlDomains` option, and this file provides those values. While `dev`, `staging`, and `prod` are common domain names, you can use other names, but the first one defined in the object will be considered the development environment.
 
 If you are doing local development on your own computer, leave the `dev` domain set to `localhost:3000`. For staging and production, the Apostrophe Assembly team will typically preconfigure this for you and you won't need to worry about DNS or certificates.
 
@@ -145,8 +147,7 @@ Another option is to use the Windows Subsystem for Linux, which is also an Ubunt
 To test-drive the project in development, make sure you have Apostrophe's usual dependencies on your local machine:
 
 * MongoDB (4.4.x or better)
-* NodeJS (14.x or better, latest long term support release recommended)
-* Imagemagick (for fast, high-quality image rendering)
+* NodeJS (18.x or better, latest long term support release recommended)
 
 For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
 
@@ -349,7 +350,9 @@ For complete information and a sample configuration, see the [@apostrophecms-pro
 
 ## Dashboard Development
 
-**The dashboard site has one job: managing the other sites.** As such you don't need to worry about making this site a pretty experience for the general public, because they won't have access to it. However you may want to dress up this experience and add extra functionality for your own customer admin team (the people who add and remove sites frmo the platform).
+**The dashboard site has one job: managing the other sites.** As such you don't need to worry about making this site a pretty experience for the general public, because they won't have access to it. However you may want to dress up this experience and add extra functionality for your own customer admin team (the people who add and remove sites from the platform).
+
+This starter kit has the `@apostrophecms-pro/multisite-dashboard` extension installed. This converts the dashboard from sites being presented as individual cards to a scrollable list. Each site now has a link for login to the site, as well as navigation to the home-page. This extension also creates a search box that makes finding sites easier. Finally, this extension also adds a template tab to the site creation modal. When creating or editing a site you can select to make it a template by clicking on "Template" control in the "Basics" tab. This will still be an active site, but it will be moved to the template tab. Sites in the template tab can be duplicated by selection that option in the context menu to the far right.
 
 The dashboard site can be extended much like the regular sites. Dashboard development is very similar to regular site development, except that modules live in `dashboard/modules`, what normally resides in `app.js` lives in `dashboard/index.js`, and so on.
 
@@ -454,8 +457,7 @@ Azure Blob Storage or Google Cloud Storage.
 
 ## Localized domain names
 
-It is possible to allow dashboard administrators to define the locales for each site.
-To do that, you must set the flag `localizedSites` to true, in the `site` module options.
+Dashboard administrators can define the locales for each site from the `locales` tab of the site editor modal. This is turned on by default with the `localizedSites` option of the `site` module set to `true`.
 
 ```javascript
 // in dashboard/modules/site/index.js
@@ -471,10 +473,8 @@ module.exports = {
   }
 }
 ```
-`baseUrlDomains` must be defined to allow localized domains.
+You can add as many locales as you want via the `locales` tab, and for each of them you can give it a name, label, prefix, choose if you want a separate host, and if so, set a separate production hostname.
 
-Once this has been done, you can access new fields in the `locales` tab when editing your site on the dashboard.
-You can add as many locales as you want, and for each of them you can give it a name, label, prefix, choose if you want a separate host, and if so, set a separate production hostname.
 
 If the separate host is set to `true`, the locale will be used as a subdomain of the domain name
 in addition to the separate production hostname if that field has been filled out and DNS has been configured for it.

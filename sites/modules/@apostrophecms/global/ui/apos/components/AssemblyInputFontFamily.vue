@@ -15,7 +15,7 @@
           <option
             v-for="choice in choices" :key="choice.value"
             :value="choice.value"
-            :selected="choice.value === value.data"
+            :selected="choice.value === modelValue.data"
           >
             {{ choice.label }}
           </option>
