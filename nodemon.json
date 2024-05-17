@@ -1,32 +1,29 @@
 {
   "delay": 1000,
   "verbose": true,
-  "watch": [
-    "./app.js",
-    "./dashboard/index.js",
-    "./dashboard/modules/**/*",
-    "./dashboard/lib/**/*.js",
-    "./dashboard/views/**/*.html",
-    "./sites/index.js",
-    "./sites/modules/**/*",
-    "./sites/lib/**/*.js",
-    "./sites/views/**/*.html"
-  ],
   "ignoreRoot": [
     ".git"
   ],
+  "watch": [
+    "**/*.*"
+  ],
   "ignore": [
-    "**/ui/apos/",
-    "**/ui/src/",
-    "**/ui/public/",
-    "sites/apos-build/**",
-    "sites/public/uploads/**",
-    "sites/public/apos-frontend/**",
-    "dashboard/apos-build/**",
-    "dashboard/public/uploads/**",
-    "dashboard/public/apos-frontend/**",
+    "dashboard/**/ui/apos/**",
+    "dashboard/**/ui/src/**",
+    "dashboard/**/ui/public/**",
+    "dashboard/apos-build",
+    "dashboard/public/uploads",
+    "dashboard/public/apos-frontend",
+    "dashboard/data",
+    "sites/**/ui/apos/**",
+    "sites/**/ui/src/**",
+    "sites/**/ui/public/**",
+    "sites/apos-build",
+    "sites/public/uploads",
+    "sites/public/apos-frontend",
+    "sites/data",
     "locales/*.json",
-    "data"
+    "node_modules"
   ],
   "ext": "json, js, html, scss, vue"
 }
