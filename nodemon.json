@@ -26,7 +26,8 @@
     "dashboard/public/uploads/**",
     "dashboard/public/apos-frontend/**",
     "locales/*.json",
-    "data"
+    "data",
+    "node_modules"
   ],
   "ext": "json, js, html, scss, vue"
 }
