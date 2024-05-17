@@ -23,14 +23,14 @@
   "dependencies": {
     "@apostrophecms-pro/basics": "^1.4.1",
     "@apostrophecms-pro/document-versions": "^2.0.0",
-    "@apostrophecms-pro/multisite": "github:apostrophecms/multisite#feature/multisite-dashboard",
-    "@apostrophecms-pro/multisite-dashboard": "github:apostrophecms/multisite-dashboard#feature/multisite-dashboard",
+    "@apostrophecms-pro/multisite": "^4.0.0",
+    "@apostrophecms-pro/multisite-dashboard": "^1.0.0",
     "@apostrophecms-pro/palette": "^4.0.1",
     "@opentelemetry/auto-instrumentations-node": "^0.37.1",
     "@opentelemetry/exporter-jaeger": "^1.15.0",
     "@opentelemetry/sdk-node": "^0.41.0",
     "@opentelemetry/semantic-conventions": "^1.15.0",
-    "apostrophe": "github:apostrophecms/apostrophe",
+    "apostrophe": "^4.3.0",
     "node-fetch": "^2.6.5",
     "qs": "^6.9.6",
     "require-all": "^3.0.0"
