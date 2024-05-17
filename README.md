@@ -473,8 +473,8 @@ module.exports = {
   }
 }
 ```
+You can add as many locales as you want via the `locales` tab, and for each of them you can give it a name, label, prefix, choose if you want a separate host, and if so, set a separate production hostname.
 
-You can add as many locales as you want, and for each of them you can give it a name, label, prefix, choose if you want a separate host, and if so, set a separate production hostname.
 
 If the separate host is set to `true`, the locale will be used as a subdomain of the domain name
 in addition to the separate production hostname if that field has been filled out and DNS has been configured for it.

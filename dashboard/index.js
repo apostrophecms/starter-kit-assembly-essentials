@@ -1,3 +1,6 @@
+const themes = require('../themes');
+const baseUrlDomains = require('../domains');
+
 module.exports = {
   privateDashboards: true,
   modules: {
@@ -9,7 +12,13 @@ module.exports = {
       }
     },
     helper: {},
-    site: {},
+    '@apostrophecms-pro/multisite-dashboard': {},
+    site: {
+      options: {
+        themes,
+        baseUrlDomains
+      }
+    },
     'site-page': {},
     asset: {}
   }
