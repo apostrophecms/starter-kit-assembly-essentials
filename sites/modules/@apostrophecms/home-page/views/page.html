@@ -2,8 +2,8 @@
 
 {% block main %}
   <section class="page-home">
-    {% if apos.area.isEmpty(data.page, 'main') and data.theme === 'demo' %}
-      {% include 'theme-demo:placeholder.html' %}
+    {% if data.theme === 'demo' %}
+      {% include 'theme-demo:welcome.html' %}
     {% endif %}
 
     {% area data.page, 'main' %}

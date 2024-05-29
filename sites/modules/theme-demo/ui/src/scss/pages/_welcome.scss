@@ -1,7 +1,9 @@
 .welcome {
+  margin-bottom: 30px;
   text-align: center;
 
   p {
+    max-width: 500px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -13,10 +15,6 @@
   .placeholder__help {
     margin-bottom: 0;
   }
-}
-
-.welcome p {
-  max-width: 500px;
 }
 
 .welcome__code {

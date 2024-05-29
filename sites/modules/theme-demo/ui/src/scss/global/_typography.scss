@@ -28,7 +28,7 @@ h3,
 h4,
 h5,
 h6,
-p {
+p:not(:last-child) {
   margin-bottom: 30px;
 }
 
@@ -61,4 +61,8 @@ h3 {
 
 p {
   line-height: 1.5;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
