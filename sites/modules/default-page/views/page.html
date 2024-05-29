@@ -6,8 +6,8 @@
 
     {% area data.page, 'main' %}
   
-    {% if apos.area.isEmpty(data.page, 'main') %}
-      {% include 'theme-default:placeholder.html' %}
+    {% if apos.area.isEmpty(data.page, 'main') and data.theme === 'demo' %}
+      {% include 'theme-demo:placeholder.html' %}
     {% endif %}
   </div>
 {% endblock %}
