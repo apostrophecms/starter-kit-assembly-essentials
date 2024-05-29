@@ -1,0 +1,40 @@
+@import '~swiper/swiper-bundle.css';
+
+:root {
+  --swiper-pagination-bottom: 0;
+}
+
+.figure {
+  margin: 0;
+
+  .figure__image {
+    width: 100%;
+    height: 385px;
+    object-fit: cover;
+  }
+
+  .figure__caption {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: rem(14);
+  }
+}
+
+[class^='swiper-button'] {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  color: $color-white;
+  border-radius: 25px;
+  background-color: var(--palette-color-primary);
+
+  &::after {
+    font-size: 1rem;
+    line-height: 1;
+  }
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--palette-color-primary);
+}

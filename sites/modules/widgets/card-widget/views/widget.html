@@ -1,0 +1,53 @@
+{% import "fragments/link.html" as link %}
+
+{% set widget = data.widget %}
+
+<section class="card-widget">
+  {% if widget.clickable %}
+    {% set path = apos.template.linkPath(widget) %}
+    <a href="{{ path }}" class="card-widget__link">
+  {% endif %}
+
+      {% set img = apos.image.first(widget._image) %}
+
+      {% if img %}
+        {% set imgSrc = apos.attachment.url(img) %}
+        {% set imgAlt = widget._image._alt or '' %}
+    
+        <img class="image image--{{ 'horizontal' if img.landscape else 'vertical' }}" src="{{ imgSrc }}" alt="{{ imgAlt }}"/>
+      {% endif %}
+    
+      <div class="card-widget__content">
+
+        {% area widget, 'text' %}
+
+        {% if widget.actions.length > 0 %}
+          <div class="card-widget__actions">
+
+            {% for item in widget.actions %}
+              {% set path = apos.template.linkPath(item) %}
+
+              {% set style = 'button' if item.linkStyle === 'button' else '' %}
+              {% set variant = 'color--' + item.linkVariant %}
+
+              {% rendercall link.template({
+                path: path,
+                class: style + ' ' + variant,
+                attributes: {
+                  target: item.linkTarget[0]
+                }
+              }) %}
+                {{ item.linkText }}
+              {% endrendercall %}
+          
+            {% endfor %}
+
+          </div>
+        {% endif %}
+
+      </div>
+
+  {% if widget.clickable %}
+    </a>
+  {% endif %}
+</section>

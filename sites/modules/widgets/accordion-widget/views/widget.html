@@ -1,0 +1,16 @@
+{% set widget = data.widget %}
+
+<div data-accordion-widget="{{ data.options | jsonAttribute }}" class="accordion-widget accordion-container">
+
+  {% for item in widget.items %}
+  <div class="ac">
+    <h2 class="ac-header">
+      <button type="button" class="ac-trigger">{{ item.header }}</button>
+    </h2>
+    <div class="ac-panel">
+      {% area item, 'content' %}
+    </div>
+  </div>
+  {% endfor %}
+
+</div>

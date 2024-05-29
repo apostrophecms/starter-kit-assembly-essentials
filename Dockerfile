@@ -1,5 +1,5 @@
-# Dockerfile for self-hosted A3 assembly boilerplate. Assumes
-# S3 for media storage and an external mongodb server.
+# Dockerfile for self-hosted Apostrophe Assembly Starter Kit.
+# Assumes S3 for media storage and an external mongodb server.
 
 FROM node:18-bullseye
 ENV APOS_MINIFY=1

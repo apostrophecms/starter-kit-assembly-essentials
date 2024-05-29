@@ -1,0 +1,28 @@
+$max-width: 1020px;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  overflow-x: hidden;
+
+  .is-logged-in & {
+    min-height: calc(100vh - 112px);
+  }
+}
+
+.header,
+.main,
+.footer,
+.content {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.header,
+.main,
+.footer {
+  width: 100%;
+  max-width: $max-width;
+}

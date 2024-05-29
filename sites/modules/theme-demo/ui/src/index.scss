@@ -1,26 +1,30 @@
 // Styles for this theme
-
 // If you need to share styles across themes, just @import them here
-// Settings
-@import 'settings/_color';
-@import 'settings/_fonts';
-@import 'settings/_layout';
 
-// Utilities
-@import 'utilities/_typography';
+@import '~normalize.css';
 
-// Base
-@import '_document';
-@import '_type';
-@import '_grid';
+@import './scss/functions/_rem';
 
-// Components
-@import '_button';
-@import '_columns';
-@import '_footer';
-@import '_hero';
-@import '_navigation';
+@import './scss/settings/_color';
+@import './scss/settings/_font';
 
-.o-widget--image {
-  max-width: 100%;
-}
+@import './scss/utilities/_accessibility';
+@import './scss/utilities/_display';
+
+@import './scss/global/_document';
+@import './scss/global/_typography';
+
+@import './scss/components/_button';
+@import './scss/components/_code';
+@import './scss/components/_footer';
+@import './scss/components/_header';
+@import './scss/components/_image';
+@import './scss/components/_link';
+@import './scss/components/_placeholder';
+
+@import './scss/widgets/_image-widget';
+
+@import './scss/layout/_grid';
+@import './scss/layout/_main';
+
+@import './scss/pages/_welcome';

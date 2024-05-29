@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
-{% import 'content-placeholder:placeholder.html' as placeholder with context -%}
 
 {% block main %}
-  {% area data.page, 'main' %}
-  {% if not data.page.main or not data.page.main.items.length %}
-    {{ placeholder.render() }}
-  {% endif %}
+  <section class="page-home">
+    {% include "theme-demo:welcome.html" %}
+
+    {% area data.page, 'main' %}
+  </section>
 {% endblock %}

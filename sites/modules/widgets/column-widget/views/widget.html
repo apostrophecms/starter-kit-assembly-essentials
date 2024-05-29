@@ -1,0 +1,16 @@
+{% set widget = data.widget %}
+
+{% set columns = apos.columnsWidget.getColumns(widget.layout) %}
+
+<div
+  class="column-widget grid--{{ widget.layout }}"
+  {% if widget.backgroundColor %}
+  style="background-color: {{ widget.backgroundColor }}"
+  {% endif %}
+>
+  {% for column in range(1, columns+1) %}
+    <div class="grid__column-{{ column }}">
+      {% area widget, 'column'+column %}
+    </div>
+  {% endfor %}
+</div>

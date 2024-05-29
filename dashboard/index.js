@@ -4,6 +4,14 @@ const baseUrlDomains = require('../domains');
 module.exports = {
   privateDashboards: true,
   modules: {
+    '@apostrophecms/express': {
+      options: {
+        session: {
+          secret: 'CHANGEME'
+        }
+      }
+    },
+
     '@apostrophecms/uploadfs': {
       options: {
         uploadfs: {
@@ -11,8 +19,9 @@ module.exports = {
         }
       }
     },
-    helper: {},
+
     '@apostrophecms-pro/multisite-dashboard': {},
+
     site: {
       options: {
         themes,
@@ -20,6 +29,7 @@ module.exports = {
       }
     },
     'site-page': {},
+
     asset: {}
   }
 };

@@ -1,6 +1,5 @@
 module.exports = {
   options: {
-    // A handy module to keep template helper functions in
     alias: 'helpers'
   },
   helpers(self, options) {

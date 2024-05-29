@@ -1,0 +1,20 @@
+{% import "fragments/link.html" as link %}
+
+{% set widget = data.widget %}
+
+{% set path = apos.template.linkPath(widget) %}
+
+{% set style = 'button' if widget.linkStyle === 'button' else '' %}
+{% set variant = 'color--' + widget.linkVariant %}
+
+<div class="link-widget">
+  {% rendercall link.template({
+    path: path,
+    class: style + ' ' + variant,
+    attributes: {
+      target: widget.linkTarget[0]
+    }
+  }) %}
+    {{ widget.linkText }}
+  {% endrendercall %}
+</div>
