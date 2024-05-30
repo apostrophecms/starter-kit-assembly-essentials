@@ -1,7 +1,5 @@
 /**
- * This is a good place to add theme specific
- * variations on helpers; since the active theme
- * is aliased as `apos.theme` these can be called easily
+ * An empty theme to use as a starting point for custom development
  */
 
 module.exports = {
@@ -16,8 +14,11 @@ module.exports = {
     ignoreUnusedFolderWarning: true
   },
   /**
-   * Update the webpack config so we can use SCSS variables and
-   * utilities from our theme in widgets
+   * Updates the webpack config so we can use SCSS variables and
+   * utilities from our theme in shared widgets.
+   *
+   * May remove if you refactor the provided widgets so they don't
+   * rely on Sass variables
    */
   webpack: {
     extensions: {

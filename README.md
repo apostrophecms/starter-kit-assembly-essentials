@@ -1,8 +1,8 @@
-# Apostrophe Assembly Boilerplate
+# Starter Kit Assembly Essentials
 
 <!-- TOC is auto generated via VSCode extensions https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one.
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
-- [Apostrophe Assembly Boilerplate](#apostrophe-assembly-boilerplate)
+- [Starter Kit Assembly Essentials](#starter-kit-assembly-essentials)
   - [Purpose](#purpose)
     - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-the-apostrophe-cli-is-not-currently-intended-for-multisite-projects)
   - [First Steps: required before startup](#first-steps-required-before-startup)
@@ -42,9 +42,9 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 
 ## Purpose
 
-The purpose of this repo is to serve as a quick start boilerplate for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
+The purpose of this repo is to serve as a quick start for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
 
-This boilerplate project includes:
+This starter kit includes:
 
 * An example of project-level code for your customer-facing sites.
 * An example of project-level code for the dashboard site that manages the rest.
@@ -167,7 +167,7 @@ However in other browsers this is not true and you must add the following lines 
 
 ## Starting Up In Development
 
-First, clone the boilerplate project and push it up to your own git repository for ongoing work.
+First, clone the starter kit and push it up to your own git repository for ongoing work.
 
 Then type:
 
@@ -270,7 +270,7 @@ In all other respects, development is just like normal ApostropheCMS single-site
 
 If you have already started a single-site project, you can move your modules directly from `modules` to `sites/modules`, and move the `modules` section of your `app.js` file to the corresponding section of `sites/index.js`. However take note of the existing settings we provide and merge accordingly.
 
-> **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `@apostrophecms-pro/multisite` and the provided logic in the boilerplate project.
+> **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `@apostrophecms-pro/multisite` and the provided logic in the starter kit.
 
 ### Themes
 
@@ -316,7 +316,7 @@ In this case we add one custom module, `theme-default`,  when the default theme 
 
 #### Modern Frontend Assets Without A Custom Build Process
 
-Beginning with the 1.1.0 release of `a3-assembly-boilerplate`, there is no need for Webpack for simpler cases. Specifically, you can follow our documentation and place your modern JavaScript code in the `ui/src/index.js` file of any module, or use `import` statements in that file to import it there. As noted in our documentation, it is **important for `ui/src/index.js` to export a function as its default export.** This function will be invoked to initialize your module at a safe time when `apos.http`, `apos.util`, etc. are already available.
+Beginning with the 1.1.0 release, there is no need for Webpack for simpler cases. Specifically, you can follow our documentation and place your modern JavaScript code in the `ui/src/index.js` file of any module, or use `import` statements in that file to import it there. As noted in our documentation, it is **important for `ui/src/index.js` to export a function as its default export.** This function will be invoked to initialize your module at a safe time when `apos.http`, `apos.util`, etc. are already available.
 
 You may also place Sass SCSS code in the `ui/src/index.scss` file of any module, and use `import` statements in that file to bring in more Sass SCSS code.
 
@@ -328,7 +328,7 @@ For example:
 
 #### Frontend Assets With Your Own Build Process
 
-Beginning with the 1.1.0 release of `a3-assembly-boilerplate`, a sample webpack build is not included as standard equipment, as `ui/src` suffices for most needs. However, if you need to use webpack or another custom build process, the solution is to configure the output of your build process to be a `ui/public/something.js` file in any module in your Apostrophe project. As above you can create a build that is included in only one theme by writing its output to the `ui/src` subdirectory of that theme module.
+Beginning with the 1.1.0 release, a sample webpack build is not included as standard equipment, as `ui/src` suffices for most needs. However, if you need to use webpack or another custom build process, the solution is to configure the output of your build process to be a `ui/public/something.js` file in any module in your Apostrophe project. As above you can create a build that is included in only one theme by writing its output to the `ui/src` subdirectory of that theme module.
 
 #### Developing For IE11
 
@@ -426,7 +426,7 @@ Typical `build` and `run` commands look like:
 
 ```bash
 # build command
-docker build -t a3-assembly-boilerplate . \
+docker build -t apostrophe-assembly . \
   --build-arg="NPMRC=//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN_GOES_HERE" \
   --build-arg="ENV=prod" --build-arg="APOS_PREFIX=YOUR-PREFIX-GOES-HERE-" \
   --build-arg="DASHBOARD_HOSTNAME=dashboard.YOUR-DOMAIN-NAME-GOES-HERE.com" \
@@ -437,7 +437,7 @@ docker build -t a3-assembly-boilerplate . \
   --build-arg="APOS_S3_SECRET=YOURS-GOES-HERE"
 
 # run command
-docker run -it --env MONGODB_URL=YOUR-MONGODB-ATLAS-URL-GOES-HERE a3-assembly-boilerplate
+docker run -it --env MONGODB_URL=YOUR-MONGODB-ATLAS-URL-GOES-HERE apostrophe-assembly
 ```
 
 To avoid passing the real MongoDB URL to the build task, currently the provided Dockerfile uses a

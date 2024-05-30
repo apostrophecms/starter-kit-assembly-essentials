@@ -1,15 +1,15 @@
 module.exports = {
   init(self) {
+    /**
+     * Used in Nunjucks templates to determine if an
+     * HTML attribute is a boolean attribute
+     */
     self.addFilter({
       isBooleanAttr: self.isBooleanAttr
     });
   },
   methods(self) {
     return {
-      /**
-       * Used in Nunjucks templates to determine if an
-       * HTML attribute is a boolean attribute
-       */
       isBooleanAttr(attribute) {
         const booleanAttributes = [
           'allowfullscreen',
@@ -48,7 +48,12 @@ module.exports = {
        * The link schema in `/lib/schema/link.js` allows
        * Editors to link to a Page, File, or custom url.
        * Used in Nunjucks templates to get the appropriate
-       * field based on the link type for the href
+       * field for the link's href based on the link type
+       *
+       * Example usage:
+       * ```
+       * apos.template.linkPath(item)
+       * ```
        */
 
       linkPath: (link) => {

@@ -1,6 +1,6 @@
 /**
  * Apostrophe Pro Basic Widgets to kick start development.
- * Feel free to remove if not needed or modify to fit your needs.
+ * Remove if not needed or add/modify to suit your specific needs.
  */
 
 module.exports = {

@@ -1,6 +1,6 @@
 /**
- * For Demo Purposes, this Accordion is powered by accordion-js
- * You could swap this out another library or your own implementation
+ * For Demo Purposes this Accordion is powered by accordion-js
+ * You could swap this out for another library or your own custom implementation
  */
 
 import Accordion from 'accordion-js';

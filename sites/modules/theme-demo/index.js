@@ -1,6 +1,5 @@
 /**
- * For ease of migration to Assembly later, we've organized
- * the styles and site-specific JavaScript in this theme module.
+ * A Minimally Styled theme that showcases core Apostrophe functionality
  */
 
 const path = require('path');
@@ -12,8 +11,8 @@ module.exports = {
     alias: 'theme'
   },
   /**
-   * Update the webpack config so we can use SCSS variables and
-   * utilities from our theme in widgets
+   * Updates the webpack config so we can use SCSS variables and
+   * utilities from our theme in shared widgets
    */
   webpack: {
     extensions: {
