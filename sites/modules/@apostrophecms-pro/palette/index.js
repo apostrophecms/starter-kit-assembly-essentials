@@ -1,4 +1,5 @@
 const path = require('path');
+
 const configs = require('require-all')({
   dirname: path.join(
     __dirname, 'lib/configs'
@@ -7,32 +8,20 @@ const configs = require('require-all')({
 
 module.exports = {
   fields: {
-    add: generateFields(configs),
-    group: generateGroups(configs)
+    add: filter(configs, 'add'),
+    group: filter(configs, 'group')
   }
 };
 
-function generateFields (configs) {
-  let fields = {};
+function filter(config, key) {
+  let items = {};
+
   for (const config of Object.keys(configs)) {
-    fields = {
-      ...fields,
-      ...configs[config].add
+    items = {
+      ...items,
+      ...configs[config][key]
     };
   };
 
-  return fields;
-}
-
-function generateGroups (configs) {
-  let groups = {};
-
-  for (const config of Object.keys(configs)) {
-    groups = {
-      ...groups,
-      ...configs[config].group
-    };
-  };
-
-  return groups;
+  return items;
 }

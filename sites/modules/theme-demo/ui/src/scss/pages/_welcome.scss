@@ -1,0 +1,26 @@
+.welcome {
+  margin-bottom: 30px;
+  text-align: center;
+
+  p {
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .button--cta {
+    padding: 20px 30px;
+  }
+
+  .placeholder__help {
+    margin-bottom: 0;
+  }
+}
+
+.welcome__code {
+  margin: 0 auto 30px;
+}
+
+.welcome__help {
+  font-size: rem(22);
+}

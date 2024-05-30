@@ -1,8 +1,5 @@
 module.exports = {
   extend: '@apostrophecms/page-type',
-  options: {
-    label: 'Default Page'
-  },
   fields: {
     add: {
       main: {
@@ -10,8 +7,7 @@ module.exports = {
         label: 'Main',
         options: {
           widgets: {
-            '@apostrophecms-pro/basics-column': {},
-            '@apostrophecms-pro/basics-hero': {}
+            '@apostrophecms/rich-text': {}
           }
         }
       }

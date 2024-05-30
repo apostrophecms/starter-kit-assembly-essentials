@@ -1,0 +1,54 @@
+[class*='grid--']:not(.grid--100) {
+  display: grid;
+  gap: var(--palette-grid-margin);
+}
+
+.grid--50 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--66-33,
+.grid--33-66,
+.grid--33 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--66-33 {
+  .grid__column-1 {
+    grid-column: span 2;
+  }
+}
+
+.grid--33-66 {
+  .grid__column-2 {
+    grid-column: span 2;
+  }
+}
+
+.grid--75-25,
+.grid--25-75,
+.grid--25 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--75-25 {
+  .grid__column-1 {
+    grid-column: span 3;
+  }
+}
+
+.grid--25-75 {
+  .grid__column-2 {
+    grid-column: span 3;
+  }
+}
+
+.full-width {
+  position: relative;
+  right: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  width: 100vw;
+  margin-right: -50vw;
+  margin-left: -50vw;
+}

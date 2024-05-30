@@ -1,0 +1,9 @@
+{% for attribute, value in options.attributes %}
+  {% if attribute | isBooleanAttr %}
+    {% if value %}
+      {{ attribute }}
+    {% endif %}
+  {% elseif value != '' %}
+    {{ attribute }}="{{ value }}"
+  {% endif %}
+{% endfor %}

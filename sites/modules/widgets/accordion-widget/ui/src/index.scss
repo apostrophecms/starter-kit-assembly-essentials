@@ -1,0 +1,54 @@
+@import '~accordion-js/dist/accordion.css';
+
+.ac {
+  margin-top: 0;
+  border: none;
+  background: unset;
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+
+  .ac-header {
+    border-bottom: 1px solid $color-gray-15;
+    font-size: rem(16);
+    font-weight: $font-weight-normal;
+  }
+
+  .ac-trigger {
+    font: unset;
+    padding: 0 30px 10px 0;
+
+    &:hover {
+      color: var(--palette-color-primary);
+    }
+
+    &:focus {
+      color: unset;
+    }
+
+    &::after {
+      width: unset;
+      transform: translate(0, calc(-50% - 7px));
+    }
+  }
+
+  .ac-panel {
+    transition-property: all;
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &.is-active {
+    .ac-trigger {
+      color: var(--palette-color-primary);
+    }
+
+    .ac-panel {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+}

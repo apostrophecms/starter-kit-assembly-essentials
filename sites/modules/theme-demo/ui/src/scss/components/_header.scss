@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 40px 0;
+
+  .button {
+    font-size: 0.9rem;
+  }
+}
+
+.header__logo {
+  display: block;
+  width: 190px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.navigation__link {
+  display: inline-block;
+  font-size: rem(18);
+
+  &:not(:last-of-type) {
+    margin-right: 15px;
+  }
+}

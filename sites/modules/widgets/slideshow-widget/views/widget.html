@@ -1,0 +1,23 @@
+{% set widget = data.widget %}
+
+<div data-slideshow-widget="{{ data.options | jsonAttribute }}" class="slideshow-widget swiper">
+
+  <div class="swiper-wrapper">
+    {% for image in widget.images %}
+      {% set img = apos.image.first(image._image) %}
+      {% set src = apos.attachment.url(img) %}
+
+      <figure class="figure swiper-slide">
+        <img class="figure__image" src="{{ src }}" alt="{{ img._alt or '' }}" />
+        <figcaption class="figure__caption">{{ image.caption }}</figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+
+  <div class="swiper-pagination"></div>
+
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+
+</div>
+

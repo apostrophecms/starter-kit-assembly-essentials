@@ -1,0 +1,37 @@
+<section class="welcome">
+  <h1 class="welcome__headline">
+    Welcome to <span class="inline-block">Apostrophe Pro</span>
+  </h1>
+
+  {% if not data.user %}
+    <h2 class="welcome__help">First time spinning up ApostropheCMS?</h2>
+
+    <p>
+      Use the credentials created during setup with the CLI tool or create a new user with the CLI command:
+    </p>
+
+    <pre class="welcome__code">
+      <code>
+        node app @apostrophecms/user:add myUsername admin --site={{ apos.theme.options.shortName }}
+      </code>
+    </pre>
+
+    <p>
+      <a class="button button--cta" href="/login">Then log in here</a>
+    </p>
+  {% endif %}
+
+  <p>
+    For a guide on how to configure and customize your project, <a href="https://docs.apostrophecms.com/">please check out the Apostrophe documentation</a>.
+  </p>
+
+  {% if data.user and apos.area.isEmpty(data.page, 'main') %}
+
+    <div class="welcome__area">
+
+      {% include 'placeholder.html' %}
+
+    </div>
+
+  {% endif %}
+</section>

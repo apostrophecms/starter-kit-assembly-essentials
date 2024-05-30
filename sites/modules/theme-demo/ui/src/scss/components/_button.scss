@@ -1,0 +1,55 @@
+.button {
+  display: inline-block;
+  padding: 10px 24px;
+  color: $color-white;
+  background: var(--palette-color-primary);
+  text-decoration: none;
+  border-radius: 100px;
+  font-weight: $font-weight-bold;
+
+  &:hover,
+  &:active {
+    color: $color-white;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: color-mix(in srgb, var(--palette-color-primary) 80%, #fff);
+  }
+
+  &:active {
+    background: color-mix(in srgb, var(--palette-color-primary) 80%, #000);
+  }
+}
+
+.color--secondary {
+  &.button {
+    background-color: var(--palette-color-secondary);
+
+    &:hover {
+      background: color-mix(in srgb, var(--palette-color-secondary) 80%, #fff);
+    }
+
+    &:active {
+      background: color-mix(in srgb, var(--palette-color-secondary) 80%, #000);
+    }
+  }
+}
+
+.color--accent {
+  &.button {
+    background-color: var(--palette-color-accent);
+
+    &:hover {
+      background: color-mix(in srgb, var(--palette-color-accent) 80%, #fff);
+    }
+
+    &:active {
+      background: color-mix(in srgb, var(--palette-color-accent) 80%, #000);
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{% fragment template(options) %}
+  <a
+    class="link {{ options.class }}"
+    href="{{ options.path }}"
+    {% include "includes/attributes.html" %}
+  >{{ rendercaller() }}</a>
+{% endfragment %}

@@ -1,6 +1,10 @@
-module.exports = function(site, config) {
+module.exports = function (site, config) {
   config.modules = {
     ...config.modules,
-    'theme-demo': {}
+    'theme-demo': {
+      options: {
+        shortName: site.shortName
+      }
+    }
   };
 };

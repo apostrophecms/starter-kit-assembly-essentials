@@ -1,0 +1,71 @@
+{% import 'fragments/link.html' as link %}
+
+{% set widget = data.widget %}
+
+{% set img = apos.image.first(widget._image) %}
+
+{% if img %}
+  {% set imgUrl = apos.attachment.url(img, { size: 'max' }) %}
+{% endif %}
+
+{% set poster = apos.image.first(widget._videoPoster) %}
+
+{% if poster %}
+  {% set posterUrl = apos.attachment.url(poster) %}
+{% endif %}
+
+{% if widget.media === 'image' and widget.backgroundColor %}
+  {% set background = 'background: center / cover no-repeat url(' + imgUrl + ') ' + widget.backgroundColor %}
+{% elif widget.media === 'image' and not widget.backgroundColor %}
+  {% set background = 'background: center / cover no-repeat url(' + imgUrl + ')' %}
+{% elif not widget.media === 'video' and widget.backgroundColor %}
+  {% set background = 'background-color:' + widget.backgroundColor %}
+{% endif %}
+
+<section
+  class="hero-widget hero-widget--{{ widget.size }} {% if data.options.fullWidth %}full-width{% endif %}"
+  {% if background %}
+    style="{{ background }}"
+  {% endif %}
+>
+ 
+  {% if widget.media === 'video' %}
+    <video
+      class="hero-widget__video"
+      src="{{ widget.videoUrl }}"
+      {% if posterUrl %}
+        poster="{{ posterUrl }}"
+      {% endif %}
+      autoplay muted loop
+      >
+    </video>
+    <div class="hero-widget__screen" style="background: {{ widget.backgroundColor }}"></div>
+  {% endif %}
+
+  <div class="hero-widget__content">
+    {% area widget, 'content' %}
+
+    {% if widget.actions.length > 0 %}
+      <div class="hero-widget__actions">
+        {% for item in widget.actions %}
+          {% set path = apos.template.linkPath(item) %}
+    
+          {% set style = 'button' if item.linkStyle === 'button' else '' %}
+          {% set variant = 'color--' + item.linkVariant %}
+    
+          {% rendercall link.template({
+            path: path,
+            class: style + ' ' + variant,
+            attributes: {
+              target: item.linkTarget[0]
+            }
+          }) %}
+            {{ item.linkText }}
+          {% endrendercall %}
+    
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>

@@ -1,0 +1,58 @@
+a:not(.button),
+.link:not(.button) {
+  color: var(--palette-color-primary);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: color-mix(in srgb, var(--palette-color-primary) 80%, #fff);
+  }
+
+  &:active {
+    color: color-mix(in srgb, var(--palette-color-primary) 80%, #000);
+  }
+
+  &:visited {
+    color: var(--palette-color-primary);
+  }
+}
+
+.color--secondary {
+  &.link:not(.button) {
+    color: var(--palette-color-secondary);
+
+    &:hover {
+      color: color-mix(in srgb, var(--palette-color-secondary) 80%, #fff);
+    }
+
+    &:active {
+      color: color-mix(in srgb, var(--palette-color-secondary) 80%, #000);
+    }
+
+    &:visited {
+      color: var(--palette-color-secondary);
+    }
+  }
+}
+
+.color--accent {
+  &.link:not(.button) {
+    color: var(--palette-color-accent);
+
+    &:hover {
+      color: color-mix(in srgb, var(--palette-color-accent) 80%, #fff);
+    }
+
+    &:active {
+      color: color-mix(in srgb, var(--palette-color-accent) 80%, #000);
+    }
+
+    &:visited {
+      color: var(--palette-color-accent);
+    }
+  }
+}

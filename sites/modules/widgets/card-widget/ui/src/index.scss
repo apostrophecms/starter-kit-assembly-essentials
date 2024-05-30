@@ -1,0 +1,36 @@
+.card-widget {
+  overflow: hidden;
+  border: 1px solid $color-gray-15;
+  border-radius: 5px;
+
+  .card-widget__link {
+    text-decoration: none;
+    color: unset;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: unset;
+    }
+  }
+
+  .image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .card-widget__content {
+    padding: 20px;
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-widget__actions {
+    margin-top: 20px;
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "a3-assembly-boilerplate",
-  "version": "1.1.0",
-  "description": "A boilerplate for multisite content-management in A3",
+  "name": "starter-kit-assembly-essentials",
+  "version": "2.0.0",
+  "description": "A boilerplate for multisite content-management in Apostrophe",
   "private": true,
   "scripts": {
     "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
@@ -13,33 +13,35 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apostrophecms/a3-assembly-boilerplate"
+    "url": "https://github.com/apostrophecms/starter-kit-assembly-essentials"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.0.0"
   },
   "author": "Apostrophe Technologies",
   "license": "UNLICENSED",
   "dependencies": {
-    "@apostrophecms-pro/basics": "^1.4.1",
-    "@apostrophecms-pro/document-versions": "^2.0.0",
-    "@apostrophecms-pro/multisite": "^4.0.0",
-    "@apostrophecms-pro/multisite-dashboard": "^1.0.0",
-    "@apostrophecms-pro/palette": "^4.0.1",
-    "@opentelemetry/auto-instrumentations-node": "^0.37.1",
-    "@opentelemetry/exporter-jaeger": "^1.15.0",
-    "@opentelemetry/sdk-node": "^0.41.0",
-    "@opentelemetry/semantic-conventions": "^1.15.0",
-    "apostrophe": "^4.3.0",
-    "node-fetch": "^2.6.5",
-    "qs": "^6.9.6",
-    "require-all": "^3.0.0"
+    "@apostrophecms-pro/document-versions": "^2.2.1",
+    "@apostrophecms-pro/multisite": "^4.0.1",
+    "@apostrophecms-pro/multisite-dashboard": "^1.0.1",
+    "@apostrophecms-pro/palette": "^4.1.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.46.1",
+    "@opentelemetry/exporter-jaeger": "^1.24.1",
+    "@opentelemetry/sdk-node": "^0.51.1",
+    "@opentelemetry/semantic-conventions": "^1.24.1",
+    "@tiptap/extension-color": "^2.4.0",
+    "@tiptap/extension-text-style": "^2.4.0",
+    "accordion-js": "^3.3.4",
+    "apostrophe": "^4.3.2",
+    "normalize.css": "^8.0.1",
+    "require-all": "^3.0.0",
+    "swiper": "^11.1.3"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "eslint-config-apostrophe": "^4.0.0",
-    "nodemon": "^3.0.1",
-    "stylelint": "^15.0.0",
-    "stylelint-config-apostrophe": "^3.0.0"
+    "eslint-config-apostrophe": "^4.3.0",
+    "nodemon": "^3.1.1",
+    "stylelint": "^16.6.1",
+    "stylelint-config-apostrophe": "^4.0.0"
   }
 }
