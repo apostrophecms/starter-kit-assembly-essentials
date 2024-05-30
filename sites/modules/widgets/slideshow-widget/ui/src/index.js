@@ -1,6 +1,6 @@
 /**
- * For Demo Purposes, this Slideshow is powered by Swiper.js
- * You could swap this out another library or your own implementation
+ * For Demo Purposes this Slideshow is powered by Swiper.js
+ * You could swap this out for another library or your own custom implementation
  */
 
 import Swiper from 'swiper';
@@ -26,7 +26,7 @@ export default () => {
           el: '.swiper-pagination'
         },
 
-        modules: [ Navigation, Pagination ],
+        modules: [Navigation, Pagination],
 
         ...(el.dataset.slideshowWidget && {
           ...JSON.parse(el.dataset.slideshowWidget).swiper

@@ -1,7 +1,7 @@
 /**
  * A shared schema field configuration for Links.
- * You can use as is in a schema definition or
- * destructure when requiring to use only the fields you want
+ * You can use as is in a schema definition or destructure
+ * when requiring to only use the fields you want
  */
 
 module.exports = {

@@ -1,3 +1,10 @@
+/**
+ * Shared Sites configuration
+ *
+ * Enabling and configuring a module here will allow the
+ * module to be used as configured on all sites.
+ */
+
 module.exports = function (site) {
   const config = {
     // Theme name is globally available as apos.options.theme
@@ -7,7 +14,7 @@ module.exports = function (site) {
       '@apostrophecms/uploadfs': {
         options: {
           uploadfs: {
-            // Be sure to change
+            // TODO: Be sure to change
             disabledFileKey: 'CHANGEME'
           }
         }
@@ -15,15 +22,14 @@ module.exports = function (site) {
       '@apostrophecms/express': {
         options: {
           session: {
+            // TODO: Be sure to change
             secret: 'CHANGEME'
           }
         }
       },
-      // Just a nice place to keep our helper functions and macros that are
-      // used across all sites
+
       helpers: {},
 
-      // The @apostrophecms/home-page module always exists, no need to activate it here
       'default-page': {},
 
       '@apostrophecms-pro/palette': {},
@@ -33,8 +39,10 @@ module.exports = function (site) {
     }
   };
 
-  // Allow each theme to modify the configuration object,
-  // enabling additional modules etc.
+  /**
+   * Allow each theme to modify the configuration object,
+   * enabling additional modules etc.
+   */
   require(`./lib/theme-${site.theme}.js`)(site, config);
 
   return config;
