@@ -1,8 +1,8 @@
-# Starter Kit Assembly Essentials
+# Apostrophe Starter Kit Assembly Essentials
 
 <!-- TOC is auto generated via VSCode extensions https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one.
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
-- [Starter Kit Assembly Essentials](#starter-kit-assembly-essentials)
+- [Apostrophe Starter Kit Assembly Essentials](#apostrophe-starter-kit-assembly-essentials)
   - [Purpose](#purpose)
     - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-the-apostrophe-cli-is-not-currently-intended-for-multisite-projects)
   - [First Steps: required before startup](#first-steps-required-before-startup)
