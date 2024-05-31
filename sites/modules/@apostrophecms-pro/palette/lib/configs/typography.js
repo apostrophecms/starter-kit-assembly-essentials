@@ -1,3 +1,8 @@
+/**
+ * For additional information on using and configuring Palette, see:
+ * https://github.com/apostrophecms/palette
+ */
+
 module.exports = {
   add: {
     fontSize: {
