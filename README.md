@@ -25,10 +25,18 @@ Having it installed in your VSCode will ensure that adding/changing heading will
       - [Adding a New Theme](#adding-a-new-theme)
       - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
       - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
+      - [Example webpack extensions](#example-webpack-extensions)
       - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
       - [Developing For IE11](#developing-for-ie11)
       - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
     - [Palette Configuration](#palette-configuration)
+  - [Provided widgets](#provided-widgets)
+    - [`accordion-widget`](#accordion-widget)
+    - [`card-widget`](#card-widget)
+    - [`column-widget`](#column-widget)
+    - [`hero-widget`](#hero-widget)
+    - [`link-widget`](#link-widget)
+    - [`slideshow-widget`](#slideshow-widget)
   - [Dashboard Development](#dashboard-development)
     - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
   - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
@@ -43,6 +51,8 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 ## Purpose
 
 The purpose of this repo is to serve as a quick start for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
+
+It also serves as example code for creating your own custom modules and organizing your files in an ApostropheCMS project. The [section describing the widgets](#provided-widgets) outlines some code practices and features that can be used in your own custom modules.
 
 This starter kit includes:
 
@@ -146,7 +156,7 @@ Another option is to use the Windows Subsystem for Linux, which is also an Ubunt
 
 To test-drive the project in development, make sure you have Apostrophe's usual dependencies on your local machine:
 
-* MongoDB (4.4.x or better)
+* MongoDB (5.0 or better, we recommend 6.0)
 * NodeJS (18.x or better, latest long term support release recommended)
 
 For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
@@ -157,7 +167,7 @@ Because this project serves multiple websites, certain hostnames must point dire
 
 **If you will only be testing in Chrome at first,** you do not have to edit your hosts file right away. That's because in Chrome, all subdomains of `localhost` resolve to your own computer.
 
-However in other browsers this is not true and you must add the following lines to `/etc/hosts` before proceeding:
+However, in other browsers this is not true and you must add the following lines to `/etc/hosts` before proceeding:
 
 ```
 127.0.0.1 dashboard.localhost company1.localhost
@@ -260,7 +270,7 @@ Right now we have a bare-bones example. Let's look at where to put our code to c
 
 ### Where Does My Apostrophe Project Code Go?
 
-> If you are not already familiar with single-site Apostrophe development, we strongly recommend that you [read the A3 ApostropheCMS documentation](https://a3.docs.apostrophecms.org/) as a starting point.
+> If you are not already familiar with single-site Apostrophe development, we strongly recommend that you [read the ApostropheCMS documentation](https://docs.apostrophecms.org/) as a starting point.
 
 In a typical single-site Apostrophe project, modules are configured in `app.js`. In a multisite project, you'll find that `app.js` is instead reserved for top-level configuration that applies to all sites.
 
@@ -268,7 +278,7 @@ The code you're used to seeing in `app.js` can instead be found in `sites/index.
 
 In all other respects, development is just like normal ApostropheCMS single-site development. Feel free to add page templates and modules. You can `npm install` modules like `@apostrophecms/blog` and configure them in a normal way; just do it in `sites/index.js` rather than `app.js`.
 
-If you have already started a single-site project, you can move your modules directly from `modules` to `sites/modules`, and move the `modules` section of your `app.js` file to the corresponding section of `sites/index.js`. However take note of the existing settings we provide and merge accordingly.
+If you have already started a single-site project, you can move your modules directly from `modules` to `sites/modules`, and move the `modules` section of your `app.js` file to the corresponding section of `sites/index.js`. However, take note of the existing settings we provide and merge accordingly.
 
 > **If you are hosting your project with us, or using tools provided by us, you should remove any legacy app.js or module code that configures UploadFS cloud storage or mongodb database hosts.** Such settings are handled automatically and the configuration is set behind the scenes by `@apostrophecms-pro/multisite` and the provided logic in the starter kit.
 
@@ -312,7 +322,7 @@ module.exports = function(site, config) {
 
 The `config` object already contains what was configured in `sites/index.js`. Here we can modify the configuration by adding extra modules only for this theme, or changing the configuration of a module specifically for this theme.
 
-In this case we add one custom module, `theme-default`,  when the default theme is active. **It is a best practice to push your theme's frontend assets to Apostrophe in a module like this,** named after the theme. If your themes share any assets, then they should be imported into the appropriate `.js` or `.scss` master file by each theme.
+In this case we add one custom module, `theme-default`, when the default theme is active. **It is a best practice to push your theme's frontend assets to Apostrophe in a module like this,** named after the theme. If your themes share any assets, then they should be imported into the appropriate `.js` or `.scss` master file by each theme.
 
 #### Modern Frontend Assets Without A Custom Build Process
 
@@ -326,6 +336,16 @@ For example:
 - The default theme's SASS stylesheet entrypoint is located at `sites/modules/theme-default/ui/src/index.scss`
 - The default theme's JavaScript browser-side entry point is located at: `sites/modules/theme-default/ui/src/index.js`
 
+#### Example webpack extensions
+
+The `theme-default` and `theme-demo` modules modify the base webpack build using the [`webpack` property](https://docs.apostrophecms.org/guide/webpack.html#extending-webpack-configuration) to incorporate SCSS variables for colors and fonts. This is included to demonstrate how to set up centralized theme management with global variables in one place. They also both add a function for converting font sizes from `px` to `rem`. While this is a useful function that is used in several of the `theme-default` stylesheets, it primarily serves to illustrate how SCSS functions can be added to your project. A similar approach would be used to add in any SCSS mixins that subsequent stylesheets utilize.
+
+The two theme modules accomplish this extension in slightly different ways. The `theme-default` extension adds all the variables and the function into a template literal block within the `additionalData` property. If you continue to use the `theme-default` module in your project and want to use the included project-level widgets, you need to keep and potentially edit this template literal block since the styling of the widgets depends on them.
+
+The `theme-demo` module includes the variables and function by importing files from the `sites/modules/theme-demo/ui/src/scss/settings/` folder. Note that these files also need to be imported into the `sites/modules/theme-demo/ui/src/index.scss` file. This is necessary for the main webpack build to include them. If your project includes additional [SASS "partials"](https://sass-lang.com/guide/#partials) files that other stylesheets access through `@use` you will need to add them to both the `index.scss` file and in the extended webpack configuration. Again, the project-level widgets included in this starter-kit depend on the styling included in these files.
+
+The `theme-default` module depends on only the `sites/layout.html` file to provide markup for the `@apostrophecms/home-page` page type. In contrast, the `views` folder of the `theme-demo` module has two markup files that provide additional HTML markup. The main `welcome.html` file contains a conditional block for displaying different content based on whether there is a user is logged in or not. It has a second conditional block for displaying markup from the `placeholder.html` file if no content has been added to the page. The Nunjucks template in the `sites/modules/@apostophecms/home-page/views/page.html` file conditionally adds this markup if `demo` is the selected theme. You can choose to maintain this structure and modify the `welcome.html` file, or change the `modules/@apostrophecms/home-page/views/page.html` to contain your own markup.
+
 #### Frontend Assets With Your Own Build Process
 
 Beginning with the 1.1.0 release, a sample webpack build is not included as standard equipment, as `ui/src` suffices for most needs. However, if you need to use webpack or another custom build process, the solution is to configure the output of your build process to be a `ui/public/something.js` file in any module in your Apostrophe project. As above you can create a build that is included in only one theme by writing its output to the `ui/src` subdirectory of that theme module.
@@ -338,7 +358,7 @@ With Microsoft ending Internet Explorer 11 support in 2022, we no longer enable 
 
 If you need to serve static files, you can do this much as you would in standalone A3 development.
 
-The folder `sites/public` maps to `/` in the URL space of a site. For instance, `sites/public/fonts/myfile.ttf` maps to `/fonts/myfile.ttf`. For assets like favicons and fonts, you can add `link` tags to the `extraHead` block already present in `sites/modules/@apostrophecms/template/views/outerLayout.html`.
+The folder `sites/public` maps to `/` in the URL space of a site. For instance, `sites/public/fonts/myfile.ttf` maps to `/fonts/myfile.ttf`. For assets like favicons and fonts, you can add `link` tags to the `standardHead` block already present in `sites/modules/@apostrophecms/template/views/outerLayout.html`.
 
 ### Palette Configuration
 
@@ -347,6 +367,35 @@ The palette allows styles to be edited visually on the site. It is configured in
 For complete information and a sample configuration, see the [@apostrophecms-pro/palette module documentation](https://npmjs.org/package/@apostrophecms-pro/palette). *You will need to be logged into an npm account that has been granted access, such as the one you used to npm install this project.*
 
 > Note that like all other changes, palette changes do not take place for logged-out users until the user clicks "Publish."
+
+## Provided widgets
+There are six basic widget modules located in the `sites/modules/widgets` folder of this starter kit. This supplements the core `rich-text`, `image`, `video`, and `html` widgets. They can be altered to fit the design and functionality of your project or act as a blueprint to build your own custom widgets. Both the `hero` and `column` widgets have been added to the `main` area of the `@apostrophecms/home-page`. The remainder of the basic widgets have been added to the areas of the `column` widget as described below.
+
+If you look at the `sites/index.js` file you won't see these widget modules in the `modules` object. Instead, they are being registered using the `nestedModuleSubdirs` property. Setting this property to `true` will cause Apostrophe to register all the modules listed in the `modules.js` file of any subfolder in the project-level `modules` folder. You can choose to organize any custom modules, such as grouping all of your piece-types, to keep your `modules` folder and the `app.js` file less cluttered. Note that if you choose to move any of the provided widgets out of the current folder you will need to add them to the `app.js` and remove them from the `modules/widgets/modules.js` file. If you choose to keep this structure, any custom widgets you add to the folder need to be listed in the `modules.js` file.
+
+All the styling for the supplied widgets is located in the `ui/src/index.scss` file of each module. You can choose to maintain this structure, move the styling to the `theme-default/ui/src/scss` folder, or organize them in a different project-specific manner. Note that for them to be included in the standard webpack build, they need to be imported into a `<module>/ui/src/index.scss` file.
+
+### `accordion-widget`
+The `accordion-widget` implements an accordion element powered by the [`accordion-js` npm package](https://www.npmjs.com/package/accordion-js). You can read about additional configuration options in the documentation of that package. The module consists of a main `index.js` file with the content schema fields, plus a `views` folder that contains a `widget.html` file with the Nunjucks markup for the accordion.
+
+Finally, there is the `ui/src` folder that contains the `index.scss` stylesheet and the `index.js` file that contains the JavaScript that is delivered to the frontend and powers the accordion using a [widget player](https://docs.apostrophecms.org/guide/custom-widgets.html#client-side-javascript-for-widgets). Any custom widgets that require client-side code should be structured in this same way. Data is passed from the schema fields to the browser for use in the player script by adding it to a data attributes in the template.
+
+### `card-widget`
+The `card-widget` creates a simple card with optional image and text. The card can be made directly clickable, or can have links and buttons added. The schema fields for these elements are provided by the `lib/schema/link.js` file, which serves as a model for implementing reusable parts of widgets. These same schema fields are reused in the `hero` and `link` widgets and can be used in your custom project widgets. The markup for the links is imported into the `card-widget` template from the `views/fragments/link.html` file using the [`rendercall` helper](https://docs.apostrophecms.org/guide/fragments.html#inserting-markup-with-rendercall). This is present in a simpler form in the `links-widget`. Again, all your custom modules (not just widgets) can utilize fragments to replicate similar areas of markup in this same way.
+
+### `column-widget`
+The `column-widget` implements one method of adding a user-selected number of columns to a page. It uses a select field and conditional fields that restrict the number of columns based on the value of the select. Each column has an area with widgets for the `link`, `card`, and `accordion` basic widgets, plus the core `rich-text`, `image`, and `video` widgets. These are added through a shared configuration object that defines the available widgets for each column. The first column additionally adds the basic `slideshow` widget.
+
+The widget also provides a `helper(self)` customization function that is used in the Nunjucks template. Depending on the value of the select field it returns the correct number of columns. The `helper(self)` functions can be used in your custom modules to provide computed values from data passed back from the markup.
+
+### `hero-widget`
+The `hero-widget` implements a hero element with image or color background, text and links. As stated above, this module reuses the `links.js` helper file. It also demonstrates how to use `relationship` schema fields to add an image or video for the background.
+
+### `link-widget`
+This simple widget adds either a button or inline-link. As described for the `card-widget`, It utilizes the `lib/schema/link.js` helper file and the `views/fragments/link.html` fragment. Within the widget template there is a `rendercall` that passes data from the widget schema fields to the fragment.
+
+### `slideshow-widget`
+The `slideshow-widget`, much like the `accordion-widget`, utilizes client-side JavaScript. For this widget the `ui/src/index.js` is adding the [`swiper.js` package](https://swiperjs.com/) to the player.
 
 ## Dashboard Development
 
