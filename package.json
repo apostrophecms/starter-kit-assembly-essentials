@@ -29,10 +29,9 @@
     "@opentelemetry/exporter-jaeger": "^1.24.1",
     "@opentelemetry/sdk-node": "^0.51.1",
     "@opentelemetry/semantic-conventions": "^1.24.1",
-    "@tiptap/extension-color": "^2.4.0",
     "@tiptap/extension-text-style": "^2.4.0",
     "accordion-js": "^3.3.4",
-    "apostrophe": "^4.3.2",
+    "apostrophe": "^4.5.2",
     "normalize.css": "^8.0.1",
     "require-all": "^3.0.0",
     "swiper": "^11.1.3"
