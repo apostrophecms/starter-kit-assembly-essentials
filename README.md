@@ -72,6 +72,8 @@ This starter kit includes:
 
 ### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**
 
+The Assembly Essential Starter Kit is intended as a foundation for your projects and should be forked and customized to meet your needs. Once forked, your project can diverge significantly, so we do not recommend merging updates from the starter kit directly. Instead, periodically review the kit repository for ideas and improvements while managing core functionality updates through the usual `npm update` process.
+
 ## First Steps: required before startup
 
 ### Setting your shortname prefix
