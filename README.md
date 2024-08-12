@@ -48,6 +48,15 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Private locales](#private-locales)
 
 
+
+>**Important Notice:**
+>
+>While much of the code in this starter kit is aimed at quickly configuring the `@apostrophecms-pro/multisite` extension that requires a license, it is freely available for use in your projects. To use it as a starter kit for a new Assembly project, including the multisite extension, you will need an Assembly subscription.
+>
+>To obtain a license, please visit our [website](https://apostrophecms.com/assembly) to learn more. You can contact our support team for assistance or purchase a subscription directly through [your Apostrophe Workspace](https://app.apostrophecms.com/login).
+>
+>As an alternative to this starter template, we offer several open-source starter kits that are available without any licensing restrictions. These kits, along with links to their GitHub repositories, are listed on our [website](https://apostrophecms.com/starter-kits).
+
 ## Purpose
 The purpose of this repo is to serve as a quick start for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
 
@@ -361,7 +370,7 @@ The folder `sites/public` maps to `/` in the URL space of a site. For instance, 
 
 ### Palette Configuration
 
-The palette allows styles to be edited visually on the site. It is configured in `sites/modules/@apostrophecms-pro/palette/index.js`. There you can specify the selectors, CSS properties, and field types to be used to manipulate color, font size, font family and other aspects of the site as a whole.
+The `@apostrophecms-pro/palette` module requires a Pro or Assembly subscription and allows styles to be edited visually on the site. It is configured in `sites/modules/@apostrophecms-pro/palette/index.js`. There you can specify the selectors, CSS properties, and field types to be used to manipulate color, font size, font family and other aspects of the site as a whole.
 
 For complete information and a sample configuration, see the [@apostrophecms-pro/palette module documentation](https://npmjs.org/package/@apostrophecms-pro/palette). *You will need to be logged into an npm account that has been granted access, such as the one you used to npm install this project.*
 
