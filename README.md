@@ -48,6 +48,7 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Private locales](#private-locales)
 
 
+
 >**Important Notice:**
 >
 >While much of the code in this starter kit is aimed at quickly configuring the `@apostrophecms-pro/multisite` extension that requires a license, it is freely available for use in your projects. To use it as a starter kit for a new Assembly project, including the multisite extension, you will need an Assembly subscription.
@@ -57,7 +58,6 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 >As an alternative to this starter template, we offer several open-source starter kits that are available without any licensing restrictions. These kits, along with links to their GitHub repositories, are listed on our [website](https://apostrophecms.com/starter-kits).
 
 ## Purpose
-
 The purpose of this repo is to serve as a quick start for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
 
 It also serves as example code for creating your own custom modules and organizing your files in an ApostropheCMS project. The [section describing the widgets](#provided-widgets) outlines some code practices and features that can be used in your own custom modules.
@@ -71,8 +71,6 @@ This starter kit includes:
 * Support for multiple themes.
 
 ### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**
-
-The Assembly Essential Starter Kit is intended as a foundation for your projects and should be forked and customized to meet your needs. Once forked, your project can diverge significantly, so we do not recommend merging updates from the starter kit directly. Instead, periodically review the kit repository for ideas and improvements while managing core functionality updates through the usual `npm update` process.
 
 ## First Steps: required before startup
 
