@@ -1,5 +1,13 @@
 # Apostrophe Starter Kit Assembly Essentials
 
+
+>**Important Notice:**
+>
+>This starter kit requires the`@apostrophecms-pro/multisite` module, which requires an Apostrophe Assembly license.
+>To obtain a license, please visit our [website](https://apostrophecms.com/assembly) to learn more. You can contact our support team for assistance or purchase a subscription directly through [your Apostrophe Workspace](https://app.apostrophecms.com/login).
+>
+>As an alternative to this starter template, we offer several open-source starter kits that are available without any licensing restrictions. These kits, along with links to their GitHub repositories, are listed on our [website](https://apostrophecms.com/starter-kits).
+
 <!-- TOC is auto generated via VSCode extensions https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one.
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
 - [Apostrophe Starter Kit Assembly Essentials](#apostrophe-starter-kit-assembly-essentials)
@@ -46,16 +54,6 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Self-hosting and the sample Dockerfile](#self-hosting-and-the-sample-dockerfile)
   - [Localized domain names](#localized-domain-names)
   - [Private locales](#private-locales)
-
-
-
->**Important Notice:**
->
->While much of the code in this starter kit is aimed at quickly configuring the `@apostrophecms-pro/multisite` extension that requires a license, it is freely available for use in your projects. To use it as a starter kit for a new Assembly project, including the multisite extension, you will need an Assembly subscription.
->
->To obtain a license, please visit our [website](https://apostrophecms.com/assembly) to learn more. You can contact our support team for assistance or purchase a subscription directly through [your Apostrophe Workspace](https://app.apostrophecms.com/login).
->
->As an alternative to this starter template, we offer several open-source starter kits that are available without any licensing restrictions. These kits, along with links to their GitHub repositories, are listed on our [website](https://apostrophecms.com/starter-kits).
 
 ## Purpose
 The purpose of this repo is to serve as a quick start for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.
