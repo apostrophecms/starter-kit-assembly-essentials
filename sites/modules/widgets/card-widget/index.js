@@ -41,7 +41,7 @@ module.exports = {
                 'bulletList',
                 'orderedList',
                 '|',
-                'colorButton'
+                'color'
               ]
             }
           },
