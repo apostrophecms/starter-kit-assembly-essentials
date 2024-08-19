@@ -1,0 +1,24 @@
+.footer {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer__header {
+  margin-bottom: 20px;
+  font-size: rem(18);
+}
+
+.footer__links {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}

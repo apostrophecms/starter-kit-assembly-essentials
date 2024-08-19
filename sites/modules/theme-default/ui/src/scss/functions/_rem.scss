@@ -1,0 +1,7 @@
+// Converts a px font size to rem unit
+@use 'sass:math';
+
+// stylelint-disable-next-line at-rule-disallowed-list
+@function rem($value) {
+  @return math.div($value, 16) + rem;
+}

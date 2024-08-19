@@ -2,3 +2,31 @@
 
 // If you need to share styles across themes, just @import them here
 
+@import '~normalize.css';
+
+@import './scss/functions/_rem';
+
+@import './scss/settings/_color';
+@import './scss/settings/_font';
+
+@import './scss/utilities/_accessibility';
+@import './scss/utilities/_display';
+
+@import './scss/global/_document';
+@import './scss/global/_typography';
+
+@import './scss/components/_button';
+@import './scss/components/_code';
+@import './scss/components/_footer';
+@import './scss/components/_header';
+@import './scss/components/_image';
+@import './scss/components/_link';
+@import './scss/components/_placeholder';
+
+@import './scss/widgets/_image-widget';
+
+@import './scss/layout/_area';
+@import './scss/layout/_grid';
+@import './scss/layout/_main';
+
+@import './scss/pages/_welcome';

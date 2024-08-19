@@ -10,12 +10,11 @@
       <div class="apos-input-wrapper">
         <select
           class="apos-input apos-input--select" :id="uid"
-          v-model="next"
+          v-model="modelValue"
         >
           <option
             v-for="choice in choices" :key="choice.value"
             :value="choice.value"
-            :selected="choice.value === value.data"
           >
             {{ choice.label }}
           </option>
@@ -31,17 +30,23 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import AposInputMixin from 'Modules/@apostrophecms/schema/mixins/AposInputMixin';
 
-export default {
+export default defineComponent ({
   name: 'AssemblyInputFontFamily',
   mixins: [ AposInputMixin ],
   props: {
     icon: {
       type: String,
       default: 'menu-down-icon'
+    },
+    modelValue: {
+      type: Object,
+      default: {}
     }
   },
+  emits: ['input', 'update:modelValue'],
   data() {
     let choices = [];
     if (!this.field.required) {
@@ -52,22 +57,14 @@ export default {
     }
     choices = [ ...choices, ...(apos.global.fontFamilies || []) ];
     return {
-      choices
+      choices,
     };
   },
   watch: {
-    next() {
-      if (this.next == null) {
-        // Conformable to the type needed to select the first element
-        this.next = '';
-      }
-    }
-  },
-  mounted() {
-    if (this.next == null) {
-      // Conformable to the type needed to select the first element
-      this.next = '';
-    }
+    modelValue(newValue) {
+      this.$emit('input', newValue); // Emit input event to update the parent value
+      this.$emit('update:modelValue', newValue); // Make sure the model value is being updated
+    },
   },
   methods: {
     validate(value) {
@@ -82,7 +79,7 @@ export default {
       return false;
     }
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>

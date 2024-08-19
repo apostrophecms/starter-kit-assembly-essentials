@@ -10,10 +10,10 @@ module.exports = {
       type: 'assemblyFontFamily',
       help: 'Font properties for website headings',
       selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-      property: 'font'
+      property: 'font-family'
     },
     buttonFont: {
-      label: 'Font Properties',
+      label: 'BUtton Font Properties',
       type: 'assemblyFontFamily',
       help: 'Font properties for buttons on the website',
       selector: [ '.button', '.navigation__link' ],
@@ -38,6 +38,10 @@ module.exports = {
         {
           label: '18px',
           value: '18'
+        },
+        {
+          label: '96px',
+          value: '96'
         }
       ],
       def: '16'

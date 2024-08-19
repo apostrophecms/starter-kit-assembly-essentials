@@ -40,6 +40,14 @@ module.exports = {
           label: 'Heading 4 (H4)'
         },
         {
+          tag: 'h5',
+          label: 'Heading 5 (H5)'
+        },
+        {
+          tag: 'h6',
+          label: 'Heading 6 (H6)'
+        },
+        {
           tag: 'p',
           label: 'Paragraph (P)'
         }

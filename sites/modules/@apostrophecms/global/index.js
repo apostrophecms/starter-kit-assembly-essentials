@@ -1,3 +1,5 @@
+const qs = require('qs');
+
 const {
   linkText, linkType, linkUrl, _linkFile, _linkPage, linkTarget
 } = require('../../../lib/schema/link');
@@ -7,6 +9,7 @@ module.exports = {
     self.apos.schema.addFieldType({
       name: 'assemblyFontFamily',
       convert: async function (req, field, data, object) {
+        console.log('assemblyFontFamily', data[field.name]);
         const choices = req.data.global.fontFamilies || [];
         object[field.name] = self.apos.launder.select(data[field.name], choices, field.def);
       },
@@ -63,6 +66,7 @@ module.exports = {
       beforeSave: {
         addFontFamilies(req, doc, options) {
           if (!doc.googleFontScript && (!req.data.global || !req.data.global.googleFontScript)) {
+            console.log('No google font script');
             return;
           }
           try {
