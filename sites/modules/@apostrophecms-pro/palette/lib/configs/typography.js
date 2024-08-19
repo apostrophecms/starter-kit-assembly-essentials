@@ -5,6 +5,20 @@
 
 module.exports = {
   add: {
+    titleFont: {
+      label: 'Font Properties',
+      type: 'assemblyFontFamily',
+      help: 'Font properties for website headings',
+      selector: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+      property: 'font'
+    },
+    buttonFont: {
+      label: 'Font Properties',
+      type: 'assemblyFontFamily',
+      help: 'Font properties for buttons on the website',
+      selector: [ '.button', '.navigation__link' ],
+      property: 'font'
+    },
     fontSize: {
       type: 'select',
       label: 'Font Size',
@@ -41,6 +55,8 @@ module.exports = {
     typography: {
       label: 'Typography',
       fields: [
+        'titleFont',
+        'buttonFont',
         'fontSize',
         'fontColor'
       ]
