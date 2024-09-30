@@ -439,16 +439,58 @@ module.exports = function (site) {
       ...
 ```
 You can also elect to add them to the `apos.options` object, as is shown above example for the `site.theme`. This can then be accessed in any module function with access to `self` using `self.apos.options.<property>`. If you need that value in your templates you can use the [`templateData` module option](https://docs.apostrophecms.org/reference/module-api/module-options.html#templatedata).
+
 ### Allowing dashboard admins to pass configuration to sites
 
 You can add custom schema fields to `sites` and those fields are available on the `site` object passed to `sites/index.js`, and so they can be passed on as part of the configuration of modules.
-
-However, there is one important restriction: you **must not decide to completely enable or disable a module that pushes assets on any basis other than the theme name.** This is because Apostrophe builds only one asset bundle per theme.
 
 **"Should I add a field to the `site` piece in the dashboard, or just add it to `@apostrophecms/global` for sites?"** Good question! Here's a checklist for you:
 
 * **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/modules/@apostrophecms/global`.
 * **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/site/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
+
+### Make sure each theme contains all relevant modules at build time
+
+There is one catch with per-site configuration: **you can selectively enable modules based on the `site` piece, but every theme that might, in some configuration, require a module must have it enabled at asset build time.** Otherwise code that was not included in the asset bundle will be missing for the sites that do expect it.
+
+If you wish to selectively enable modules based on `site` piece properties other than `theme`, for instance via a `hasForms` boolean field added to the `site` module in the dashboard, you will need a small amount of extra logic to ensure the relevant modules are always enabled during an asset build:
+
+```javascript
+// In sites/index.js
+
+module.exports = site => {
+  const config = {
+    // Pass the theme name in as a global option to the apos object. If you
+    // add support for themes later in your project, make sure you provide
+    // a default theme name for old sites
+    theme: site.theme || 'default',
+    modules: {
+      ...(site.hasForms || site._id.includes('build-for-theme')) ? {
+        '@apostrophecms/form': {},
+        '@apostrophecms/form-widget': {},
+        // other form modules here, as that extension requires
+        // installing more than one
+      } : {}
+    }
+  };
+
+  /**
+   * Allow each theme to modify the configuration object,
+   * enabling additional modules etc.
+   */
+  require(`./lib/theme-${site.theme}.js`)(site, config);
+
+  return config;
+}
+```
+
+In particular, this is the officially supported way to check whether an asset build is in progress:
+
+```javascript
+site._id.includes('build-for-theme')
+```
+
+If you are consistently including modules all the time, or including and excluding them only on the basis of `site.theme`, no extra logic is necessary.
 
 ## Accessing the MongoDB utilities for a specific site
 
