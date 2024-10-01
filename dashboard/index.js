@@ -28,8 +28,6 @@ module.exports = {
         baseUrlDomains
       }
     },
-    'site-page': {},
-
-    asset: {}
+    'site-page': {}
   }
 };
