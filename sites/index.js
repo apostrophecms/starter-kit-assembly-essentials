@@ -34,6 +34,7 @@ module.exports = function (site) {
 
       '@apostrophecms-pro/palette': {},
       '@apostrophecms-pro/document-versions': {},
+      '@apostrophecms/favicon': {},
 
       websocket: {}
     }
