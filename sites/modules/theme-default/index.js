@@ -2,7 +2,7 @@
  * An empty theme to use as a starting point for custom development
  */
 
-module.exports = {
+export default {
   options: {
     alias: 'theme',
     // Silence startup warning about the lack of code since this
@@ -36,7 +36,7 @@ module.exports = {
 @use 'sass:math';
 
 // The code below is used by the Widgets included in the Starter Kit
-// You'll need to keep these so the theme builds or refactor the 
+// You'll need to keep these so the theme builds or refactor the
 // included widgets to remove these variables and functions.
 
 $color-light-yellow: #ffffd8;

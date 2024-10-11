@@ -4,7 +4,7 @@
  * when requiring to only use the fields you want
  */
 
-module.exports = {
+export default {
   linkText: {
     label: 'Link Text',
     type: 'string',

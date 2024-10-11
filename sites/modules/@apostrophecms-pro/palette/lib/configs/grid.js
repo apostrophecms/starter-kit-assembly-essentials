@@ -3,7 +3,7 @@
  * https://github.com/apostrophecms/palette
  */
 
-module.exports = {
+export default {
   add: {
     gridMargin: {
       type: 'select',

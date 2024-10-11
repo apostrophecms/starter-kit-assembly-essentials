@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   init(self) {
     /**
      * Used in Nunjucks templates to determine if an

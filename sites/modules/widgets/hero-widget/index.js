@@ -1,6 +1,6 @@
-const link = require('../../../lib/schema/link');
+import link from '../../../lib/schema/link.js';
 
-module.exports = {
+export default {
   extend: '@apostrophecms/widget-type',
   options: {
     label: 'Hero',

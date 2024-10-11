@@ -5,8 +5,9 @@
  * module to be used as configured on all sites.
  */
 
-module.exports = function (site) {
+export default async function (site) {
   const config = {
+    root: import.meta,
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
     nestedModuleSubdirs: true,
@@ -43,7 +44,8 @@ module.exports = function (site) {
    * Allow each theme to modify the configuration object,
    * enabling additional modules etc.
    */
-  require(`./lib/theme-${site.theme}.js`)(site, config);
+  const { default: theme } = await import(`./lib/theme-${site.theme}.js`);
+  theme(site, config);
 
   return config;
 };

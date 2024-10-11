@@ -10,7 +10,7 @@ const widgets = {
   accordion: {}
 };
 
-module.exports = {
+export default {
   extend: '@apostrophecms/widget-type',
   options: {
     label: 'Columns',

@@ -1,8 +1,10 @@
+import link from '../../../lib/schema/link.js';
+
 const {
   linkText, linkType, linkUrl, _linkFile, _linkPage, linkTarget
-} = require('../../../lib/schema/link');
+} = link;
 
-module.exports = {
+export default {
   fields: {
     add: {
       logo: {

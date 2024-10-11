@@ -1,10 +1,11 @@
-const { NodeSDK, resources } = require('@opentelemetry/sdk-node');
-const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
-const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumentations-node');
-const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
+import fs from 'node:fs/promises';
+import { NodeSDK, resources } from '@opentelemetry/sdk-node';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 
 // 1. Add the application meta data (resource)
-const pkg = require('./package.json');
+const pkg = JSON.parse(await fs.readFile('./package.json'));
 const resource = new resources.Resource({
   [SemanticResourceAttributes.SERVICE_NAME]: pkg.name,
   [SemanticResourceAttributes.SERVICE_VERSION]: pkg.version
@@ -33,7 +34,7 @@ const shutdown = async () => {
     );
 };
 
-module.exports = {
+export {
   sdk,
   shutdown
 };

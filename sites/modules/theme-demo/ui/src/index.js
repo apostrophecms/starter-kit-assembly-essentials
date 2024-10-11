@@ -1,4 +1,4 @@
-import placeholder from './js/placeholder';
+import placeholder from './js/placeholder.js';
 
 export default () => {
   // eslint-disable-next-line no-console

@@ -1,8 +1,10 @@
+import link from '../../../lib/schema/link.js';
+
 const {
   linkText, linkType, linkUrl, _linkFile, _linkPage, linkStyle, linkVariant
-} = require('../../../lib/schema/link');
+} = link;
 
-module.exports = {
+export default {
   extend: '@apostrophecms/widget-type',
   options: {
     label: 'Card',
