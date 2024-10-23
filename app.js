@@ -13,7 +13,7 @@ async function go() {
     await multisite({
       root: import.meta,
       // Default port, for dev
-      port: 3002,
+      port: 3000,
       websocket: true,
       // Change this to a hardcoded string when forking to make a new project.
       // Just set it to a string which should never change. Ideally should match
