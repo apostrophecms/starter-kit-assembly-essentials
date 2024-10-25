@@ -21,6 +21,7 @@
   "author": "Apostrophe Technologies",
   "license": "UNLICENSED",
   "dependencies": {
+    "@apostrophecms/vite": "github:apostrophecms/vite#PRO-6647-multisite",
     "@apostrophecms-pro/document-versions": "^2.2.1",
     "@apostrophecms-pro/multisite": "^4.0.1",
     "@apostrophecms-pro/multisite-dashboard": "^1.0.1",
@@ -31,7 +32,7 @@
     "@opentelemetry/semantic-conventions": "^1.24.1",
     "@tiptap/extension-text-style": "^2.4.0",
     "accordion-js": "^3.3.4",
-    "apostrophe": "^4.5.2",
+    "apostrophe": "github:apostrophecms/apostrophe#PRO-6647-multisite",
     "normalize.css": "^8.0.1",
     "require-all": "^3.0.0",
     "swiper": "^11.1.3"

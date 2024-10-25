@@ -39,5 +39,26 @@ module.exports = {
         }
       }
     }
+  },
+  build: {
+    vite: {
+      extensions: {
+        themeVariables: {
+          css: {
+            preprocessorOptions: {
+              scss: {
+                api: 'modern-compiler',
+                silenceDeprecations: [ 'import' ],
+                additionalData: `
+@import "${themeDir}/ui/src/scss/settings/_color";
+@import "${themeDir}/ui/src/scss/settings/_font";
+@import "${themeDir}/ui/src/scss/functions/_rem";
+`
+              }
+            }
+          }
+        }
+      }
+    }
   }
 };

@@ -34,6 +34,9 @@ module.exports = function (site) {
 
       '@apostrophecms-pro/palette': {},
       '@apostrophecms-pro/document-versions': {},
+      '@apostrophecms/vite': {
+        before: '@apostrophecms/asset'
+      },
 
       websocket: {}
     }

@@ -30,6 +30,9 @@ module.exports = {
     },
     'site-page': {},
 
-    asset: {}
+    asset: {},
+    '@apostrophecms/vite': {
+      before: '@apostrophecms/asset'
+    }
   }
 };
