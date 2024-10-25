@@ -7,7 +7,7 @@ module.exports = {
         label: 'Main',
         options: {
           widgets: {
-            '@apostrophecms/rich-text': {}
+            column: {}
           }
         }
       }

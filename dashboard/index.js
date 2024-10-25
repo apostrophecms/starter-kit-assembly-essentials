@@ -29,8 +29,6 @@ module.exports = {
       }
     },
     'site-page': {},
-
-    asset: {},
     '@apostrophecms/vite': {
       before: '@apostrophecms/asset'
     }
