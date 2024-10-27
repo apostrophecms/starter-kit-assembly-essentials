@@ -29,8 +29,6 @@ module.exports = {
       }
     },
     'site-page': {},
-    '@apostrophecms/vite': {
-      before: '@apostrophecms/asset'
-    }
+    '@apostrophecms/vite': {}
   }
 };
