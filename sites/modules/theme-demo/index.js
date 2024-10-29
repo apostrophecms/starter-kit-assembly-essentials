@@ -47,8 +47,6 @@ module.exports = {
           css: {
             preprocessorOptions: {
               scss: {
-                api: 'modern-compiler',
-                silenceDeprecations: [ 'import' ],
                 additionalData: `
 @import "${themeDir}/ui/src/scss/settings/_color";
 @import "${themeDir}/ui/src/scss/settings/_font";

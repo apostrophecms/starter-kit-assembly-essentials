@@ -76,8 +76,6 @@ $font-weight-bold: 700;
           css: {
             preprocessorOptions: {
               scss: {
-                api: 'modern-compiler',
-                silenceDeprecations: [ 'import' ],
                 additionalData: `
 @use 'sass:math';
 
