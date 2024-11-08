@@ -25,5 +25,5 @@
     "data",
     "node_modules"
   ],
-  "ext": "json, js, html, scss, vue"
+  "ext": "json, js, cjs, html"
 }
