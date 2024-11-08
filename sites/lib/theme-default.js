@@ -1,4 +1,4 @@
-module.exports = function(site, config) {
+export default function(site, config) {
   config.modules = {
     ...config.modules,
     'theme-default': {}

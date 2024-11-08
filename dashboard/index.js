@@ -1,7 +1,8 @@
-const themes = require('../themes');
-const baseUrlDomains = require('../domains');
+import themes from '../themes.js';
+import baseUrlDomains from '../domains.js';
 
-module.exports = {
+export default {
+  root: import.meta,
   privateDashboards: true,
   modules: {
     '@apostrophecms/express': {

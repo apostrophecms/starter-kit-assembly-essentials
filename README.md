@@ -296,7 +296,7 @@ You might not need more than one theme. If that's the case, just build out the `
 To configure your list of themes, edit `themes.js`. Right now it looks like:
 
 ```javascript
-module.exports = [
+export default [
   {
     value: 'default',
     label: 'Default'
@@ -315,7 +315,7 @@ You can add additional themes as needed. Your `value` should be a shortname like
 If your theme is named `default`, then you must have a `sites/lib/theme-default.js` file, like this:
 
 ```javascript
-module.exports = function(site, config) {
+export default function(site, config) {
   config.modules = {
     ...config.modules,
     'theme-default': {}
@@ -412,21 +412,27 @@ The most important module is the `site` module. The `site` module is a piece typ
 
 The `site` schema field values get passed to the individual sites in the `site` object. This is what is used to set the theme configuration in the `sites/index.js` file. The starter kit is also adding the value of the `theme` schema field to the `apos.options` object.
 
-```
+```javascript
 // sites/index.js
-module.exports = function (site) {
+export default function (site) {
   const config = {
+    root: import.meta,
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
-    ...
+    // ...
+  };
+
+  return config;
+};
 ```
 
 If you have additional values being passed from the `site` piece schema that you want to make available to your modules you have several choices. The value can be added in the modules config options in the `sites/index.js` file.
 
 ```javascript
 // sites/index.js
-module.exports = function (site) {
+export default function (site) {
   const config = {
+    root: import.meta,
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
     nestedModuleSubdirs: true,
@@ -436,7 +442,12 @@ module.exports = function (site) {
           apiKey: site.apiKey,
         }
       },
-      ...
+      // ...
+    }
+  };
+
+  return config;
+};
 ```
 You can also elect to add them to the `apos.options` object, as is shown above example for the `site.theme`. This can then be accessed in any module function with access to `self` using `self.apos.options.<property>`. If you need that value in your templates you can use the [`templateData` module option](https://docs.apostrophecms.org/reference/module-api/module-options.html#templatedata).
 ### Allowing dashboard admins to pass configuration to sites
@@ -577,10 +588,11 @@ If this sub-option is set to `true`, every new locale created will have its `pri
 
 ```javascript
 // in dashboard/index.js
-const themes = require('../themes');
-const baseUrlDomains = require('../domains');
+import themes from '../themes.js';
+import baseUrlDomains from '../domains.js';
 
-module.exports = {
+export default {
+  root: import.meta,
   privateDashboards: true,
   modules: {
     // other dashboard modules

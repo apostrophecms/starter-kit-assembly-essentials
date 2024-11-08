@@ -2,11 +2,13 @@
  * A Minimally Styled theme that showcases core Apostrophe functionality
  */
 
-const path = require('path');
+import path from 'node:path';
+import url from 'node:url';
 
-const themeDir = path.resolve(process.cwd(), __dirname);
+const dirname = path.dirname(url.fileURLToPath(import.meta.url));
+const themeDir = path.resolve(process.cwd(), dirname);
 
-module.exports = {
+export default {
   options: {
     alias: 'theme'
   },
