@@ -55,6 +55,8 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 
 ## Cypress Setup Step by Step Guide
 
+> WARNING: Running the Cypress tests will erase all data in the current dashboard and sites databases. It's recommended to use a temporary database (e.g. Docker or Docker Compose) for this purpose.
+
 > Use the current setup to run the provided configuration (read below) and run the tests. The tests are located in the `cypress/tests` folder and are split by site. The `dashboard` folder contains tests for the dashboard site, while the `default` and `demo` folders contain tests for the `default` and `demo` them sites respectively. 
 > 
 > ```bash

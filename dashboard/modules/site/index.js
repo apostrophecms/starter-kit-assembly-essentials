@@ -10,7 +10,6 @@ module.exports = {
           }).project({
             _id: 1,
             title: 1,
-            shortName: 1,
             theme: 1
           }).toArray();
           const result = sites.map(site => {
