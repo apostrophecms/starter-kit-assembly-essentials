@@ -9,7 +9,15 @@
     "production-start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
     "start": "node app",
     "dev": "nodemon",
-    "test": "eslint . && stylelint 'dashboard/**/*.scss' && stylelint 'sites/**/*.scss'"
+    "test": "eslint . && stylelint 'dashboard/**/*.scss' && stylelint 'sites/**/*.scss'",
+    "e2e:serve": "NODE_ENV=production CI=1 bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build && node app'",
+    "e2e:test": "npm run e2e:dashboard && npm run e2e:default && npm run e2e:demo",
+    "e2e:dashboard": "cypress run --config-file=cypress.dashboard.config.js",
+    "e2e:default": "cypress run --config-file=cypress.site-default.config.js",
+    "e2e:demo": "cypress run --config-file=cypress.site-demo.config.js",
+    "cy:dashboard": "cypress open --config-file=cypress.dashboard.config.js",
+    "cy:default": "cypress open --config-file=cypress.site-default.config.js",
+    "cy:demo": "cypress open --config-file=cypress.site-demo.config.js"
   },
   "repository": {
     "type": "git",
@@ -38,8 +46,11 @@
     "swiper": "^11.1.3"
   },
   "devDependencies": {
+    "@apostrophecms-pro/cypress-tools": "^1.0.0-beta.16",
+    "cypress": "^13.16.0",
     "eslint": "^8.0.0",
     "eslint-config-apostrophe": "^4.3.0",
+    "eslint-plugin-cypress": "^2.15.2",
     "nodemon": "^3.1.1",
     "stylelint": "^16.6.1",
     "stylelint-config-apostrophe": "^4.0.0"
