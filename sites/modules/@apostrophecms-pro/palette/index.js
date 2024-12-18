@@ -8,28 +8,39 @@
  * and `group` property containing the group definition.
  */
 
-const path = require('path');
+import path from 'node:path';
+import url from 'node:url';
+import { glob } from 'glob';
 
-const configs = require('require-all')({
-  dirname: path.join(
-    __dirname, 'lib/configs'
-  )
-});
+const getConfigs = async (folder) => {
+  const dirname = path.dirname(url.fileURLToPath(import.meta.url));
+  const files = await glob(path.join(dirname, folder, '**/*.js'));
 
-module.exports = {
+  const configs = [];
+  for (const file of files) {
+    const { default: config } = await import(file);
+    configs.push(config);
+  }
+
+  return configs;
+};
+
+const configs = await getConfigs('lib/configs');
+
+export default {
   fields: {
     add: filter(configs, 'add'),
     group: filter(configs, 'group')
   }
 };
 
-function filter(config, key) {
+function filter(configurations, key) {
   let items = {};
 
-  for (const config of Object.keys(configs)) {
+  for (const config of Object.keys(configurations)) {
     items = {
       ...items,
-      ...configs[config][key]
+      ...configurations[config][key]
     };
   };
 

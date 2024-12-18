@@ -2,7 +2,7 @@
  * An empty theme to use as a starting point for custom development
  */
 
-module.exports = {
+export default {
   options: {
     alias: 'theme',
     // Silence startup warning about the lack of code since this
@@ -36,7 +36,7 @@ module.exports = {
 @use 'sass:math';
 
 // The code below is used by the Widgets included in the Starter Kit
-// You'll need to keep these so the theme builds or refactor the 
+// You'll need to keep these so the theme builds or refactor the
 // included widgets to remove these variables and functions.
 
 $color-light-yellow: #ffffd8;
@@ -65,6 +65,48 @@ $font-weight-bold: 700;
               ]
             }
           ]
+        }
+      }
+    }
+  },
+  build: {
+    vite: {
+      extensions: {
+        themeVariables: {
+          css: {
+            preprocessorOptions: {
+              scss: {
+                additionalData: `
+@use 'sass:math';
+
+// The code below is used by the Widgets included in the Starter Kit
+// You'll need to keep these so the theme builds or refactor the 
+// included widgets to remove these variables and functions.
+
+$color-light-yellow: #ffffd8;
+
+$color-white: #fff;
+$color-gray-05: #eee;
+$color-gray-15: #dbdbdb;
+$color-gray-80: #2b2b2b;
+$color-black: #000;
+
+$font-monospace: menlo, monaco, consolas, 'Liberation Mono', 'Courier New', monospace;
+$font-sans-serif: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-weight-light: 200;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// Converts a px font size to rem unit
+// stylelint-disable-next-line at-rule-disallowed-list
+@function rem($value) {
+  @return math.div($value, 16) + rem;
+}
+`
+              }
+            }
+          }
         }
       }
     }
