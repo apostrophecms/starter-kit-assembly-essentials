@@ -67,6 +67,8 @@ This guide will help you set up Cypress for end-to-end testing of your Apostroph
 > cd starter-kit-assembly-essentials
 > git checkout cypress-demo
 > npm install
+> npm run e2e:serve
+> npm run e2e:test
 > ```
 
 Install Cypress:
