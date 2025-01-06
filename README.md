@@ -9,6 +9,7 @@
 Having it installed in your VSCode will ensure that adding/changing heading will be auto-populated here. -->
 - [Apostrophe Starter Kit Assembly Essentials](#apostrophe-starter-kit-assembly-essentials)
   - [Cypress Setup Step by Step Guide](#cypress-setup-step-by-step-guide)
+    - [Troubleshooting](#troubleshooting)
   - [Purpose](#purpose)
     - [**We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**](#we-recommend-installing-this-project-by-forking-it-to-your-own-github-account-and-then-cloning-it-locally-the-apostrophe-cli-is-not-currently-intended-for-multisite-projects)
   - [First Steps: required before startup](#first-steps-required-before-startup)
@@ -55,7 +56,9 @@ Having it installed in your VSCode will ensure that adding/changing heading will
 
 ## Cypress Setup Step by Step Guide
 
-> WARNING: Running the Cypress tests will erase all data in the current dashboard and sites databases. It's recommended to use a temporary database (e.g. Docker or Docker Compose) for this purpose.
+This guide will help you set up Cypress for end-to-end testing of your ApostropheCMS project. The guide assumes you have `default` and `demo` site themes (you should adapt it to your existing themes). Example cypress tests can be found in the `cypress/tests/dashboard`, `cypress/tests/default` and `cypress/tests/demo` folders for the dashboard, default and demo site themes respectively.
+
+> WARNING: The guide includes and advises to connect the application to a test database. This is controlled by the `CI` environment variable that you may name differently to fit to your needs. Failing to provide the environment and configuration variables may result in data loss in development databases.
 
 > Use the current setup to run the provided configuration (read below) and run the tests. The tests are located in the `cypress/tests` folder and are split by site. The `dashboard` folder contains tests for the dashboard site, while the `default` and `demo` folders contain tests for the `default` and `demo` them sites respectively. 
 > 
@@ -96,40 +99,44 @@ Install [MongoDB Tools](https://docs.mongodb.com/database-tools/installation/ins
 
 Run `npx cypress open` and select "E2E Testing" from the Welcome screen. This will create the initial configuration file and folder structure. Close all Cypress windows (or just Ctrl-C in the terminal).
 
-Next step is to create database dump for Cypress (used to reset the database between tests). It's recommended to start with a blank development database. In order to do that, run the following command:
+Next step is to create database dump for Cypress (used to reset the database between tests). It's recommended to start with a blank development database. In order to do that, first update your `app.js` modifying the `shortnamePrefix` that results in a new database name, but only when in test mode. Here is an example:
 
-```bash
-node app @apostrophecms/db:reset --site=dashboard
+```javascript
+await multisite({
+  // ...
+  shortNamePrefix: process.env.CI === '1' ? 'test-' : (process.env.APOS_PREFIX || 'a3ab-'),
+  // ...
+});
 ```
 
-> WARNING: This ERASE ALL DATA dashboard data and unlink your installation from existing sites. It's recommended that you use a temporary database (e.g. Docker or Docker Compose) for this purpose.
+The first part of the ternary operator will be used when running tests. You should adapt the second part to your needs (generally it should be the same as your current value). You can also use a different environment variable to control the prefix in test mode, but you should change all the following commands and modifications accordingly.
 
 Create user `admin`, spin up the server and create as many sites as you need for testing. The `admin` user is needed only for the setup and won't be used in the tests.
 
 ```bash
 ## Create admin user `admin`, you will be prompted to enter a password.
-node app @apostrophecms/user:add admin admin --site=dashboard
-npm run dev
+CI=1 node app @apostrophecms/user:add admin admin --site=dashboard
+CI=1 npm run dev
 ```
 
-Open `http://dashboard.localhost:3000` in your browser and log in with the `admin` user. For this example, we will create two sites: `default` and `demo` using the default and demo themes respectively. You can set any admin password per site you want. Those won't be used in the Cypress tests.
+Open `http://dashboard.localhost:3000` in your browser and log in with the `admin` user. For this example, we will create two sites with short names `default` and `demo` using the default and demo themes respectively. You should adapt your sites to your existing themes (e.g. if having just one theme `default` you don't need the `demo` site). You can set any admin password per site you want. Those shouldn't be used in the Cypress tests where the `cypress-tools` module will create a new user for each test when needed.
 
 Stop the server and run the following task:
 
 ```bash
-node app site:list --site=dashboard
+CI=1 node app site:list --site=dashboard
 ```
 
-The output will be similar to:
+The output should be similar to:
 ```
-Dashboard:  { title: 'Dashboard', db: 'a3ab-dashboard' }
+Dashboard:  { title: 'Dashboard', db: 'test-dashboard' }
 Sites: [
   {
     title: 'Default',
     theme: 'default',
-    db: 'a3ab-mmbj7ed7xptpn4ap0st9btyr'
+    db: 'test-mmbj7ed7xptpn4ap0st9btyr'
   },
-  { title: 'Demo', theme: 'demo', db: 'a3ab-nhcpc7a64rasnqlpv4wxjhdr' }
+  { title: 'Demo', theme: 'demo', db: 'test-nhcpc7a64rasnqlpv4wxjhdr' }
 ]
 ```
 
@@ -137,10 +144,12 @@ Create a database dump for the dashboard and each site:
 
 ```bash
 mkdir -p cypress/apos-db
-mongodump --uri="mongodb://localhost:27017/a3ab-dashboard" --gzip --archive=cypress/apos-db/dashboard
-mongodump --uri="mongodb://localhost:27017/a3ab-mmbj7ed7xptpn4ap0st9btyr" --gzip --archive=cypress/apos-db/site-default
-mongodump --uri="mongodb://localhost:27017/a3ab-nhcpc7a64rasnqlpv4wxjhdr" --gzip --archive=cypress/apos-db/site-demo
+mongodump --uri="mongodb://localhost:27017/test-dashboard" --gzip --archive=cypress/apos-db/dashboard
+mongodump --uri="mongodb://localhost:27017/test-mmbj7ed7xptpn4ap0st9btyr" --gzip --archive=cypress/apos-db/site-default
+mongodump --uri="mongodb://localhost:27017/test-nhcpc7a64rasnqlpv4wxjhdr" --gzip --archive=cypress/apos-db/site-demo
 ```
+
+Be sure to replace the correct database names in `mongodb://localhost:27017/xxx` with the correct database names from the output of the `site:list` task and the correct paths in the `--archive` option. The naming convention for the folder names in `cypress/apos-db` is `dashboard` for the dashboard and `site-xxx` for each site where `xxx` is the theme name.
 
 Create file `cypress/plugins/index.js` with the following content:
 
@@ -165,11 +174,15 @@ Rename `cypress.config.js` to `cypress.dashboard.config.js` and add replace it w
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+  // optionally, separate the cypress folders per theme/dashboard
+  fixturesFolder: 'cypress/fixtures/dashboard',
+  downloadsFolder: 'cypress/downloads/dashboard',
+  screenshotsFolder: 'cypress/screenshots/dashboard',
   env: {
     '@apostrophecms-pro/cypress-tools': {
       apiKey: 'cypressAPIKey',
       mongoURI: true,
-      dbName: 'a3ab-dashboard',
+      dbName: 'test-dashboard',
       aposRoot: './dashboard'
     }
   },
@@ -189,15 +202,20 @@ Create a new file `cypress.site-default.config.js` with the following content:
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+  // optionally, separate the cypress folders per theme/dashboard
+  fixturesFolder: 'cypress/fixtures/default',
+  downloadsFolder: 'cypress/downloads/default',
+  screenshotsFolder: 'cypress/screenshots/default',
   env: {
     '@apostrophecms-pro/cypress-tools': {
       apiKey: 'cypressAPIKey',
       mongoURI: true,
-      dbName: 'a3ab-mmbj7ed7xptpn4ap0st9btyr',
+      dbName: 'test-mmbj7ed7xptpn4ap0st9btyr',
       aposRoot: './sites'
     }
   },
   e2e: {
+    // The url for the site with short name "default"
     baseUrl: 'http://default.localhost:3000',
     specPattern: 'cypress/tests/default/**/*.cy.{js,vue,ts}',
     setupNodeEvents(on, config) {
@@ -213,15 +231,20 @@ And create a new file `cypress.site-demo.config.js` with the following content:
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+  // optionally, separate the cypress folders per theme/dashboard
+  fixturesFolder: 'cypress/fixtures/demo',
+  downloadsFolder: 'cypress/downloads/demo',
+  screenshotsFolder: 'cypress/screenshots/demo',
   env: {
     '@apostrophecms-pro/cypress-tools': {
       apiKey: 'cypressAPIKey',
       mongoURI: true,
-      dbName: 'a3ab-nhcpc7a64rasnqlpv4wxjhdr',
+      dbName: 'test-nhcpc7a64rasnqlpv4wxjhdr',
       aposRoot: './sites'
     }
   },
   e2e: {
+    // The url for the site with short name "demo"
     baseUrl: 'http://demo.localhost:3000',
     specPattern: 'cypress/tests/demo/**/*.cy.{js,vue,ts}',
     setupNodeEvents(on, config) {
@@ -258,6 +281,7 @@ Add new npm scripts to your `package.json`:
   "scripts": {
     // ...
     "e2e:serve": "NODE_ENV=production CI=1 bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build && node app'",
+    "e2e:dev": "CI=1 npm run dev",
     "e2e:test": "npm run e2e:dashboard && npm run e2e:default && npm run e2e:demo",
     "e2e:dahsboard": "cypress run --config-file=cypress.dashboard.config.js",
     "e2e:default": "cypress run --config-file=cypress.site-default.config.js",
@@ -270,23 +294,45 @@ Add new npm scripts to your `package.json`:
 }
 ```
 
-Now you can run the tests:
+Now you can run tests in multiple ways:
 
 ```bash
+# run the Apostrophe server in production mode for testing
 npm run e2e:serve
-# in a separate terminal
+# in a separate terminal run all tests
 npm run e2e:test
 # or run tests for each site separately
 npm run e2e:dashboard
 npm run e2e:default
 npm run e2e:demo
-# or open Cypress GUI
+```
+
+When developing: 
+
+```bash
+# run the Apostrophe server in production mode for testing (when working on the tests only)
+npm run e2e:serve
+# run the Apostrophe server in dev mode for testing (when testing and developing)
+npm run e2e:dev
+# in a separate terminal open the Cypress GUI
 npm run cy:dashboard
 npm run cy:default
 npm run cy:demo
 ```
 
+The application is booted once and you can run different cypress instances against it (it shouldn't happen in parallel). This is possible because using `cypress-tools`, every test suite should be resetting the database before running its tests. 
+
 See `cypress/tests` folder for examples for dashboard, default and demo sites.
+
+### Troubleshooting
+
+1. `CypressError` when executing `addUser` command and `dashboard: @apostrophecms/user: api-error: E11000 duplicate key error` in the console: 
+- This error usually occurs when the application and Cypress commands are running against different databases. Make sure that the `dbName` in all Cypress configuration file is set to the correct database name for the site you are testing and the proper cypress configuration file is used when starting the tests. E.g. `npx cypress open` won't work, `npx cypress open --config-file=cypress.site-default.config.js` will work and will show the tests for the `default` site. It's recommended to use npm scripts to run the tests (as described above).
+
+2. `cy.xxx is not a function`:
+- If you followed strictly the guide and you still see this, this is a sign of a missing `--config-file` option when running the tests. Make sure to use the correct configuration file for the site you are testing. See the npm scripts above for the correct commands to run/open the Cypress tests.
+- You can double-check `cypress/plugins/index.js`, `cypress/support/e2e.js` and the configuration files for the correct paths and content.
+
 
 ## Purpose
 The purpose of this repo is to serve as a quick start for multisite-enabled, cloud-hosted projects based on and hosted via Apostrophe Assembly. Technically speaking, it serves as a working example of a project built on the `@apostrophecms-pro/multisite` module.

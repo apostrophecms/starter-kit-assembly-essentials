@@ -10,6 +10,7 @@
     "start": "node app",
     "dev": "nodemon",
     "test": "eslint . && stylelint 'dashboard/**/*.scss' && stylelint 'sites/**/*.scss'",
+    "e2e:dev": "CI=1 npm run dev",
     "e2e:serve": "NODE_ENV=production CI=1 bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build && node app'",
     "e2e:test": "npm run e2e:dashboard && npm run e2e:default && npm run e2e:demo",
     "e2e:dashboard": "cypress run --config-file=cypress.dashboard.config.js",

@@ -1,11 +1,14 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+  fixturesFolder: 'cypress/fixtures/default',
+  downloadsFolder: 'cypress/downloads/default',
+  screenshotsFolder: 'cypress/screenshots/default',
   env: {
     '@apostrophecms-pro/cypress-tools': {
       apiKey: 'cypressAPIKey',
       mongoURI: true,
-      dbName: 'a3ab-mmbj7ed7xptpn4ap0st9btyr',
+      dbName: 'test-j47k2538yhvy440spdlu8pti',
       aposRoot: './sites'
     }
   },

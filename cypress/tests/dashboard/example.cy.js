@@ -17,7 +17,7 @@ describe('Dashboard Example', () => {
 
   it('Visits the dashboard', () => {
     cy.visit('/');
-    cy.contains('h3', 'Demo');
-    cy.contains('h3', 'Default');
+    cy.contains('h3', 'Demo Site');
+    cy.contains('h3', 'Default Site');
   });
 });

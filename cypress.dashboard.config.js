@@ -1,11 +1,14 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+  fixturesFolder: 'cypress/fixtures/dashboard',
+  downloadsFolder: 'cypress/downloads/dashboard',
+  screenshotsFolder: 'cypress/screenshots/dashboard',
   env: {
     '@apostrophecms-pro/cypress-tools': {
       apiKey: 'cypressAPIKey',
       mongoURI: true,
-      dbName: 'a3ab-dashboard',
+      dbName: 'test-dashboard',
       aposRoot: './dashboard'
     }
   },
