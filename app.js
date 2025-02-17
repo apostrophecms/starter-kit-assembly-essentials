@@ -20,7 +20,8 @@ async function go() {
       // your repo name followed by a `-`, however if you plan to use a
       // cheap Atlas cluster (below M10), you must use a unique prefix less
       // than 12 characters (before the -).
-      shortNamePrefix: process.env.APOS_PREFIX || 'a3ab-',
+      // Ensure test mode with a prefix of `test-` for CI and local development.
+      shortNamePrefix: process.env.CI === '1' ? 'test-' : (process.env.APOS_PREFIX || 'a3ab-'),
       // Suffix, used only for building hostnames and not affecting
       // e.g. database names. For example, if you set this to `-assembly`,
       // and your short name is `site`, the hostname for that site would be

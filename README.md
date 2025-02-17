@@ -44,6 +44,12 @@ Having it installed in your VSCode will ensure that adding/changing heading will
     - [`slideshow-widget`](#slideshow-widget)
   - [Dashboard Development](#dashboard-development)
     - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
+  - [Cypress (end-to-end) Testing](#cypress-end-to-end-testing)
+    - [Prerequisites](#prerequisites)
+    - [Running the tests](#running-the-tests)
+    - [Updating the Cypress configuration DB dumps](#updating-the-cypress-configuration-db-dumps)
+    - [Integrating Cypress in your existing projects](#integrating-cypress-in-your-existing-projects)
+    - [Cypress tools](#cypress-tools)
   - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
   - [Hosting](#hosting)
   - [Deployment](#deployment)
@@ -461,6 +467,153 @@ However, there is one important restriction: you **must not decide to completely
 * **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/modules/@apostrophecms/global`.
 * **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/site/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
 
+## Cypress (end-to-end) Testing 
+
+Cypress is configured as the default tool to run end-to-end tests on the multisite platform. The tests are located in the `cypress/test` folder. Read below to learn more about the prerequisites, how to run the tests, how to update your DB dump when needed, and how to integrate Cypress in your existing projects.
+
+The pre-configured experience includes a DB dump of the "dashboard" site, containing a site per theme ("default" and "demo"). By default, the tests will run against the "default" site theme. For testing the "demo" site theme and the "dashboard", your tests should override the `baseUrl` at the test file level and utilize the `profile` options on the relevant commands. See the `cypress/test` folder for examples.
+
+You can reconfigure the DB dump to include more or different sites and/or change the defaults. Read below to learn more.
+
+The multisite application will use `test-` prefixed collections in the MongoDB database to avoid losing local development data when running the tests. This is achieved by setting the `CI` environment variable to `1` when running the tests (see the `e2e:*` scripts in `package.json`).
+
+### Prerequisites
+
+Install [MongoDB Tools](https://docs.mongodb.com/database-tools/installation/installation-linux/#installation). You should validate that the `mongodump` and `mongorestore` commands are available in your terminal.
+
+### Running the tests
+
+You'll find example tests in the `cypress/test` folder. To run the tests:
+
+```bash
+# Start the multisite platform in production mode
+npm run e2e:serve
+# OR start the multisite platform in development mode (if you want to see the changes in real-time)
+npm run e2e:dev
+# In a new terminal window, run the tests in headless mode
+npm run e2e:run
+# OR run the tests in interactive mode
+npm run e2e:open
+```
+
+### Updating the Cypress configuration DB dumps 
+
+1. Remove all `test-` prefixed collections from your local MongoDB database.
+2. Add `admin` user to the dashboard site: `CI=1 node app @apostrophecms/user:add admin admin --site=dashboard`.
+3. Run `npm run e2e:dev` to start the multisite platform in development test mode.
+4. Open `http://dashboard.localhost:3000` in your browser, login with user `admin` and configure the sites you want for testing.
+5. In a new terminal window, run `CI=1 node app site:cypress-config --site=dashboard`. If you want to change the default configuration to be another site (it's the first in the list by default), you can pass the site shortname as an argument: `node app site:cypress-config site-demo --site=dashboard`.
+6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the root configuration options to match your needs (e.g., `viewportviewportWidth`, `viewportHeight`, etc.).
+7. Copy and execute the content of the terminal output between the `# DB dump commands` and `# END DB dump commandss` comments.
+
+> NOTE: if you are using a non-standard MongoDB connection string, you should update the `cypress.config.js` file and the DB dump commands accordingly.
+
+> NOTE: the script assumes that your admin API Key is named `cypressAPIKey`. If you are using a different name, you should update the `cypress.config.js` file accordingly.
+
+### Integrating Cypress in your existing projects
+
+1. Ensure that your project is fully configured, following the instructions in this documentation. This includes any port changes, theme configurations, and any other customizations you have made.
+2. Follow the [Pre-requisites](#prerequisites) instructions to ensure that you have the necessary tools installed.
+3. Install the dependencies:
+
+```bash
+npm install -D cypress @apostrophecms-pro/cypress-tools eslint-plugin-cypress
+```
+4. Copy all `e2e:*` scripts from the `package.json` file in this project to your project's `package.json` file.
+5. Copy the `cypress` folder from this project to your project's root folder.
+6. Add to your project's `.gitignore` file:
+
+```bash
+# Cypress
+/cypress/videos
+/cypress/screenshots
+/cypress/downloads
+```
+7. Modify your project's `.eslintrc` file:
+
+```json
+{
+  "extends": [
+    "apostrophe", 
+    "plugin:cypress/recommended"
+  ]
+}
+```
+8. Modify your `shortNamePrefix` project configuration in `app.js`, replacing `yourExistingPrefix-` with your actual prefix:
+
+```javascript
+await multisite({
+  // ...
+  shortNamePrefix: process.env.CI === '1' ? 'test-' : (process.env.APOS_PREFIX || 'yourExistingPrefix-'),
+  // ...
+});
+```
+9. Add a task to your `dashboard/modules/site/index.js` file (create it if it doesn't exist):
+
+```javascript
+export default {
+  tasks(self) {
+    if (process.env.CI !== '1') {
+      return {};
+    }
+    return {
+      'cypress-config': {
+        usage: 'List Cypress configuration and CLI commands for creating DB dumps.\n' +
+          '\nUsage: node app site:cypress-config [siteShortName]',
+        async task(argv) {
+          const task = await import(
+            '@apostrophecms-pro/cypress-tools/apos/assembly-config.js'
+          );
+          try {
+            const result = await task.default(self.apos, argv);
+            console.log(result);
+          } catch (e) {
+            console.error(e.message);
+            return 1;
+          }
+        }
+      }
+    };
+  }
+};
+```
+10. Add API Key to your `dashboard/modules/@apostrophecms/express/index.js` file (create it if it doesn't exist):
+
+```javascript
+export default {
+  options: {
+    apiKeys: process.env.CI === '1'
+      ? {
+        cypressAPIKey: {
+          role: 'admin'
+        }
+      }
+      : {}
+  }
+};
+```
+11. Add API Key to your `sites/modules/@apostrophecms/express/index.js` file (create it if it doesn't exist):
+
+```javascript
+export default {
+  options: {
+    apiKeys: process.env.CI === '1'
+      ? {
+        cypressAPIKey: {
+          role: 'admin'
+        }
+      }
+      : {}
+  }
+};
+```
+12. Follow the steps in the [Updating the Cypress configuration DB dumps](#updating-the-cypress-configuration-db-dumps) section to create a `cypress.config.js` file and update your DB dumps.
+13. Modify the example tests in the `cypress/test` folder to match your configured `profiles` and default configurations.
+
+### Cypress tools
+
+The [`@apostrophecms-pro/cypress-tools`](https://github.com/apostrophecms/cypress-tools) package provides a set of tools (custom Cypress commands and tasks) to help you manage your Cypress tests. A full list of available commands and tasks can be found in the package's [API Reference](https://github.com/apostrophecms/cypress-tools/blob/main/API.md).
+
 ## Accessing the MongoDB utilities for a specific site
 
 The database name for a site is the prefix, followed by the `_id` of the site piece. However this is awkward to look up on your own, so we have provided utility tasks to access the MongoDB utilities:
@@ -559,7 +712,7 @@ for those who want to test the effects of `separateProductionHostname` being set
 Let's say we have a French locale with these options:
 
 | Fields                       | Values               |
-|------------------------------|----------------------|
+| ---------------------------- | -------------------- |
 | Label                        | `French`             |
 | Prefix                       |                      |
 | Separate Host                | `true`               |
