@@ -503,7 +503,7 @@ npm run e2e:open
 3. Run `npm run e2e:dev` to start the multisite platform in development test mode.
 4. Open `http://dashboard.localhost:3000` in your browser, login with user `admin` and configure the sites you want for testing.
 5. In a new terminal window, run `CI=1 node app site:cypress-config --site=dashboard`. If you want to change the default configuration to be another site (it's the first in the list by default), you can pass the site shortname as an argument: `node app site:cypress-config site-demo --site=dashboard`.
-6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the root configuration options to match your needs (e.g., `viewportviewportWidth`, `viewportHeight`, etc.).
+6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the root configuration options to match your needs (e.g., `viewportWidth`, `viewportHeight`, etc.).
 7. Copy and execute the content of the terminal output between the `# DB dump commands` and `# END DB dump commandss` comments.
 
 > NOTE: if you are using a non-standard MongoDB connection string, you should update the `cypress.config.js` file and the DB dump commands accordingly.
