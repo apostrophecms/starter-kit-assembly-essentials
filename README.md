@@ -176,6 +176,8 @@ Because this project serves multiple websites, certain hostnames must point dire
 
 **If you will only be testing in Chrome at first,** you do not have to edit your hosts file right away. That's because in Chrome, all subdomains of `localhost` resolve to your own computer.
 
+**If you are running on a Mac,** and your Cypress tests are failing with an error `getaddrinfo ENOTFOUND`, you may need to modify your hosts file by following the instructions below.
+
 However, in other browsers this is not true and you must add the following lines to `/etc/hosts` before proceeding:
 
 ```
@@ -471,15 +473,19 @@ However, there is one important restriction: you **must not decide to completely
 
 Cypress is configured as the default tool to run end-to-end tests on the multisite platform. The tests are located in the `cypress/test` folder. Read below to learn more about the prerequisites, how to run the tests, how to update your DB dump when needed, and how to integrate Cypress in your existing projects.
 
+You do not have to use the Cypress test capabilities at all just to get started with your project. They are there for those who want to add end-to-end testing.
+
 The pre-configured experience includes a DB dump of the "dashboard" site, containing a site per theme ("default" and "demo"). By default, the tests will run against the "default" site theme. For testing the "demo" site theme and the "dashboard", your tests should override the `baseUrl` at the test file level and utilize the `profile` options on the relevant commands. See the `cypress/test` folder for examples.
 
 You can reconfigure the DB dump to include more or different sites and/or change the defaults. Read below to learn more.
 
-The multisite application will use `test-` prefixed collections in the MongoDB database to avoid losing local development data when running the tests. This is achieved by setting the `CI` environment variable to `1` when running the tests (see the `e2e:*` scripts in `package.json`).
+The multisite application will use `test-` prefixed databases to avoid losing local development data when running the tests. This is achieved by setting the `CI` environment variable to `1` when running the tests (see the `e2e:*` scripts in `package.json`).
 
 ### Prerequisites
 
 Install [MongoDB Tools](https://docs.mongodb.com/database-tools/installation/installation-linux/#installation). You should validate that the `mongodump` and `mongorestore` commands are available in your terminal.
+
+Ensure your [`/etc/hosts` file](#etchosts-file-configuration-requirements) is properly configured.
 
 ### Running the tests
 
@@ -498,12 +504,12 @@ npm run e2e:open
 
 ### Updating the Cypress configuration DB dumps 
 
-1. Remove all `test-` prefixed collections from your local MongoDB database.
+1. Remove all `test-` prefixed databases from your local MongoDB database.
 2. Add `admin` user to the dashboard site: `CI=1 node app @apostrophecms/user:add admin admin --site=dashboard`.
 3. Run `npm run e2e:dev` to start the multisite platform in development test mode.
 4. Open `http://dashboard.localhost:3000` in your browser, login with user `admin` and configure the sites you want for testing.
 5. In a new terminal window, run `CI=1 node app site:cypress-config --site=dashboard`. If you want to change the default configuration to be another site (it's the first in the list by default), you can pass the site shortname as an argument: `node app site:cypress-config site-demo --site=dashboard`.
-6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the root configuration options to match your needs (e.g., `viewportWidth`, `viewportHeight`, etc.).
+6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the configuration options to match your needs (e.g., `viewportWidth`, `viewportHeight`, `apiKey` etc.). In case you change `apiKey` value, you should update the respective value in `dashboard/modules/@apostrophecms/express/index.js` and `sites/modules/@apostrophecms/express/index.js` files.
 7. Copy and execute the content of the terminal output between the `# DB dump commands` and `# END DB dump commands` comments.
 
 > NOTE: if you are using a non-standard MongoDB connection string, you should update the `cypress.config.js` file and the DB dump commands accordingly.
@@ -512,7 +518,9 @@ npm run e2e:open
 
 ### Integrating Cypress in your existing projects
 
-1. Ensure that your project is fully configured, following the instructions in this documentation. This includes any port changes, theme configurations, and any other customizations you have made.
+This section is for those who want to add Cypress testing to an existing project that was not created from a recent version of this starter kit and does not already contain the following updates.
+
+1. Ensure that your project is fully configured, following the instructions in this documentation. This includes any port changes, theme configurations, and your [`/etc/hosts` file](#etchosts-file-configuration-requirements).
 2. Follow the [Pre-requisites](#prerequisites) instructions to ensure that you have the necessary tools installed.
 3. Install the dependencies:
 
@@ -553,26 +561,26 @@ await multisite({
 ```javascript
 export default {
   tasks(self) {
-    if (process.env.CI !== '1') {
-      return {};
-    }
     return {
-      'cypress-config': {
-        usage: 'List Cypress configuration and CLI commands for creating DB dumps.\n' +
+      ...(process.env.CI === '1' && {
+        'cypress-config': {
+          usage: 'List Cypress configuration and CLI commands for creating DB dumps.\n' +
           '\nUsage: node app site:cypress-config [siteShortName]',
-        async task(argv) {
-          const task = await import(
-            '@apostrophecms-pro/cypress-tools/apos/assembly-config.js'
-          );
-          try {
-            const result = await task.default(self.apos, argv);
-            console.log(result);
-          } catch (e) {
-            console.error(e.message);
-            return 1;
+          async task(argv) {
+            const task = await import(
+              '@apostrophecms-pro/cypress-tools/apos/assembly-config.js'
+            );
+            try {
+              const result = await task.default(self.apos, argv);
+              console.log(result);
+            } catch (e) {
+              console.error(e.message);
+              return 1;
+            }
           }
         }
-      }
+      }),
+      // ... your project's tasks if any
     };
   }
 };

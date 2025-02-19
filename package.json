@@ -36,7 +36,7 @@
     "@opentelemetry/sdk-node": "^0.51.1",
     "@opentelemetry/semantic-conventions": "^1.27.0",
     "@tiptap/extension-text-style": "^2.8.0",
-    "accordion-js": "^3.3.4",
+    "accordion-js": "^3.4.0",
     "apostrophe": "^4.9.0",
     "glob": "^10.4.5",
     "normalize.css": "^8.0.1",
