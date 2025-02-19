@@ -520,6 +520,8 @@ npm run e2e:open
 
 This section is for those who want to add Cypress testing to an existing project that was not created from a recent version of this starter kit and does not already contain the following updates.
 
+> Note: All code snippets, including the Cypress config generator, are ESM (ECMAScript Modules) syntax. If you are still using CommonJS syntax in your project, you should convert the code snippets accordingly.
+
 1. Ensure that your project is fully configured, following the instructions in this documentation. This includes any port changes, theme configurations, and your [`/etc/hosts` file](#etchosts-file-configuration-requirements).
 2. Follow the [Pre-requisites](#prerequisites) instructions to ensure that you have the necessary tools installed.
 3. Install the dependencies:
