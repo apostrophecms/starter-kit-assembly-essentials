@@ -26,7 +26,7 @@ export default () => {
           el: '.swiper-pagination'
         },
 
-        modules: [Navigation, Pagination],
+        modules: [ Navigation, Pagination ],
 
         ...(el.dataset.slideshowWidget && {
           ...JSON.parse(el.dataset.slideshowWidget).swiper
