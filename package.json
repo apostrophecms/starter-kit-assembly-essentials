@@ -10,7 +10,7 @@
     "production-start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
     "start": "node app",
     "dev": "nodemon",
-    "test": "eslint . && stylelint 'dashboard/**/*.scss' && stylelint 'sites/**/*.scss'",
+    "test": "eslint . && stylelint 'dashboard/**/*.scss' --allow-empty-input && stylelint 'sites/**/*.scss' --allow-empty-input",
     "e2e:dev": "CI=1 npm run dev",
     "e2e:serve": "NODE_ENV=production CI=1 bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build && node app'",
     "e2e:run": "cypress run",

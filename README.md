@@ -508,11 +508,9 @@ npm run e2e:open
 2. Add `admin` user to the dashboard site: `CI=1 node app @apostrophecms/user:add admin admin --site=dashboard`.
 3. Run `npm run e2e:dev` to start the multisite platform in development test mode.
 4. Open `http://dashboard.localhost:3000` in your browser, login with user `admin` and configure the sites you want for testing.
-5. In a new terminal window, run `CI=1 node app site:cypress-config --site=dashboard`. If you want to change the default configuration to be another site (it's the first in the list by default), you can pass the site shortname as an argument: `node app site:cypress-config site-demo --site=dashboard`.
-6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the configuration options to match your needs (e.g., `viewportWidth`, `viewportHeight`, `apiKey` etc.). In case you change `apiKey` value, you should update the respective value in `dashboard/modules/@apostrophecms/express/index.js` and `sites/modules/@apostrophecms/express/index.js` files.
+5. In a new terminal window, run `CI=1 node app site:cypress-config --site=dashboard`. If you want to change the default configuration to be another site (it's the first in the list by default), you can pass the site shortname as an argument: `CI=1 node app site:cypress-config site-demo --site=dashboard`.
+6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the configuration options to match your needs (e.g., `viewportWidth`, `viewportHeight`, `apiKey` etc.). In case you change `apiKey` value, you should update the respective value in `dashboard/modules/@apostrophecms/express/index.js` and `sites/modules/@apostrophecms/express/index.js` files. Note that the output for the configuration will be in ESM (ECMAScript Modules) syntax. If you are integrating Cypres in your existing project and you're still using CommonJS syntax, you should convert the `import` and `export` statements to CommonJS syntax (`require()` and `module.exports` respectively).
 7. Copy and execute the content of the terminal output between the `# DB dump commands` and `# END DB dump commands` comments.
-
-> NOTE: if you are using a non-standard MongoDB connection string, you should update the `cypress.config.js` file and the DB dump commands accordingly.
 
 > NOTE: the script assumes that your admin API Key is named `cypressAPIKey`. If you are using a different name, you should update the `cypress.config.js` file accordingly.
 
@@ -602,6 +600,7 @@ export default {
   }
 };
 ```
+> NOTE: If you are using a different API Key name, you should update the `cypress.config.js` file accordingly.
 11. Add API Key to your `sites/modules/@apostrophecms/express/index.js` file (create it if it doesn't exist):
 
 ```javascript
@@ -617,8 +616,21 @@ export default {
   }
 };
 ```
-12. Follow the steps in the [Updating the Cypress configuration DB dumps](#updating-the-cypress-configuration-db-dumps) section to create a `cypress.config.js` file and update your DB dumps.
-13. Modify the example tests in the `cypress/test` folder to match your configured `profiles` and default configurations.
+> NOTE: If you are using a different API Key name, you should update the `cypress.config.js` file accordingly.
+12. In `sites/modules/@apostrophecms/asset/index.js` ensure that HMR is not running in Cypress test mode. 
+
+```javascript
+// sites/modules/@apostrophecms/asset/index.js
+export default {
+  options: {
+    // ...
+    hmr: process.env.CI === '1' ? false : 'public'
+  },
+  // ...
+};
+```
+13. Follow the steps in the [Updating the Cypress configuration DB dumps](#updating-the-cypress-configuration-db-dumps) section to create a `cypress.config.js` file and update your DB dumps.
+14. Modify the example tests in the `cypress/test` folder to match your configured `profiles` and default configurations.
 
 ### Cypress tools
 
