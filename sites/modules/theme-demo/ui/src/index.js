@@ -11,7 +11,7 @@ export default () => {
 
   const $body = document.getElementsByTagName('body')[0];
 
-  const adminBar = window.apos.modules?.['@apostrophecms/admin-bar'];
+  const adminBar = window.apos.modules['@apostrophecms/admin-bar'];
 
   if (adminBar && !$body.classList.contains(isLoggedIn)) {
     apos.util.addClass($body, isLoggedIn);
