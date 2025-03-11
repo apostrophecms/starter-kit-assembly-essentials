@@ -1,7 +1,7 @@
 export default () => {
   const hiddenClass = 'is-hidden';
 
-  const adminBar = window.apos.modules['@apostrophecms/admin-bar'];
+  const adminBar = window.apos.modules?.['@apostrophecms/admin-bar'];
 
   if (adminBar) {
     setInterval(togglePlaceholder, 300);
