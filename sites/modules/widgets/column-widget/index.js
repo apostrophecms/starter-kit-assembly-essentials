@@ -10,7 +10,7 @@ const widgets = {
   accordion: {}
 };
 
-module.exports = {
+export default {
   extend: '@apostrophecms/widget-type',
   options: {
     label: 'Columns',
@@ -147,10 +147,10 @@ module.exports = {
       getColumns(layout) {
 
         const columns = {
-          1: ['100'],
-          2: ['50', '66-33', '75-25', '33-66', '25-75'],
-          3: ['33'],
-          4: ['25']
+          1: [ '100' ],
+          2: [ '50', '66-33', '75-25', '33-66', '25-75' ],
+          3: [ '33' ],
+          4: [ '25' ]
         };
 
         let number = 1;

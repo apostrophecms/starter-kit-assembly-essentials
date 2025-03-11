@@ -34,3 +34,7 @@ sites/modules/theme-*/public/js/site.js
 sites/modules/theme-*/public/css/site.css
 # Deployed, but not committed
 /release-id
+# Cypress
+/cypress/videos
+/cypress/screenshots
+/cypress/downloads

@@ -2,7 +2,7 @@
 // list-themes task, which apostrophe cloud needs to minify assets
 // for each theme
 
-module.exports = [
+export default [
   {
     value: 'default',
     label: 'Default'

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   methods(self) {
     return {
       connected(ws, req) {

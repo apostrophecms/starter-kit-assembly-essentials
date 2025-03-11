@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const net = require('net');
+import net from 'node:net';
+
 const port = parseInt(process.argv[process.argv.length - 1]);
 
 go();

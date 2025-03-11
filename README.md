@@ -44,6 +44,12 @@ Having it installed in your VSCode will ensure that adding/changing heading will
     - [`slideshow-widget`](#slideshow-widget)
   - [Dashboard Development](#dashboard-development)
     - [Allowing dashboard admins to pass configuration to sites](#allowing-dashboard-admins-to-pass-configuration-to-sites)
+  - [Cypress (end-to-end) Testing](#cypress-end-to-end-testing)
+    - [Prerequisites](#prerequisites)
+    - [Running the tests](#running-the-tests)
+    - [Updating the Cypress configuration DB dumps](#updating-the-cypress-configuration-db-dumps)
+    - [Integrating Cypress in your existing projects](#integrating-cypress-in-your-existing-projects)
+    - [Cypress tools](#cypress-tools)
   - [Accessing the MongoDB utilities for a specific site](#accessing-the-mongodb-utilities-for-a-specific-site)
   - [Hosting](#hosting)
   - [Deployment](#deployment)
@@ -169,6 +175,8 @@ For more information see the Apostrophe [Getting Started Tutorial](https://docs.
 Because this project serves multiple websites, certain hostnames must point directly to your own computer for local testing.
 
 **If you will only be testing in Chrome at first,** you do not have to edit your hosts file right away. That's because in Chrome, all subdomains of `localhost` resolve to your own computer.
+
+**If you are running on a Mac,** and your Cypress tests are failing with an error `getaddrinfo ENOTFOUND`, you may need to modify your hosts file by following the instructions below.
 
 However, in other browsers this is not true and you must add the following lines to `/etc/hosts` before proceeding:
 
@@ -296,7 +304,7 @@ You might not need more than one theme. If that's the case, just build out the `
 To configure your list of themes, edit `themes.js`. Right now it looks like:
 
 ```javascript
-module.exports = [
+export default [
   {
     value: 'default',
     label: 'Default'
@@ -315,7 +323,7 @@ You can add additional themes as needed. Your `value` should be a shortname like
 If your theme is named `default`, then you must have a `sites/lib/theme-default.js` file, like this:
 
 ```javascript
-module.exports = function(site, config) {
+export default function(site, config) {
   config.modules = {
     ...config.modules,
     'theme-default': {}
@@ -412,21 +420,27 @@ The most important module is the `site` module. The `site` module is a piece typ
 
 The `site` schema field values get passed to the individual sites in the `site` object. This is what is used to set the theme configuration in the `sites/index.js` file. The starter kit is also adding the value of the `theme` schema field to the `apos.options` object.
 
-```
+```javascript
 // sites/index.js
-module.exports = function (site) {
+export default function (site) {
   const config = {
+    root: import.meta,
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
-    ...
+    // ...
+  };
+
+  return config;
+};
 ```
 
 If you have additional values being passed from the `site` piece schema that you want to make available to your modules you have several choices. The value can be added in the modules config options in the `sites/index.js` file.
 
 ```javascript
 // sites/index.js
-module.exports = function (site) {
+export default function (site) {
   const config = {
+    root: import.meta,
     // Theme name is globally available as apos.options.theme
     theme: site.theme,
     nestedModuleSubdirs: true,
@@ -436,7 +450,12 @@ module.exports = function (site) {
           apiKey: site.apiKey,
         }
       },
-      ...
+      // ...
+    }
+  };
+
+  return config;
+};
 ```
 You can also elect to add them to the `apos.options` object, as is shown above example for the `site.theme`. This can then be accessed in any module function with access to `self` using `self.apos.options.<property>`. If you need that value in your templates you can use the [`templateData` module option](https://docs.apostrophecms.org/reference/module-api/module-options.html#templatedata).
 ### Allowing dashboard admins to pass configuration to sites
@@ -449,6 +468,173 @@ However, there is one important restriction: you **must not decide to completely
 
 * **If single-site admins who cannot edit the dashboard should be able to edit it,** you should put it in `sites/modules/@apostrophecms/global`.
 * **If only dashboard admins who create and remove sites should be able to make this decision,** it belongs in `dashboard/modules/site/index.js`. You can then pass it on as module configuration in `sites/lib/index.js`.
+
+## Cypress (end-to-end) Testing 
+
+Cypress is configured as the default tool to run end-to-end tests on the multisite platform. The tests are located in the `cypress/test` folder. Read below to learn more about the prerequisites, how to run the tests, how to update your DB dump when needed, and how to integrate Cypress in your existing projects.
+
+You do not have to use the Cypress test capabilities at all just to get started with your project. They are there for those who want to add end-to-end testing.
+
+The pre-configured experience includes a DB dump of the "dashboard" site, containing a site per theme ("default" and "demo"). By default, the tests will run against the "default" site theme. For testing the "demo" site theme and the "dashboard", your tests should override the `baseUrl` at the test file level and utilize the `profile` options on the relevant commands. See the `cypress/test` folder for examples.
+
+You can reconfigure the DB dump to include more or different sites and/or change the defaults. Read below to learn more.
+
+The multisite application will use `test-` prefixed databases to avoid losing local development data when running the tests. This is achieved by setting the `CI` environment variable to `1` when running the tests (see the `e2e:*` scripts in `package.json`).
+
+### Prerequisites
+
+Install [MongoDB Tools](https://docs.mongodb.com/database-tools/installation/installation-linux/#installation). You should validate that the `mongodump` and `mongorestore` commands are available in your terminal.
+
+Ensure your [`/etc/hosts` file](#etchosts-file-configuration-requirements) is properly configured.
+
+### Running the tests
+
+You'll find example tests in the `cypress/test` folder. To run the tests:
+
+```bash
+# Start the multisite platform in production mode
+npm run e2e:serve
+# OR start the multisite platform in development mode (if you want to see the changes in real-time)
+npm run e2e:dev
+# In a new terminal window, run the tests in headless mode
+npm run e2e:run
+# OR run the tests in interactive mode
+npm run e2e:open
+```
+
+### Updating the Cypress configuration DB dumps 
+
+1. Remove all `test-` prefixed databases from your local MongoDB database.
+2. Add `admin` user to the dashboard site: `CI=1 node app @apostrophecms/user:add admin admin --site=dashboard`.
+3. Run `npm run e2e:dev` to start the multisite platform in development test mode.
+4. Open `http://dashboard.localhost:3000` in your browser, login with user `admin` and configure the sites you want for testing.
+5. In a new terminal window, run `CI=1 node app site:cypress-config --site=dashboard`. If you want to change the default configuration to be another site (it's the first in the list by default), you can pass the site shortname as an argument: `CI=1 node app site:cypress-config site-demo --site=dashboard`.
+6. Copy the content of the terminal output between the `# cypress.config.js` and `# END cypress.config.js` comments to the `cypress.config.js` file, replacing the existing content. Feel free to update the configuration options to match your needs (e.g., `viewportWidth`, `viewportHeight`, `apiKey` etc.). In case you change `apiKey` value, you should update the respective value in `dashboard/modules/@apostrophecms/express/index.js` and `sites/modules/@apostrophecms/express/index.js` files. Note that the output for the configuration will be in ESM (ECMAScript Modules) syntax. If you are integrating Cypres in your existing project and you're still using CommonJS syntax, you should convert the `import` and `export` statements to CommonJS syntax (`require()` and `module.exports` respectively).
+7. Copy and execute the content of the terminal output between the `# DB dump commands` and `# END DB dump commands` comments.
+
+> NOTE: the script assumes that your admin API Key is named `cypressAPIKey`. If you are using a different name, you should update the `cypress.config.js` file accordingly.
+
+### Integrating Cypress in your existing projects
+
+This section is for those who want to add Cypress testing to an existing project that was not created from a recent version of this starter kit and does not already contain the following updates.
+
+> Note: All code snippets, including the Cypress config generator, are ESM (ECMAScript Modules) syntax. If you are still using CommonJS syntax in your project, you should convert the code snippets accordingly.
+
+1. Ensure that your project is fully configured, following the instructions in this documentation. This includes any port changes, theme configurations, and your [`/etc/hosts` file](#etchosts-file-configuration-requirements).
+2. Follow the [Pre-requisites](#prerequisites) instructions to ensure that you have the necessary tools installed.
+3. Install the dependencies:
+
+```bash
+npm install -D cypress @apostrophecms-pro/cypress-tools eslint-plugin-cypress
+```
+4. Copy all `e2e:*` scripts from the `package.json` file in this project to your project's `package.json` file.
+5. Copy the `cypress` folder from this project to your project's root folder.
+6. Add to your project's `.gitignore` file:
+
+```bash
+# Cypress
+/cypress/videos
+/cypress/screenshots
+/cypress/downloads
+```
+7. Modify your project's `.eslintrc` file:
+
+```json
+{
+  "extends": [
+    "apostrophe", 
+    "plugin:cypress/recommended"
+  ]
+}
+```
+8. Modify your `shortNamePrefix` project configuration in `app.js`, replacing `yourExistingPrefix-` with your actual prefix:
+
+```javascript
+await multisite({
+  // ...
+  shortNamePrefix: process.env.CI === '1' ? 'test-' : (process.env.APOS_PREFIX || 'yourExistingPrefix-'),
+  // ...
+});
+```
+9. Add a task to your `dashboard/modules/site/index.js` file (create it if it doesn't exist):
+
+```javascript
+export default {
+  tasks(self) {
+    return {
+      ...(process.env.CI === '1' && {
+        'cypress-config': {
+          usage: 'List Cypress configuration and CLI commands for creating DB dumps.\n' +
+          '\nUsage: node app site:cypress-config [siteShortName]',
+          async task(argv) {
+            const task = await import(
+              '@apostrophecms-pro/cypress-tools/apos/assembly-config.js'
+            );
+            try {
+              const result = await task.default(self.apos, argv);
+              console.log(result);
+            } catch (e) {
+              console.error(e.message);
+              return 1;
+            }
+          }
+        }
+      }),
+      // ... your project's tasks if any
+    };
+  }
+};
+```
+10. Add API Key to your `dashboard/modules/@apostrophecms/express/index.js` file (create it if it doesn't exist):
+
+```javascript
+export default {
+  options: {
+    apiKeys: process.env.CI === '1'
+      ? {
+        cypressAPIKey: {
+          role: 'admin'
+        }
+      }
+      : {}
+  }
+};
+```
+> NOTE: If you are using a different API Key name, you should update the `cypress.config.js` file accordingly.
+11. Add API Key to your `sites/modules/@apostrophecms/express/index.js` file (create it if it doesn't exist):
+
+```javascript
+export default {
+  options: {
+    apiKeys: process.env.CI === '1'
+      ? {
+        cypressAPIKey: {
+          role: 'admin'
+        }
+      }
+      : {}
+  }
+};
+```
+> NOTE: If you are using a different API Key name, you should update the `cypress.config.js` file accordingly.
+12. In `sites/modules/@apostrophecms/asset/index.js` ensure that HMR is not running in Cypress test mode. 
+
+```javascript
+// sites/modules/@apostrophecms/asset/index.js
+export default {
+  options: {
+    // ...
+    hmr: process.env.CI === '1' ? false : 'public'
+  },
+  // ...
+};
+```
+13. Follow the steps in the [Updating the Cypress configuration DB dumps](#updating-the-cypress-configuration-db-dumps) section to create a `cypress.config.js` file and update your DB dumps.
+14. Modify the example tests in the `cypress/test` folder to match your configured `profiles` and default configurations.
+
+### Cypress tools
+
+The [`@apostrophecms-pro/cypress-tools`](https://github.com/apostrophecms/cypress-tools) package provides a set of tools (custom Cypress commands and tasks) to help you manage your Cypress tests. A full list of available commands and tasks can be found in the package's [API Reference](https://github.com/apostrophecms/cypress-tools/blob/main/API.md).
 
 ## Accessing the MongoDB utilities for a specific site
 
@@ -548,7 +734,7 @@ for those who want to test the effects of `separateProductionHostname` being set
 Let's say we have a French locale with these options:
 
 | Fields                       | Values               |
-|------------------------------|----------------------|
+| ---------------------------- | -------------------- |
 | Label                        | `French`             |
 | Prefix                       |                      |
 | Separate Host                | `true`               |
@@ -577,10 +763,11 @@ If this sub-option is set to `true`, every new locale created will have its `pri
 
 ```javascript
 // in dashboard/index.js
-const themes = require('../themes');
-const baseUrlDomains = require('../domains');
+import themes from '../themes.js';
+import baseUrlDomains from '../domains.js';
 
-module.exports = {
+export default {
+  root: import.meta,
   privateDashboards: true,
   modules: {
     // other dashboard modules

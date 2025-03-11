@@ -3,7 +3,7 @@
  * that are used across multiple modules
  */
 
-module.exports = {
+export default {
   options: {
     alias: 'helpers'
   },
