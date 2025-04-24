@@ -30,9 +30,8 @@ export default {
         const namespace = 'dashboard';
         const cdnUrl = self.options.exampleCdnUrl;
         const cdnVersion = self.options.exampleCdnVersion;
-        const baseUrl = `${cdnUrl}/${self.cdnPckageName}/${cdnVersion}/${namespace}`;
 
-        return baseUrl;
+        return `${cdnUrl}/${self.cdnPckageName}/${cdnVersion}/${namespace}`;
       }
     };
   }
