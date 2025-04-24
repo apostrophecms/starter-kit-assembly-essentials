@@ -27,6 +27,7 @@ Open your browser and navigate to `http://dashboard.localhost:3000/`, you should
 - `dashboard/modules/@apostrophecms/asset/index.js` is enhanced with additional configuration and extends to override the base assset URL with the example CDN URL.
 - `sites/modules/@apostrophecms/asset/index.js` has similar changes but for the sites.
 - `package.json` has new scripts `build-and-deploy` (executes the build and deploy script) and `cdn-start` (starts the example CDN server).
+- The `cdn version` part of the URL can be controleld via `CDN_VERSION` environment variable. The default value is `v1`. 
 
 > NOTE: consult the `main` branch of this repository for details about setting up the Apostrophe Assembly Essentials project, adding admin users, etc.
 
