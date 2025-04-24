@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
+    "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
     "build-and-deploy": "NODE_ENV=production ./scripts/build-and-deploy",
     "cdn-start": "node ./example-cdn/server.js",
     "//": "because nodemon insists on executing 'start' if it exists, we must distinguish production",
