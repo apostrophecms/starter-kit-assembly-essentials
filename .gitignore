@@ -38,3 +38,7 @@ sites/modules/theme-*/public/css/site.css
 /cypress/videos
 /cypress/screenshots
 /cypress/downloads
+
+# Ignore example-cdn/public contants without the `index.html` file
+example-cdn/public/*
+!example-cdn/public/index.html

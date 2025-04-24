@@ -1,0 +1,119 @@
+#!/usr/bin/env node
+import fs from 'fs-extra';
+import path from 'path';
+import { spawnSync as spawn } from 'child_process';
+import themes from '../themes.js';
+
+const config = {
+  projectRoot: process.cwd(),
+  assetBase: 'public/apos-frontend/releases',
+  exampleCdnUrl: 'http://localhost:8000',
+  exampleCdnVersion: process.env.CDN_VERSION ?? 'v1'
+};
+
+// Remove existing releases
+removeExistingReleases('dashboard');
+removeExistingReleases('sites');
+
+// DASHBOARD
+// Build
+const result = spawn('node', [ 'app', '@apostrophecms/asset:build', '--site=dashboard' ], {
+  encoding: 'utf8',
+  stdio: 'inherit'
+});
+if (result.status !== 0) {
+  throw new Error(result.status || ('exited on signal ' + result.signal));
+}
+// Deploy
+await deploy('dashboard', { value: 'default' }, true);
+
+// THEMES (sites)
+for (const theme of themes) {
+  if (theme.value === 'dashboard') {
+    throw new Error('The theme name "dashboard" is reserved for the multisite dashboard.');
+  }
+  // Build
+  const result = spawn('node', [ 'app', '@apostrophecms/asset:build', '--temporary-site', `--theme=${theme.value}` ], {
+    encoding: 'utf8',
+    stdio: 'inherit'
+  });
+  if (result.status !== 0) {
+    throw new Error(result.status || ('exited on signal ' + result.signal));
+  }
+  // Deploy
+  await deploy('sites', theme);
+}
+
+// HELPER FUNCTIONS
+
+async function deploy(prefix, theme, asPrefix = false) {
+  // The core full path to the folder where the assets are built and copied
+  const assetPath = getCurrentReleasePath(prefix, theme.value);
+  // Gather the CDN details for this example
+  const packageName = getPackageName(config.projectRoot);
+  const cdnVersion = config.exampleCdnVersion;
+  // Use the prefix instead of the theme name if asPrefix is true.
+  // We need that for the dashboard as its theme name is 'default'.
+  const cdnFolder = path.join(packageName, cdnVersion, asPrefix ? prefix : theme.value);
+
+  // Internal logic for the example only, should become a real Deploy code.
+  const currentRoot = process.cwd();
+  const copyToPath = path.join(currentRoot, 'example-cdn', 'public', cdnFolder);
+
+  console.log(`Deploying assets for theme "${theme.value}"...`);
+  console.log(`Copying ${assetPath.replace(currentRoot, '')} to ${copyToPath.replace(currentRoot, '')}`);
+  await copyFiles(assetPath, copyToPath);
+  console.log('Assets deployed.');
+}
+
+function removeExistingReleases(prefix) {
+  const base = path.join(config.projectRoot, prefix, config.assetBase);
+  fs.removeSync(base);
+}
+
+function getCurrentReleasePath(prefix, theme) {
+  const base = path.join(config.projectRoot, prefix, config.assetBase);
+  // the current release ID is the first and only folder in the releases directory,
+  // given only one build was made.
+  const releaseId = fs.readdirSync(base)
+    .find(
+      (file) => fs.statSync(path.join(base, file))
+        .isDirectory()
+    );
+  return path.join(base, releaseId, theme);
+}
+
+async function copyFiles(source, destination) {
+  try {
+    await fs.copy(source, destination, {
+      overwrite: true,
+      errorOnExist: false,
+      filter: (src) => {
+        // Exclude the Vite manifest file if a vite build
+        if (src.endsWith('/.manifest.json')) {
+          return false;
+        }
+        return true;
+      }
+    });
+  } catch (err) {
+    throw new Error(`Error copying files: ${err}`);
+  }
+}
+
+function getPackageName(projectRoot) {
+  try {
+    const packageJsonPath = path.join(projectRoot, 'package.json');
+    const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8');
+    const packageJsonData = JSON.parse(packageJsonContent);
+
+    if (!packageJsonData || typeof packageJsonData.name !== 'string') {
+      throw new Error('Could not find "name" property in package.json');
+    }
+
+    return packageJsonData.name;
+  } catch (error) {
+    console.error(`Error getting package name: ${error.message}`);
+    throw error;
+  }
+}
