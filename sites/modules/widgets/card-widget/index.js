@@ -29,23 +29,7 @@ export default {
         label: 'Card Text',
         options: {
           widgets: {
-            '@apostrophecms/rich-text': {
-              toolbar: [
-                'styles',
-                '|',
-                'bold',
-                'italic',
-                'strike',
-                '|',
-                'alignLeft',
-                'alignCenter',
-                'alignRight',
-                'bulletList',
-                'orderedList',
-                '|',
-                'color'
-              ]
-            }
+            '@apostrophecms/rich-text': {}
           },
           max: 1
         }
