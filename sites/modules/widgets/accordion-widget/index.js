@@ -24,19 +24,7 @@ export default {
               label: 'Content',
               options: {
                 widgets: {
-                  '@apostrophecms/rich-text': {
-                    toolbar: [
-                      'bold',
-                      'italic',
-                      'strike',
-                      'link',
-                      '|',
-                      'bulletList',
-                      'orderedList',
-                      '|',
-                      'color'
-                    ]
-                  }
+                  '@apostrophecms/rich-text': {}
                 },
                 max: 1
               }
