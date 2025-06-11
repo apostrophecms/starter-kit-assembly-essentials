@@ -163,7 +163,7 @@ In `sites/index.js`, locate `secret` and change `CHANGEME` to a random string of
 
 To test-drive the project in development, make sure you have Apostrophe's usual dependencies on your local machine:
 
-* MongoDB (5.0 or better, we recommend 6.0)
+* MongoDB (6.0 or better, we recommend 8.0)
 * NodeJS (18.x or better, latest long term support release recommended)
 
 For more information see the Apostrophe [Development Setup](https://docs.apostrophecms.org/guide/development-setup.html) and [Windows Development](https://docs.apostrophecms.org/cookbook/windows-development.html) documentation.
