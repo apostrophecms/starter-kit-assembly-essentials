@@ -157,9 +157,7 @@ In `sites/index.js`, locate `secret` and change `CHANGEME` to a random string of
 
 ### Operating System: Mac, Linux, or Virtual Linux
 
-**Your local development environment must be either MacOS or Linux.** If your development computer runs Windows, we recommend development on Ubuntu Linux in a full virtual Linux machine, via [VirtualBox](https://www.virtualbox.org/).
-
-Another option is to use the Windows Subsystem for Linux, which is also an Ubuntu Linux-based environment. However this option has not been extensively tested with Assembly.
+**Your local development environment must be either MacOS or Linux.** If your development computer runs Windows, we recommend development on Ubuntu Linux in a full virtual Linux machine. This can be through [WSL2 (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) or via [VirtualBox](https://www.virtualbox.org/).
 
 ### Software Installation Requirements
 
@@ -168,7 +166,7 @@ To test-drive the project in development, make sure you have Apostrophe's usual 
 * MongoDB (5.0 or better, we recommend 6.0)
 * NodeJS (18.x or better, latest long term support release recommended)
 
-For more information see the Apostrophe [Getting Started Tutorial](https://docs.apostrophecms.org/getting-started/setting-up-your-environment.html).
+For more information see the Apostrophe [Development Setup](https://docs.apostrophecms.org/guide/development-setup.html) and [Windows Development](https://docs.apostrophecms.org/cookbook/windows-development.html) documentation.
 
 ### `/etc/hosts` File Configuration Requirements
 
