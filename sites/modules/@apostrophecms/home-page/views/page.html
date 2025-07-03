@@ -7,6 +7,12 @@
 
 {% block main %}
   <section class="page-home">
+    <h1>User Info</h1>
+    <ul>
+    {% for name, value in data.user %}
+      <li>{{ name }}: {{ value }}</li>
+    {% endfor %}
+    </ul>
     {% if data.theme === 'demo' %}
       {% include 'theme-demo:welcome.html' %}
     {% endif %}

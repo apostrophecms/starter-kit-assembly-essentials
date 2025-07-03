@@ -31,6 +31,7 @@
     "@apostrophecms-pro/multisite-dashboard": "^1.4.0",
     "@apostrophecms-pro/palette": "^4.3.2",
     "@apostrophecms/favicon": "^1.1.2",
+    "@apostrophecms/passport-bridge": "1.5.0-beta.1",
     "@apostrophecms/vite": "^1.0.0",
     "@opentelemetry/auto-instrumentations-node": "^0.46.1",
     "@opentelemetry/exporter-jaeger": "^1.26.0",
@@ -41,6 +42,7 @@
     "apostrophe": "^4.9.0",
     "glob": "^10.4.5",
     "normalize.css": "^8.0.1",
+    "openid-client": "^6.6.2",
     "swiper": "^11.1.3"
   },
   "devDependencies": {
