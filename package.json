@@ -31,7 +31,7 @@
     "@apostrophecms-pro/multisite-dashboard": "^1.4.0",
     "@apostrophecms-pro/palette": "^4.3.2",
     "@apostrophecms/favicon": "^1.1.2",
-    "@apostrophecms/passport-bridge": "^1.4.0",
+    "@apostrophecms/passport-bridge": "1.5.0-beta.1",
     "@apostrophecms/vite": "^1.0.0",
     "@opentelemetry/auto-instrumentations-node": "^0.46.1",
     "@opentelemetry/exporter-jaeger": "^1.26.0",
