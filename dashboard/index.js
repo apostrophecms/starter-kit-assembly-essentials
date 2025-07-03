@@ -30,6 +30,7 @@ export default {
       }
     },
     'site-page': {},
-    '@apostrophecms/vite': {}
+    '@apostrophecms/vite': {},
+    '@apostrophecms/passport-bridge': {}
   }
 };
