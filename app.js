@@ -1,7 +1,9 @@
 import multisite from '@apostrophecms-pro/multisite';
-import { sdk } from './telemetry.js';
+import telemetry from './telemetry.js';
 import sites from './sites/index.js';
 import dashboard from './dashboard/index.js';
+
+const { sdk, shutdown } = telemetry;
 
 go();
 
@@ -9,6 +11,7 @@ async function go() {
   try {
     if (process.env.APOS_OPENTELEMETRY) {
       await sdk.start();
+      console.log('OpenTelemetry started');
     }
     await multisite({
       root: import.meta,
@@ -40,6 +43,7 @@ async function go() {
       // For development. An environment variable overrides this in staging/production
       mongodbUrl: process.env.APOS_MONGODB_URI || 'mongodb://localhost:27017',
       sessionSecret: 'CHANGEME',
+      beforeExit: process.env.APOS_OPENTELEMETRY ? shutdown : null,
       sites,
       dashboard
     });
@@ -48,4 +52,4 @@ async function go() {
     console.error(e);
     process.exit(1);
   }
-}
+};
