@@ -1,3 +1,0 @@
-{
-  "extends": ["apostrophe", "plugin:cypress/recommended"]
-}

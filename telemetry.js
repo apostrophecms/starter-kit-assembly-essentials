@@ -14,14 +14,14 @@ const resource = resourceFromAttributes({
 // 2. Initialize the OTLP exporter with correct endpoint
 const traceExporter = new OTLPTraceExporter({
   url: 'http://localhost:4318/v1/traces',
-  headers: {},
+  headers: {}
 });
 
 // 3. Initialize the SDK
 const sdk = new NodeSDK({
   resource,
   traceExporter,
-  instrumentations: [getNodeAutoInstrumentations()]
+  instrumentations: [ getNodeAutoInstrumentations() ]
 });
 
 // 4. The shutdown handler
