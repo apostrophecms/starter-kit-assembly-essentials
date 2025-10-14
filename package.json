@@ -40,6 +40,7 @@
     "@tiptap/extension-text-style": "^2.8.0",
     "accordion-js": "^3.4.0",
     "apostrophe": "^4.9.0",
+    "express-basic-auth": "^1.2.1",
     "glob": "^10.4.5",
     "normalize.css": "^8.0.1",
     "swiper": "^11.1.3"
