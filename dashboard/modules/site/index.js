@@ -3,7 +3,13 @@ export default {
     add: {
       basicAuthPassword: {
         type: 'string',
-        help: 'if not blank, the username will be "access"'
+        help: 'If not blank, the username will be "access". You will usually want to clear this field before going live to the public'
+      }
+    },
+    group: {
+      basicAuth: {
+        label: 'Basic Authentication',
+        fields: [ 'basicAuthPassword' ]
       }
     }
   },
