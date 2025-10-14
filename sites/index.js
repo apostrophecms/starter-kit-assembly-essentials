@@ -25,7 +25,8 @@ export default async function (site) {
           session: {
             // TODO: Be sure to change
             secret: 'CHANGEME'
-          }
+          },
+          basicAuthPassword: site.basicAuthPassword
         }
       },
 

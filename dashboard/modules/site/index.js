@@ -1,6 +1,13 @@
 export default {
+  fields: {
+    add: {
+      basicAuthPassword: {
+        type: 'string',
+        help: 'if not blank, the username will be "access"'
+      }
+    }
+  },
   tasks(self) {
-
     return {
       ...(process.env.CI === '1' && {
         'cypress-config': {
