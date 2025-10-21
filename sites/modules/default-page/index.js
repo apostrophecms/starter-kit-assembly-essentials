@@ -7,7 +7,7 @@ export default {
         label: 'Main',
         options: {
           widgets: {
-            column: {}
+            '@apostrophecms/layout': {}
           }
         }
       }

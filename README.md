@@ -38,7 +38,7 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Provided widgets](#provided-widgets)
     - [`accordion-widget`](#accordion-widget)
     - [`card-widget`](#card-widget)
-    - [`column-widget`](#column-widget)
+    - [`@apostrophecms/layout-widget`](#apostrophecmslayout-widget)
     - [`hero-widget`](#hero-widget)
     - [`link-widget`](#link-widget)
     - [`slideshow-widget`](#slideshow-widget)
@@ -378,7 +378,7 @@ For complete information and a sample configuration, see the [@apostrophecms-pro
 > Note that like all other changes, palette changes do not take place for logged-out users until the user clicks "Publish."
 
 ## Provided widgets
-There are six basic widget modules located in the `sites/modules/widgets` folder of this starter kit. This supplements the core `rich-text`, `image`, `video`, and `html` widgets. They can be altered to fit the design and functionality of your project or act as a blueprint to build your own custom widgets. Both the `hero` and `column` widgets have been added to the `main` area of the `@apostrophecms/home-page`. The remainder of the basic widgets have been added to the areas of the `column` widget as described below.
+There are five basic widget modules located in the `modules/widgets` folder of this starter kit. This supplements the core `rich-text`, `image`, `video`, and `html` widgets. They can be altered to fit the design and functionality of your project or act as a blueprint to build your own custom widgets. Both the `hero` and core `@apostrophecms/layout` widgets have been added to the `main` area of the `@apostrophecms/home-page`. The remainder of the basic widgets have been added to the area of the `@apostrophecms/layout-column` widget as described below.
 
 If you look at the `sites/index.js` file you won't see these widget modules in the `modules` object. Instead, they are being registered using the `nestedModuleSubdirs` property. Setting this property to `true` will cause Apostrophe to register all the modules listed in the `modules.js` file of any subfolder in the project-level `sites/modules` folder. You can choose to organize any custom modules, such as grouping all of your piece-types, to keep your `modules` folder and the `index.js` file less cluttered. Note that if you choose to move any of the provided widgets out of the current folder you will need to add them to the `sites/index.js` file and remove them from the `sites/modules/widgets/modules.js` file. If you choose to keep this structure, any custom widgets you add to the folder need to be listed in the `modules.js` file.
 
@@ -392,10 +392,8 @@ Finally, there is the `ui/src` folder that contains the `index.scss` stylesheet 
 ### `card-widget`
 The `card-widget` creates a simple card with optional image and text. The card can be made directly clickable, or can have links and buttons added. The schema fields for these elements are provided by the `lib/schema/link.js` file, which serves as a model for implementing reusable parts of widgets. These same schema fields are reused in the `hero` and `link` widgets and can be used in your custom project widgets. The markup for the links is imported into the `card-widget` template from the `sites/views/fragments/link.html` file using the [`rendercall` helper](https://docs.apostrophecms.org/guide/fragments.html#inserting-markup-with-rendercall). This is present in a simpler form in the `links-widget`. Again, all your custom modules (not just widgets) can utilize fragments to replicate similar areas of markup in this same way.
 
-### `column-widget`
-The `column-widget` implements one method of adding a user-selected number of columns to a page. It uses a select field and conditional fields that restrict the number of columns based on the value of the select. Each column has an area with widgets for the `link`, `card`, and `accordion` basic widgets, plus the core `rich-text`, `image`, and `video` widgets. These are added through a shared configuration object that defines the available widgets for each column. The first column additionally adds the basic `slideshow` widget.
-
-The widget also provides a `helper(self)` customization function that is used in the Nunjucks template. Depending on the value of the select field it returns the correct number of columns. The `helper(self)` functions can be used in your custom modules to provide computed values from data passed back from the markup.
+### `@apostrophecms/layout-widget`
+ The core Layout widget provides a dynamic, interactive CSS Grid where each column contains an area that accepts the `link`, `card`, `slideshow`, and `accordion` widgets, as well as the core `rich-text`, `image`, and `video` widgets. To specify the content for the core Layout widget (`@apostrophecms/layout-widget`), the project enhances the content area of its column widget (`@apostrophecms/layout-column-widget`).
 
 ### `hero-widget`
 The `hero-widget` implements a hero element with image or color background, text and links. As stated above, this module reuses the `links.js` helper file. It also demonstrates how to use `relationship` schema fields to add an image or video for the background.

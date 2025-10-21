@@ -16,7 +16,7 @@ export default {
                */
               fullWidth: true
             },
-            column: {}
+            '@apostrophecms/layout': {}
           }
         }
       }

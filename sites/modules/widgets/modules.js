@@ -6,7 +6,6 @@
 export default {
   'accordion-widget': {},
   'card-widget': {},
-  'column-widget': {},
   'hero-widget': {},
   'link-widget': {},
   'slideshow-widget': {}
