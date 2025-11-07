@@ -73,6 +73,12 @@ This starter kit includes:
 
 ### **We recommend installing this project by forking it to your own GitHub account and then cloning it locally. The Apostrophe CLI is not currently intended for multisite projects**
 
+> **📌 Note on Dependency Management**
+> 
+> This starter kit ships with `package-lock.json` in `.gitignore` to avoid merge conflicts during development. 
+> 
+> **For production use:** Remove `package-lock.json` from `.gitignore` and commit it to lock your dependencies. This ensures stable, reproducible builds. When you're ready to update dependencies, run `npm update` and commit the updated lock file.
+
 ## First Steps: required before startup
 
 ### Setting your shortname prefix
