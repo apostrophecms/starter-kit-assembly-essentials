@@ -4,6 +4,7 @@
 /dashboard/locales
 /locales
 npm-debug.log
+package-lock.json
 /data
 /dashboard/data
 /sites/data
