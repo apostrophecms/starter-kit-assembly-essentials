@@ -18,7 +18,7 @@ const getConfigs = async (folder) => {
 
   const configs = [];
   for (const file of files) {
-    const { default: config } = await import(file);
+    const { default: config } = await import(url.pathToFileURL(file));
     configs.push(config);
   }
 
