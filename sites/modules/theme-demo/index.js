@@ -6,7 +6,7 @@ import path from 'node:path';
 import url from 'node:url';
 
 const dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const themeDir = path.resolve(process.cwd(), dirname);
+const themeDirUrl = url.pathToFileURL(path.resolve(process.cwd(), dirname));
 
 export default {
   options: {
@@ -29,9 +29,9 @@ export default {
                   options: {
                     sourceMap: false,
                     additionalData: `
-@import "${themeDir}/ui/src/scss/settings/_color";
-@import "${themeDir}/ui/src/scss/settings/_font";
-@import "${themeDir}/ui/src/scss/functions/_rem";
+@import "${themeDirUrl}/ui/src/scss/settings/_color";
+@import "${themeDirUrl}/ui/src/scss/settings/_font";
+@import "${themeDirUrl}/ui/src/scss/functions/_rem";
 `
                   }
                 }
@@ -50,9 +50,9 @@ export default {
             preprocessorOptions: {
               scss: {
                 additionalData: `
-@import "${themeDir}/ui/src/scss/settings/_color";
-@import "${themeDir}/ui/src/scss/settings/_font";
-@import "${themeDir}/ui/src/scss/functions/_rem";
+@import "${themeDirUrl}/ui/src/scss/settings/_color";
+@import "${themeDirUrl}/ui/src/scss/settings/_font";
+@import "${themeDirUrl}/ui/src/scss/functions/_rem";
 `
               }
             }
