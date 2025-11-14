@@ -10,27 +10,24 @@
 
 import path from 'node:path';
 import url from 'node:url';
-import { glob } from 'glob';
-
-const getConfigs = async (folder) => {
-  const dirname = path.dirname(url.fileURLToPath(import.meta.url));
-  const files = await glob(path.join(dirname, folder, '**/*.js'));
-
-  const configs = [];
-  for (const file of files) {
-    const { default: config } = await import(url.pathToFileURL(file));
-    configs.push(config);
-  }
-
-  return configs;
-};
-
-const configs = await getConfigs('lib/configs');
 
 export default {
-  fields: {
-    add: filter(configs, 'add'),
-    group: filter(configs, 'group')
+  async fields(self, options) {
+    const configs = await getConfigs('lib/configs');
+    return {
+      add: filter(configs, 'add'),
+      group: filter(configs, 'group')
+    };
+    async function getConfigs(folder) {
+      const dirname = path.dirname(url.fileURLToPath(import.meta.url));
+      const files = options.apos.util.glob(path.join(dirname, folder, '**/*.js'));
+      const configs = [];
+      for (const file of files) {
+        const { default: config } = await import(url.pathToFileURL(file));
+        configs.push(config);
+      }
+      return configs;
+    }
   }
 };
 
