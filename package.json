@@ -31,7 +31,7 @@
     "@apostrophecms-pro/multisite-dashboard": "^1.4.0",
     "@apostrophecms-pro/palette": "^4.3.2",
     "@apostrophecms/favicon": "^1.1.2",
-    "@apostrophecms/vite": "^1.0.0",
+    "@apostrophecms/vite": "apostrophecms/vite#fix-windows-1",
     "@opentelemetry/auto-instrumentations-node": "^0.62.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.203.0",
     "@opentelemetry/resources": "^2.0.1",
@@ -39,7 +39,7 @@
     "@opentelemetry/semantic-conventions": "^1.36.0",
     "@tiptap/extension-text-style": "^2.8.0",
     "accordion-js": "^3.4.0",
-    "apostrophe": "^4.9.0",
+    "apostrophe": "apostrophecms/apostrophe#fix-windows-1",
     "glob": "^10.4.5",
     "normalize.css": "^8.0.1",
     "swiper": "^11.1.3"
