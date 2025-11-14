@@ -5,14 +5,14 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
+    "build": "cross-env APOS_UPLOADFS_ASSETS=1 NODE_ENV=production bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build'",
     "//": "because nodemon insists on executing 'start' if it exists, we must distinguish production",
-    "production-start": "APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
+    "production-start": "cross-env APOS_UPLOADFS_ASSETS=1 NODE_ENV=production npm run start",
     "start": "node app",
     "dev": "nodemon",
     "test": "eslint . && stylelint 'dashboard/**/*.scss' --allow-empty-input && stylelint 'sites/**/*.scss' --allow-empty-input",
-    "e2e:dev": "CI=1 npm run dev",
-    "e2e:serve": "NODE_ENV=production CI=1 bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build && node app'",
+    "e2e:dev": "cross-env CI=1 npm run dev",
+    "e2e:serve": "cross-env NODE_ENV=production CI=1 bash -c 'node app @apostrophecms/asset:build --site=dashboard && ./scripts/for-each-theme @apostrophecms/asset:build && node app'",
     "e2e:run": "cypress run",
     "e2e:open": "cypress open"
   },
@@ -40,6 +40,7 @@
     "@tiptap/extension-text-style": "^2.8.0",
     "accordion-js": "^3.4.0",
     "apostrophe": "apostrophecms/apostrophe#fix-windows-1",
+    "cross-env": "^10.1.0",
     "glob": "^10.4.5",
     "normalize.css": "^8.0.1",
     "swiper": "^11.1.3"
