@@ -1,4 +1,12 @@
 # Apostrophe Starter Kit Assembly Essentials
+
+> [!WARNING]
+> **This repository is deprecated and no longer maintained.**
+>
+> For multisite projects, we recommend our actively maintained reference implementation:
+>
+> - **[Multisite Demo](https://github.com/apostrophecms/public-demo-multisite)** — a feature-rich reference implementation for ApostropheCMS multisite projects
+
 >**Important Notice:**
 >
 >This starter kit requires the`@apostrophecms-pro/multisite` module, which requires an Apostrophe Assembly license. To obtain a license, please visit our [website](https://apostrophecms.com/assembly) to learn more. You can contact our support team for assistance or purchase a subscription directly through [your Apostrophe Workspace](https://app.apostrophecms.com/login).
@@ -27,13 +35,6 @@ Having it installed in your VSCode will ensure that adding/changing heading will
   - [Site Development](#site-development)
     - [Where Does My Apostrophe Project Code Go?](#where-does-my-apostrophe-project-code-go)
     - [Themes](#themes)
-      - [Adding a New Theme](#adding-a-new-theme)
-      - [Custom Module Configuration for Themes](#custom-module-configuration-for-themes)
-      - [Modern Frontend Assets Without A Custom Build Process](#modern-frontend-assets-without-a-custom-build-process)
-      - [Example webpack extensions](#example-webpack-extensions)
-      - [Frontend Assets With Your Own Build Process](#frontend-assets-with-your-own-build-process)
-      - [Developing For IE11](#developing-for-ie11)
-      - [Serving Static Files: Fonts and Static Images](#serving-static-files-fonts-and-static-images)
     - [Palette Configuration](#palette-configuration)
   - [Provided widgets](#provided-widgets)
     - [`accordion-widget`](#accordion-widget)
